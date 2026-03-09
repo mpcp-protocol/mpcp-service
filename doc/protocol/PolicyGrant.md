@@ -4,6 +4,8 @@
 
 Artifact Type: MPCP:PolicyGrant
 
+Part of the [Machine Payment Control Protocol (MPCP)](./mpcp.md).
+
 ---
 
 ## Purpose

@@ -212,6 +212,8 @@ Example structure:
 
 The PolicyGrant defines the operational scope in which further authorizations may be issued.
 
+See [PolicyGrant](./PolicyGrant.md) for the full specification.
+
 ---
 
 ## SignedBudgetAuthorization (SBA)
@@ -238,6 +240,8 @@ Example structure:
 ```
 
 The SBA ensures that spending remains within defined limits.
+
+See [SignedBudgetAuthorization](./SignedBudgetAuthorization.md) for the full specification.
 
 ---
 
@@ -268,6 +272,8 @@ Example structure:
 
 The SPA binds the authorized payment parameters and optionally includes an `intentHash` to bind the authorization to a canonical settlement intent.
 
+See [SignedPaymentAuthorization](./SignedPaymentAuthorization.md) for the full specification. For `intentHash`, see [SettlementIntentIntentHash](./SettlementIntentIntentHash.md).
+
 ---
 
 ## SettlementIntent
@@ -291,6 +297,8 @@ Example structure:
 ```
 
 This structure is used to compute the `intentHash`.
+
+See [SettlementIntent](./SettlementIntent.md) for the full specification. For the hash computation, see [SettlementIntentIntentHash](./SettlementIntentIntentHash.md).
 
 ---
 
@@ -907,7 +915,7 @@ Parker therefore serves as a reference implementation for the Machine Payment Co
 
 Possible extensions include:
 
-- fleet-level authorization hierarchies
+- [Fleet Policy Authorization (FPA)](./FleetPolicyAuthorization.md) — fleet-level authorization hierarchies
 - delegated policy authorities
 - programmable payment intents
 - zero-knowledge compliance proofs

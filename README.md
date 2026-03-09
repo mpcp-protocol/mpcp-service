@@ -33,6 +33,7 @@ import {
   type MPCPPolicy,
 } from "mpcp-service/sdk";
 
+// Policy schema version is numeric (1). Protocol artifact versioning uses semantic strings ("1.0") per the spec.
 const policy: MPCPPolicy = { version: 1, lotAllowlist: ["LOT-A"], railAllowlist: ["xrpl"], capPerTxMinor: "5000" };
 const now = new Date().toISOString();
 const asset = { kind: "IOU" as const, currency: "USDC", issuer: "rIssuer" };
