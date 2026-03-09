@@ -82,7 +82,7 @@ console.log(hash);
 console.log(canonical);
 ```
 
-To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedSessionBudgetAuthorization` and `createSignedPaymentAuthorization` from `mpcp-service/sdk`.
+To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedBudgetAuthorization` and `createSignedPaymentAuthorization` from `mpcp-service/sdk`.
 
 ---
 

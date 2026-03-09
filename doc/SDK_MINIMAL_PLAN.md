@@ -17,10 +17,11 @@ The **root package** (`mpcp-service`) is the SDK. A single source of truth for t
 
 ```ts
 // Artifact helpers
-createSignedSessionBudgetAuthorization
-verifySignedSessionBudgetAuthorizationForDecision
+createSignedBudgetAuthorization        // alias for createSignedSessionBudgetAuthorization
+verifySignedBudgetAuthorization       // alias for verifySignedSessionBudgetAuthorizationForDecision
 createSignedPaymentAuthorization
 verifySignedPaymentAuthorizationForSettlement
+verifySettlement                      // alias for above
 
 // Canonical intent
 canonicalJson
