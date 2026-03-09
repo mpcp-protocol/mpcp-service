@@ -8,13 +8,14 @@ export {
 } from "../policy-core/evaluate.js";
 
 export {
-  createSignedSessionBudgetAuthorization,
-  verifySignedSessionBudgetAuthorizationForDecision,
+  createSignedSessionBudgetAuthorization as createSignedBudgetAuthorization,
+  verifySignedSessionBudgetAuthorizationForDecision as verifySignedBudgetAuthorization,
 } from "../protocol/sba.js";
 
 export {
   createSignedPaymentAuthorization,
   verifySignedPaymentAuthorizationForSettlement,
+  verifySignedPaymentAuthorizationForSettlement as verifySettlement,
 } from "../protocol/spa.js";
 
 export { canonicalJson } from "../crypto/canonicalJson.js";

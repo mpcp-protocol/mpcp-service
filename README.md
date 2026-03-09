@@ -13,7 +13,7 @@ For the rationale behind the protocol, see:
 
 For the full protocol specification, see:
 
-[Machine Payment Control Protocol Specification](./doc/Protocol/Machine%20Payment%20Control%20Protocol.md)
+[Machine Payment Control Protocol Specification](./doc/protocol/mpcp.md)
 
 This document defines the MPCP artifacts, verification rules, canonical hashing, replay protection, the authorization lifecycle, and the verification algorithm used by MPCP implementations.
 
@@ -82,7 +82,7 @@ console.log(hash);
 console.log(canonical);
 ```
 
-To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedSessionBudgetAuthorization` and `createSignedPaymentAuthorization` from `mpcp-service/sdk`.
+To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedBudgetAuthorization` and `createSignedPaymentAuthorization` from `mpcp-service/sdk`.
 
 ---
 
