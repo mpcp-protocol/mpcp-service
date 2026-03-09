@@ -26,9 +26,12 @@ import {
   evaluateEntryPolicy,
   evaluatePaymentPolicy,
   enforcePayment,
-} from "mpcp-service";
+  computeIntentHash,
+  canonicalJson,
+  type MPCPPolicy,
+} from "mpcp-service/sdk";
 
-const policy = { version: 1, lotAllowlist: ["LOT-A"], railAllowlist: ["xrpl"], capPerTxMinor: "5000" };
+const policy: MPCPPolicy = { version: 1, lotAllowlist: ["LOT-A"], railAllowlist: ["xrpl"], capPerTxMinor: "5000" };
 const now = new Date().toISOString();
 const asset = { kind: "IOU" as const, currency: "USDC", issuer: "rIssuer" };
 
@@ -55,9 +58,13 @@ const result = enforcePayment(decision, {
   asset,
 });
 // result.allowed === true
+
+// Canonical intent helpers
+const hash = computeIntentHash(intent);
+const canonical = canonicalJson(value);
 ```
 
-To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedSessionBudgetAuthorization` and `createSignedPaymentAuthorization`.
+To issue **SignedBudgetAuthorization** and **SignedPaymentAuthorization**, configure `MPCP_SBA_SIGNING_*` and `MPCP_SPA_SIGNING_*` env vars, then use `createSignedSessionBudgetAuthorization` and `createSignedPaymentAuthorization` from `mpcp-service/sdk`.
 
 ---
 

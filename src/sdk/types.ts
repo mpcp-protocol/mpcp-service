@@ -16,6 +16,7 @@ export type {
   SessionPolicyGrant,
   EnforcementResult,
   Policy,
+  Policy as MPCPPolicy,
 } from "../policy-core/types.js";
 
 export type { PolicyGrant, SignedBudgetAuthorization } from "../protocol/types.js";

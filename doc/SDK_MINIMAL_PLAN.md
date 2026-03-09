@@ -17,11 +17,10 @@ The **root package** (`mpcp-service`) is the SDK. A single source of truth for t
 
 ```ts
 // Artifact helpers
-createSignedBudgetAuthorization
-verifySignedBudgetAuthorization
+createSignedSessionBudgetAuthorization
+verifySignedSessionBudgetAuthorizationForDecision
 createSignedPaymentAuthorization
 verifySignedPaymentAuthorizationForSettlement
-verifySettlement  // alias for above
 
 // Canonical intent
 canonicalJson
@@ -84,8 +83,8 @@ Pure functions. No network calls.
 |----------|-----------|
 | `canonicalJson` | `(value: unknown) => string` |
 | `computeIntentHash` | `(intent: SettlementIntent) => string` |
-| `createSignedBudgetAuthorization` | `(input: SBAInput) => SignedBudgetAuthorization \| null` |
-| `verifySignedBudgetAuthorization` | `(envelope, input) => { ok } \| { ok: false; reason }` |
+| `createSignedSessionBudgetAuthorization` | `(input: SBAInput) => SignedBudgetAuthorization \| null` |
+| `verifySignedSessionBudgetAuthorizationForDecision` | `(envelope, input) => { ok } \| { ok: false; reason }` |
 | `createSignedPaymentAuthorization` | `(sessionId, decision, options?) => SignedPaymentAuthorization \| null` |
 | `verifySignedPaymentAuthorizationForSettlement` | `(envelope, decisionId, settlement, options?) => { ok } \| { ok: false; reason }` |
 | `enforcePayment` | `(decision, settlement) => EnforcementResult` |
@@ -99,7 +98,7 @@ Local helpers live in `src/sdk/`. No separate npm package.
 ### With the hosted service
 
 ```ts
-import { MPCPClient } from "mpcp-service";
+import { MPCPClient } from "mpcp-service/sdk";
 
 const client = new MPCPClient({
   baseUrl: "https://mpcp.example.com",
@@ -119,19 +118,19 @@ const { intentHash, canonicalIntent } = await client.computeIntentHash(intent);
 import {
   computeIntentHash,
   canonicalJson,
-  createSignedBudgetAuthorization,
-  verifySignedBudgetAuthorization,
+  createSignedSessionBudgetAuthorization,
+  verifySignedSessionBudgetAuthorizationForDecision,
   createSignedPaymentAuthorization,
   verifySignedPaymentAuthorizationForSettlement,
-} from "mpcp-service";
+} from "mpcp-service/sdk";
 
 const hash = computeIntentHash(intent);
 const canonical = canonicalJson(value);
 
-const sba = createSignedBudgetAuthorization({ ... });  // requires env: MPCP_SBA_SIGNING_*
+const sba = createSignedSessionBudgetAuthorization({ ... });  // requires env: MPCP_SBA_SIGNING_*
 const spa = createSignedPaymentAuthorization(sessionId, decision);  // requires env: MPCP_SPA_SIGNING_*
 
-const ok = verifySignedBudgetAuthorization(sba, { sessionId, decision });
+const ok = verifySignedSessionBudgetAuthorizationForDecision(sba, { sessionId, decision });
 const ok2 = verifySignedPaymentAuthorizationForSettlement(spa, decisionId, settlement);
 ```
 
