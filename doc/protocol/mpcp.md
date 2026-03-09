@@ -16,6 +16,25 @@ This architecture ensures that machine-initiated payments remain bounded, audita
 
 ---
 
+## Protocol Artifacts
+
+MPCP defines a set of signed artifacts exchanged between machines
+to authorize and verify payments.
+
+| Artifact | Purpose |
+|----------|---------|
+| PolicyGrant | Operator or fleet policy granting permission to transact |
+| BudgetAuthorization | Session-level spending authorization |
+| SignedBudgetAuthorization | Signed form of BudgetAuthorization |
+| SignedPaymentAuthorization | Authorization for a specific payment |
+| SettlementIntent | Canonical description of the intended settlement |
+| SettlementIntentHash | Deterministic hash of a canonical SettlementIntent |
+| FleetPolicyAuthorization | Fleet-level policy constraints |
+
+See the corresponding specification documents under `doc/protocol/`.
+
+---
+
 # Motivation
 
 Autonomous systems increasingly participate in economic activity.
