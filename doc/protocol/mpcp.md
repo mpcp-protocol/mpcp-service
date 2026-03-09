@@ -76,6 +76,25 @@ Intent commitments can optionally be anchored to a public ledger for additional 
 
 ---
 
+# Protocol Versioning & Compatibility
+
+MPCP artifacts MUST include a protocol version identifier. For example:
+
+```json
+{
+  "version": 1
+}
+```
+
+Compatibility rules:
+
+- Minor versions may add optional fields without breaking verification.
+- Major versions may change artifact semantics or verification rules.
+- Verifiers MUST reject artifacts whose major version they do not support.
+- Unknown optional fields MUST be ignored unless explicitly marked critical.
+
+---
+
 # Protocol Pipeline
 
 The protocol operates as a multi-stage authorization pipeline.
