@@ -78,20 +78,88 @@ Intent commitments can optionally be anchored to a public ledger for additional 
 
 # Protocol Versioning & Compatibility
 
-MPCP artifacts MUST include a protocol version identifier. For example:
+## Version Field
+
+All MPCP artifacts SHOULD include a version field.
+
+Example:
 
 ```json
 {
-  "version": 1
+  "version": 1,
+  "decisionId": "dec_123",
+  ...
 }
 ```
 
-Compatibility rules:
+The version identifies the protocol semantics used when producing the artifact.
 
-- Minor versions may add optional fields without breaking verification.
-- Major versions may change artifact semantics or verification rules.
-- Verifiers MUST reject artifacts whose major version they do not support.
-- Unknown optional fields MUST be ignored unless explicitly marked critical.
+---
+
+## Versioning Model
+
+MPCP uses semantic versioning: **MAJOR.MINOR**
+
+Example: `1.0`, `1.1`, `2.0`
+
+### Minor Versions
+
+Minor versions may:
+
+- add optional fields
+- extend artifact structures
+- introduce new rails or assets
+
+Minor upgrades MUST remain backward compatible.
+
+Verifiers MUST ignore unknown optional fields.
+
+### Major Versions
+
+Major versions may:
+
+- change artifact semantics
+- modify verification rules
+- alter canonicalization requirements
+
+Verifiers MUST reject artifacts whose major version they do not support.
+
+---
+
+## Forward Compatibility
+
+Implementations MUST:
+
+- ignore unknown optional fields
+- preserve unknown fields when forwarding artifacts
+
+This ensures MPCP artifacts remain interoperable between different implementations.
+
+---
+
+## Artifact Version Propagation
+
+Artifacts SHOULD propagate the version they were produced under.
+
+Example chain:
+
+```text
+PolicyGrant.version
+    ↓
+SBA.version
+    ↓
+SPA.version
+```
+
+A verifier MAY reject chains containing mixed incompatible versions.
+
+---
+
+## Reference Version
+
+The MPCP specification in this repository defines:
+
+**Protocol Version: 1.0**
 
 ---
 
