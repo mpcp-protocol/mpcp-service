@@ -1,0 +1,15 @@
+{
+  "grantId": "9e2e6bd6-08de-458c-a9c9-e26d7175e496",
+  "policyHash": "a1b2c3d4e5f6",
+  "expiresAt": "2026-03-10T13:30:08.991Z",
+  "allowedRails": [
+    "xrpl"
+  ],
+  "allowedAssets": [
+    {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    }
+  ]
+}

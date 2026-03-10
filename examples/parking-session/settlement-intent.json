@@ -1,0 +1,12 @@
+{
+  "version": "1.0",
+  "rail": "xrpl",
+  "amount": "19440000",
+  "createdAt": "2026-03-10T13:29:08.994Z",
+  "destination": "rDestination",
+  "asset": {
+    "kind": "IOU",
+    "currency": "RLUSD",
+    "issuer": "rIssuer"
+  }
+}

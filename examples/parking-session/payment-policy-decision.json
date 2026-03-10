@@ -1,0 +1,40 @@
+{
+  "decisionId": "dec-1",
+  "policyHash": "a1b2c3d4e5f6",
+  "action": "ALLOW",
+  "reasons": [
+    "OK"
+  ],
+  "expiresAtISO": "2026-03-10T13:30:08.991Z",
+  "rail": "xrpl",
+  "asset": {
+    "kind": "IOU",
+    "currency": "RLUSD",
+    "issuer": "rIssuer"
+  },
+  "priceFiat": {
+    "amountMinor": "2500",
+    "currency": "USD"
+  },
+  "chosen": {
+    "rail": "xrpl",
+    "quoteId": "q1"
+  },
+  "settlementQuotes": [
+    {
+      "quoteId": "q1",
+      "rail": "xrpl",
+      "amount": {
+        "amount": "19440000",
+        "decimals": 6
+      },
+      "destination": "rDestination",
+      "expiresAt": "2026-03-10T13:30:08.991Z",
+      "asset": {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      }
+    }
+  ]
+}
