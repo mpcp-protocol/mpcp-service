@@ -2,7 +2,7 @@
 
 Optional support for publishing intent hashes to distributed ledgers. Provides public auditability, dispute protection, and replay protection.
 
-**This PR provides only the mock anchor implementation.** Real ledger adapters (Hedera HCS, XRPL, EVM) are future work.
+**Mock anchor** is included for development. **Hedera HCS** adapter is implemented (PR14). XRPL and EVM are future work.
 
 ## Purpose
 
@@ -22,14 +22,18 @@ Optional support for publishing intent hashes to distributed ledgers. Provides p
 ## Usage
 
 ```typescript
-import { computeSettlementIntentHash, mockAnchorIntentHash } from "mpcp-service";
+import { computeSettlementIntentHash, mockAnchorIntentHash, hederaHcsAnchorIntentHash } from "mpcp-service";
 
 const intent = { version: "1.0", rail: "xrpl", amount: "1000", destination: "rDest..." };
 const intentHash = computeSettlementIntentHash(intent);
 
-// Mock anchor (development) — only supports rail "mock"
-const result = await mockAnchorIntentHash(intentHash, { rail: "mock" });
+// Mock anchor (development)
+const mockResult = await mockAnchorIntentHash(intentHash, { rail: "mock" });
 // { rail: "mock", txHash: "mock-...", anchoredAt: "..." }
+
+// Hedera HCS (requires @hashgraph/sdk, HEDERA_OPERATOR_*, HEDERA_TOPIC_ID)
+const hederaResult = await hederaHcsAnchorIntentHash(intentHash, { rail: "hedera-hcs" });
+// { rail: "hedera-hcs", topicId, sequenceNumber, intentHash, anchoredAt }
 ```
 
 ## Anchor Result
@@ -62,4 +66,15 @@ The `mockAnchorIntentHash` function simulates anchoring without contacting a led
 
 **Validation:** Requires 64-char hex intentHash. Throws on invalid input. Only accepts `rail: "mock"` — passing other rails throws to avoid confusion with real ledger behavior.
 
-Real ledger integrations (Hedera HCS, XRPL, EVM) would be implemented as separate adapters.
+## Hedera HCS Adapter (PR14)
+
+The Hedera HCS adapter publishes intent hashes to a Hedera Consensus Service topic.
+
+**Requirements:**
+- `npm install @hashgraph/sdk` (optional peer dependency; install when using Hedera HCS)
+- `HEDERA_OPERATOR_ACCOUNT_ID` — Operator account ID
+- `HEDERA_OPERATOR_PRIVATE_KEY` — Operator private key (DER or hex)
+- `HEDERA_TOPIC_ID` — HCS topic ID
+- `HEDERA_NETWORK` (optional) — `testnet` or `mainnet`, default `testnet`
+
+**Verification:** Use `verifyDisputedSettlementAsync` for full verification against the Hedera mirror node. The sync `verifyDisputedSettlement` accepts hedera-hcs anchors when `intentHash` is present in the anchor result.

@@ -21,16 +21,13 @@ export type DisputeVerificationResult =
   | { verified: false; reason: string };
 
 /**
- * Verify a disputed settlement.
+ * Verify a disputed settlement (sync). For hedera-hcs anchors, use verifyDisputedSettlementAsync.
  *
  * 1. Runs standard MPCP settlement verification (policy grant → SBA → SPA → intent).
  * 2. If ledgerAnchor is provided, verifies the anchor is consistent with the settlement intent.
  *
  * For mock anchors: checks txHash format matches intentHash.
- * For real anchors (future): would verify against ledger.
- *
- * @param input - Settlement context and optional ledger anchor
- * @returns verified or invalid with reason
+ * For hedera-hcs: returns unverified (use async version to verify against mirror node).
  */
 export function verifyDisputedSettlement(
   input: DisputeVerificationInput,
@@ -60,7 +57,6 @@ export function verifyDisputedSettlement(
   }
 
   const settlementIntent = context.settlementIntent!;
-
   const intentHash = computeSettlementIntentHash(settlementIntent);
 
   if (ledgerAnchor.rail === "mock") {
@@ -74,8 +70,48 @@ export function verifyDisputedSettlement(
     return { verified: true };
   }
 
+  if (ledgerAnchor.rail === "hedera-hcs") {
+    // Sync path: trust anchor if intentHash is present and matches
+    if (ledgerAnchor.intentHash) {
+      if (ledgerAnchor.intentHash === intentHash) return { verified: true };
+      return { verified: false, reason: "intent_hash_mismatch" };
+    }
+    // No intentHash in anchor: use verifyDisputedSettlementAsync to verify via mirror node
+    return {
+      verified: false,
+      reason: "hedera_hcs_requires_async_verification: use verifyDisputedSettlementAsync",
+    };
+  }
+
   return {
     verified: false,
     reason: `anchor_rail_not_supported: ${ledgerAnchor.rail} verification not yet implemented`,
   };
+}
+
+/**
+ * Verify a disputed settlement (async). Supports hedera-hcs verification via mirror node.
+ */
+export async function verifyDisputedSettlementAsync(
+  input: DisputeVerificationInput,
+): Promise<DisputeVerificationResult> {
+  const syncResult = verifyDisputedSettlement(input);
+  if (!syncResult.verified) return syncResult;
+
+  const { context, ledgerAnchor } = input;
+  if (!ledgerAnchor || ledgerAnchor.rail !== "hedera-hcs") {
+    return syncResult;
+  }
+
+  const settlementIntent = context.settlementIntent!;
+  const intentHash = computeSettlementIntentHash(settlementIntent);
+
+  const { verifyHederaHcsAnchor } = await import("../anchor/hederaHcsAnchor.js");
+  const verifyResult = await verifyHederaHcsAnchor(ledgerAnchor, intentHash);
+
+  if (!verifyResult.valid) {
+    return { verified: false, reason: verifyResult.reason ?? "hedera_hcs_verification_failed" };
+  }
+
+  return { verified: true };
 }

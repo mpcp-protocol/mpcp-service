@@ -746,9 +746,9 @@ This is probably the highest-value next PR.
 
 ⸻
 
-PR14 — Real Ledger Anchor Adapters
+PR14 — Real Ledger Anchor Adapters ✓
 
-Move beyond the mock anchor and implement at least one real adapter.
+Move beyond the mock anchor and implement at least one real adapter. Implemented: Hedera HCS adapter (`hederaHcsAnchorIntentHash`, `verifyHederaHcsAnchor`), `verifyDisputedSettlementAsync`. Requires `npm install @hashgraph/sdk`.
 
 Best order:
 	•	Hedera HCS

@@ -22,6 +22,7 @@ export {
 } from "./verifySettlement.js";
 export {
   verifyDisputedSettlement,
+  verifyDisputedSettlementAsync,
   type DisputeVerificationInput,
   type DisputeVerificationResult,
 } from "./verifyDisputedSettlement.js";

@@ -97,12 +97,52 @@ describe("verifyDisputedSettlement", () => {
     expect(result.reason).toBeDefined();
   });
 
-  it("returns invalid for non-mock anchor rails (not yet implemented)", () => {
+  it("returns verified when hedera-hcs anchor has matching intentHash", () => {
+    const bundle = loadBundleAndInjectKeys();
+    const ctx = bundleToContext(bundle);
+    const intent = ctx.settlementIntent;
+    if (!intent) throw new Error("Bundle missing settlementIntent");
+    const intentHash = computeSettlementIntentHash(intent);
+    const result = verifyDisputedSettlement({
+      context: ctx,
+      ledgerAnchor: { rail: "hedera-hcs", topicId: "0.0.123", sequenceNumber: "1", intentHash },
+    });
+    expect(result.verified).toBe(true);
+  });
+
+  it("returns invalid when hedera-hcs anchor has mismatched intentHash", () => {
     const bundle = loadBundleAndInjectKeys();
     const ctx = bundleToContext(bundle);
     const result = verifyDisputedSettlement({
       context: ctx,
-      ledgerAnchor: { rail: "hedera-hcs", topicId: "0.0.123" },
+      ledgerAnchor: {
+        rail: "hedera-hcs",
+        topicId: "0.0.123",
+        sequenceNumber: "1",
+        intentHash: "f".repeat(64),
+      },
+    });
+    expect(result.verified).toBe(false);
+    expect(result.reason).toBe("intent_hash_mismatch");
+  });
+
+  it("returns invalid when hedera-hcs anchor lacks intentHash (requires async verification)", () => {
+    const bundle = loadBundleAndInjectKeys();
+    const ctx = bundleToContext(bundle);
+    const result = verifyDisputedSettlement({
+      context: ctx,
+      ledgerAnchor: { rail: "hedera-hcs", topicId: "0.0.123", sequenceNumber: "1" },
+    });
+    expect(result.verified).toBe(false);
+    expect(result.reason).toContain("hedera_hcs_requires_async_verification");
+  });
+
+  it("returns invalid for unsupported anchor rails", () => {
+    const bundle = loadBundleAndInjectKeys();
+    const ctx = bundleToContext(bundle);
+    const result = verifyDisputedSettlement({
+      context: ctx,
+      ledgerAnchor: { rail: "xrpl", txHash: "abc123" },
     });
     expect(result.verified).toBe(false);
     expect(result.reason).toContain("anchor_rail_not_supported");

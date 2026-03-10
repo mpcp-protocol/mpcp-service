@@ -6,3 +6,7 @@
 
 export type { AnchorOptions, AnchorResult, AnchorRail } from "./types.js";
 export { mockAnchorIntentHash } from "./mockAnchor.js";
+export {
+  hederaHcsAnchorIntentHash,
+  verifyHederaHcsAnchor,
+} from "./hederaHcsAnchor.js";
