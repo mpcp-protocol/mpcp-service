@@ -687,6 +687,120 @@ Examples:
 
 ---
 
+Phase 5 — External Adoption & Productionization
+
+That’s where MPCP stops being “a strong reference implementation” and starts becoming something other teams can adopt safely.
+
+I’d structure it like this:
+
+⸻
+
+PR13 — Golden Protocol Vectors
+
+Freeze a set of canonical MPCP test vectors.
+
+Examples:
+	•	valid settlement
+	•	valid settlement with intent
+	•	expired grant
+	•	budget exceeded
+	•	payment auth mismatch
+	•	intent hash mismatch
+
+Purpose:
+	•	let other implementations validate compatibility
+	•	prevent regressions
+	•	create a real interoperability target
+
+This is probably the highest-value next PR.
+
+⸻
+
+PR14 — Real Ledger Anchor Adapters
+
+Move beyond the mock anchor and implement at least one real adapter.
+
+Best order:
+	•	Hedera HCS
+	•	XRPL
+	•	EVM later
+
+Purpose:
+	•	make anchoring real
+	•	support actual dispute/audit workflows
+	•	prove MPCP works off-repo
+
+⸻
+
+PR15 — Reference Profiles
+
+Define named MPCP deployment profiles.
+
+Examples:
+	•	Fleet Offline Profile
+	•	Parking Profile
+	•	Charging Profile
+	•	Hosted Rail Profile
+
+Purpose:
+	•	reduce ambiguity
+	•	make integration easier
+	•	let adopters choose a profile instead of inventing their own rules
+
+This is a big adoption unlock.
+
+⸻
+
+PR16 — Compatibility / Versioning Policy
+
+Add a formal compatibility policy for:
+	•	artifact versions
+	•	verifier behavior
+	•	profile evolution
+	•	future extensions
+
+Purpose:
+	•	tell implementers what is stable
+	•	define how 1.0, 1.1, 2.0 evolve
+	•	make MPCP feel like a real protocol standard
+
+⸻
+
+PR17 — Reference API / Service Layer
+
+You already have protocol + verifier + SDK.
+This PR would define a lightweight service facade, like:
+	•	issue budget
+	•	verify settlement
+	•	verify dispute
+	•	anchor intent
+
+Purpose:
+	•	make MPCP easy for backend teams to adopt
+	•	avoid everyone inventing their own wrapper layer
+
+⸻
+
+PR18 — Public Protocol Site / Docs Portal
+
+Turn the docs into something publishable.
+
+Could include:
+	•	protocol overview
+	•	artifact specs
+	•	examples
+	•	profiles
+	•	vectors
+	•	verifier usage
+
+Purpose:
+	•	external credibility
+	•	onboarding
+	•	partner friendliness
+
+⸻
+
+
 # Expected Outcome
 
 After completion of this roadmap MPCP will provide:
