@@ -1,6 +1,6 @@
 /**
  * Format a verification report for CLI output.
- * Display order: intent hash (if present), payment auth, budget auth, policy grant.
+ * Internal identifiers (artifact-style) → human-readable display.
  */
 
 import type { VerificationReport, VerificationStep } from "../verify/types.js";
@@ -8,18 +8,18 @@ import type { VerificationReport, VerificationStep } from "../verify/types.js";
 const CHECK = "✔";
 const CROSS = "✗";
 
-/** Reverse execution order for chain display: leaf (intent) → root (grant) */
+/** Reverse execution order for chain display: leaf (intent) → root (grant). */
 const CHAIN_ORDER = [
-  "intent hash valid",
-  "payment authorization valid",
-  "budget authorization valid",
-  "policy grant valid",
+  "SettlementIntent.intentHash",
+  "SignedPaymentAuthorization.valid",
+  "SignedBudgetAuthorization.valid",
+  "PolicyGrant.valid",
 ];
 
 function orderSteps(steps: VerificationStep[]): VerificationStep[] {
   const ordered: VerificationStep[] = [];
-  for (const name of CHAIN_ORDER) {
-    const step = steps.find((s) => s.name === name);
+  for (const id of CHAIN_ORDER) {
+    const step = steps.find((s) => s.name === id);
     if (step) ordered.push(step);
   }
   return ordered;

@@ -7,17 +7,17 @@ describe("formatVerificationReport", () => {
     const report: VerificationReport = {
       result: { valid: true },
       steps: [
-        { name: "policy grant valid", ok: true },
-        { name: "budget authorization valid", ok: true },
-        { name: "payment authorization valid", ok: true },
-        { name: "intent hash valid", ok: true },
+        { name: "PolicyGrant.valid", ok: true },
+        { name: "SignedBudgetAuthorization.valid", ok: true },
+        { name: "SignedPaymentAuthorization.valid", ok: true },
+        { name: "SettlementIntent.intentHash", ok: true },
       ],
     };
     const out = formatVerificationReport(report);
-    expect(out).toContain("✔ intent hash valid");
-    expect(out).toContain("✔ payment authorization valid");
-    expect(out).toContain("✔ budget authorization valid");
-    expect(out).toContain("✔ policy grant valid");
+    expect(out).toContain("✔ SettlementIntent.intentHash");
+    expect(out).toContain("✔ SignedPaymentAuthorization.valid");
+    expect(out).toContain("✔ SignedBudgetAuthorization.valid");
+    expect(out).toContain("✔ PolicyGrant.valid");
     expect(out).toContain("MPCP verification PASSED");
   });
 
@@ -25,26 +25,26 @@ describe("formatVerificationReport", () => {
     const report: VerificationReport = {
       result: { valid: true },
       steps: [
-        { name: "policy grant valid", ok: true },
-        { name: "budget authorization valid", ok: true },
-        { name: "payment authorization valid", ok: true },
+        { name: "PolicyGrant.valid", ok: true },
+        { name: "SignedBudgetAuthorization.valid", ok: true },
+        { name: "SignedPaymentAuthorization.valid", ok: true },
       ],
     };
     const out = formatVerificationReport(report);
-    expect(out).toContain("✔ policy grant valid");
-    expect(out).toContain("✔ budget authorization valid");
-    expect(out).toContain("✔ payment authorization valid");
-    expect(out).not.toContain("intent hash");
+    expect(out).toContain("✔ PolicyGrant.valid");
+    expect(out).toContain("✔ SignedBudgetAuthorization.valid");
+    expect(out).toContain("✔ SignedPaymentAuthorization.valid");
+    expect(out).not.toContain("SettlementIntent");
     expect(out).toContain("MPCP verification PASSED");
   });
 
   it("formats failure with failing step", () => {
     const report: VerificationReport = {
       result: { valid: false, reason: "policy_grant_expired", artifact: "policyGrant" },
-      steps: [{ name: "policy grant valid", ok: false, reason: "policy_grant_expired" }],
+      steps: [{ name: "PolicyGrant.valid", ok: false, reason: "policy_grant_expired" }],
     };
     const out = formatVerificationReport(report);
-    expect(out).toContain("✗ policy grant valid");
+    expect(out).toContain("✗ PolicyGrant.valid");
     expect(out).toContain("policy_grant_expired");
     expect(out).toContain("MPCP verification FAILED");
   });

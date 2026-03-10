@@ -13,11 +13,11 @@ export * from "./verifyPaymentAuthorization.js";
 export * from "./verifySettlementIntent.js";
 export {
   verifySettlement,
+  verifySettlementDetailed,
+  verifySettlementDetailedSafe,
   verifySettlementSafe,
   verifySettlementWithReport,
   verifySettlementWithReportSafe,
 } from "./verifySettlement.js";
-export {
-  verifySettlementDetailed,
-  verifySettlementDetailedSafe,
-} from "./verifySettlementDetailed.js";
+export { runVerificationPipeline } from "./verifyPipeline.js";
+export type { VerificationPipelineOutput } from "./verifyPipeline.js";

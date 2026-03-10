@@ -113,9 +113,9 @@ describe("runVerify", () => {
     try {
       const { ok, output } = runVerify(tmpPath);
       expect(ok).toBe(true);
-      expect(output).toContain("✔ policy grant valid");
-      expect(output).toContain("✔ budget authorization valid");
-      expect(output).toContain("✔ payment authorization valid");
+      expect(output).toContain("✔ PolicyGrant.valid");
+      expect(output).toContain("✔ SignedBudgetAuthorization.valid");
+      expect(output).toContain("✔ SignedPaymentAuthorization.valid");
       expect(output).toContain("MPCP verification PASSED");
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
@@ -160,10 +160,10 @@ describe("runVerify", () => {
     try {
       const { ok, output } = runVerify(tmpPath);
       expect(ok).toBe(true);
-      expect(output).toContain("✔ intent hash valid");
-      expect(output).toContain("✔ payment authorization valid");
-      expect(output).toContain("✔ budget authorization valid");
-      expect(output).toContain("✔ policy grant valid");
+      expect(output).toContain("✔ SettlementIntent.intentHash");
+      expect(output).toContain("✔ SignedPaymentAuthorization.valid");
+      expect(output).toContain("✔ SignedBudgetAuthorization.valid");
+      expect(output).toContain("✔ PolicyGrant.valid");
       expect(output).toContain("MPCP verification PASSED");
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
@@ -226,10 +226,10 @@ describe("runVerify", () => {
     try {
       const { ok, output } = runVerify(tmpPath);
       expect(ok).toBe(true);
-      expect(output).toContain("✔ intent hash valid");
-      expect(output).toContain("✔ payment authorization valid");
-      expect(output).toContain("✔ budget authorization valid");
-      expect(output).toContain("✔ policy grant valid");
+      expect(output).toContain("✔ SettlementIntent.intentHash");
+      expect(output).toContain("✔ SignedPaymentAuthorization.valid");
+      expect(output).toContain("✔ SignedBudgetAuthorization.valid");
+      expect(output).toContain("✔ PolicyGrant.valid");
       expect(output).toContain("MPCP verification PASSED");
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
@@ -267,7 +267,7 @@ describe("runVerify", () => {
       const { ok, output } = runVerify(tmpPath, { explain: true });
       expect(ok).toBe(true);
       expect(output).toContain("MPCP Verification Report");
-      expect(output).toContain("PolicyGrant schema valid");
+      expect(output).toContain("PolicyGrant.schema");
       expect(output).toContain("Verification PASSED");
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);

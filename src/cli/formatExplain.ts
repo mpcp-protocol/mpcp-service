@@ -8,7 +8,7 @@ export function formatExplainOutput(report: DetailedVerificationReport): string 
 
   for (const c of report.checks) {
     const icon = c.valid ? CHECK : CROSS;
-    const msg = c.valid ? c.name : `${c.name}${c.reason ? `: ${c.reason}` : ""}`;
+    const msg = c.valid ? c.name : `${c.name}${c.reason ? ` ${c.reason}` : ""}`;
     lines.push(`${icon} ${msg}`);
     if (!c.valid && c.expected !== undefined && c.actual !== undefined) {
       lines.push(`  Expected: ${String(c.expected)}`);

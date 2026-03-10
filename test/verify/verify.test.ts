@@ -533,9 +533,9 @@ describe("verifySettlement", () => {
     const report = verifySettlementWithReport(ctx);
     expect(report.result).toEqual({ valid: true });
     expect(report.steps.map((s) => s.name)).toEqual([
-      "policy grant valid",
-      "budget authorization valid",
-      "payment authorization valid",
+      "PolicyGrant.valid",
+      "SignedBudgetAuthorization.valid",
+      "SignedPaymentAuthorization.valid",
     ]);
     expect(report.steps.every((s) => s.ok)).toBe(true);
   });
@@ -575,8 +575,8 @@ describe("verifySettlement", () => {
     };
     const report = verifySettlementWithReport(ctx);
     expect(report.result).toEqual({ valid: true });
-    expect(report.steps.map((s) => s.name)).toContain("intent hash valid");
-    expect(report.steps.map((s) => s.name)).toContain("policy grant valid");
+    expect(report.steps.map((s) => s.name)).toContain("SettlementIntent.intentHash");
+    expect(report.steps.map((s) => s.name)).toContain("PolicyGrant.valid");
     expect(report.steps.every((s) => s.ok)).toBe(true);
   });
 
@@ -608,6 +608,6 @@ describe("verifySettlement", () => {
     });
     expect(report.result.valid).toBe(false);
     expect(report.steps).toHaveLength(1);
-    expect(report.steps[0]).toMatchObject({ name: "policy grant valid", ok: false });
+    expect(report.steps[0]).toMatchObject({ name: "PolicyGrant.valid", ok: false });
   });
 });

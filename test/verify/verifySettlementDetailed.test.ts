@@ -113,7 +113,7 @@ describe("verifySettlementDetailed", () => {
       settlementIntent: intent,
     });
     expect(report.valid).toBe(true);
-    expect(report.checks.some((c) => c.name === "SettlementIntentHash" && c.valid)).toBe(true);
+    expect(report.checks.some((c) => c.name === "SettlementIntent.intentHash" && c.valid)).toBe(true);
     expect(report.checks.every((c) => c.valid)).toBe(true);
   });
 
@@ -152,7 +152,7 @@ describe("verifySettlementDetailed", () => {
       settlementIntent: tamperedIntent,
     });
     expect(report.valid).toBe(false);
-    const hashCheck = report.checks.find((c) => c.name === "SettlementIntentHash");
+    const hashCheck = report.checks.find((c) => c.name === "SettlementIntent.intentHash");
     expect(hashCheck).toBeDefined();
     expect(hashCheck!.valid).toBe(false);
     expect(hashCheck!.expected).toBeDefined();

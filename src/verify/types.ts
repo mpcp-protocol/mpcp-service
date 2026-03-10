@@ -35,12 +35,16 @@ export interface VerificationReport {
 
 /** Single check in a detailed verification report (--explain mode). */
 export interface VerificationCheck {
+  /** Combined identifier: artifact.check (e.g. SettlementIntent.intentHash) */
   name: string;
+  /** Artifact type, PascalCase (e.g. SettlementIntent, PolicyGrant). Omitted for synthetic error checks. */
+  artifact?: string;
+  /** Check type (e.g. schema, valid, intentHash). Omitted for synthetic error checks. */
+  check?: string;
   valid: boolean;
   reason?: string;
   expected?: unknown;
   actual?: unknown;
-  artifact?: string;
 }
 
 /** Detailed report for CLI --explain and --json. */
