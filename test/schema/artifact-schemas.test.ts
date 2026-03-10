@@ -34,6 +34,7 @@ const validBudgetAuthorization = {
   maxAmountMinor: "3000",
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "USDC", issuer: "rIssuer" }],
+  destinationAllowlist: ["rDest"],
   expiresAt: "2026-03-08T14:00:00Z",
 };
 
