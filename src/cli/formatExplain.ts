@@ -1,4 +1,4 @@
-import type { DetailedVerificationReport, VerificationCheck } from "../verify/types.js";
+import type { DetailedVerificationReport } from "../verify/types.js";
 
 const CHECK = "✔";
 const CROSS = "✗";
@@ -6,6 +6,7 @@ const CROSS = "✗";
 export function formatExplainOutput(report: DetailedVerificationReport): string {
   const lines: string[] = ["MPCP Verification Report", ""];
 
+  // checks are pre-sorted by verification phase in runVerificationPipeline()
   for (const c of report.checks) {
     const icon = c.valid ? CHECK : CROSS;
     const msg = c.valid ? c.name : `${c.name}${c.reason ? ` ${c.reason}` : ""}`;

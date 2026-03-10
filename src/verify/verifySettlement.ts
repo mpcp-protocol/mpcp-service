@@ -86,6 +86,7 @@ export function verifySettlementDetailedSafe(
     return verifySettlementDetailed(ctx);
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
+    // phase: "policy" by convention for synthetic failures; consider "system" if enum extended
     return {
       valid: false,
       checks: [{ name: "Verification.error", phase: "policy", artifact: "Verification", check: "error", valid: false, reason: message }],

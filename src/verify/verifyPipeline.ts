@@ -2,13 +2,14 @@
  * Single internal verification pipeline.
  * Emits bare result, steps (for report), and checks (for detailed report).
  *
+ * Ordering: steps are chain-oriented (leaf → root for display); checks are phase-oriented
+ * (schema → linkage → hash → policy, sorted before return). Keep both orderings intentional.
+ *
  * Check naming: Artifact.check (PascalCase artifact, camelCase check)
  * - PolicyGrant.schema, PolicyGrant.valid
  * - SignedBudgetAuthorization.schema, SignedBudgetAuthorization.valid
  * - SignedPaymentAuthorization.schema, SignedPaymentAuthorization.valid
  * - SettlementIntent.schema, SettlementIntent.required, SettlementIntent.intentHash, SettlementIntent.fields
- *
- * Check ordering: schema → linkage → hash → policy (checks are sorted by phase before return)
  */
 
 import { computeSettlementIntentHash } from "../hash/computeSettlementIntentHash.js";
