@@ -22,8 +22,8 @@ export interface AnchorResult {
 
 /** Options for anchoring an intent hash. */
 export interface AnchorOptions {
-  /** Target rail for anchoring. */
-  rail: AnchorRail;
+  /** Target rail for anchoring. Omit for mock (default). */
+  rail?: AnchorRail;
   /** Optional metadata for the anchor message. */
   metadata?: Record<string, string>;
 }
