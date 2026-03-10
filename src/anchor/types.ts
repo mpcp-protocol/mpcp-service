@@ -10,7 +10,7 @@ export type AnchorRail = "hedera-hcs" | "xrpl" | "evm" | "mock";
 export interface AnchorResult {
   /** Anchoring rail used. */
   rail: AnchorRail;
-  /** Transaction hash (XRPL, EVM) or consensus timestamp (Hedera). */
+  /** Ledger receipt/reference. XRPL/EVM: transaction hash. Hedera: use topicId+sequenceNumber. Future: consider anchorId/receiptId for rail-neutral naming. */
   txHash?: string;
   /** Hedera HCS topic ID. */
   topicId?: string;

@@ -2,6 +2,8 @@
 
 Optional support for publishing intent hashes to distributed ledgers. Provides public auditability, dispute protection, and replay protection.
 
+**This PR provides only the mock anchor implementation.** Real ledger adapters (Hedera HCS, XRPL, EVM) are future work.
+
 ## Purpose
 
 - **Public auditability** — Intent hashes can be verified against a public record
@@ -25,7 +27,7 @@ import { computeSettlementIntentHash, mockAnchorIntentHash } from "mpcp-service"
 const intent = { version: "1.0", rail: "xrpl", amount: "1000", destination: "rDest..." };
 const intentHash = computeSettlementIntentHash(intent);
 
-// Mock anchor (development)
+// Mock anchor (development) — only supports rail "mock"
 const result = await mockAnchorIntentHash(intentHash, { rail: "mock" });
 // { rail: "mock", txHash: "mock-...", anchoredAt: "..." }
 ```
@@ -57,5 +59,7 @@ The `mockAnchorIntentHash` function simulates anchoring without contacting a led
 - Development
 - Testing
 - Demos
+
+**Validation:** Requires 64-char hex intentHash. Throws on invalid input. Only accepts `rail: "mock"` — passing other rails throws to avoid confusion with real ledger behavior.
 
 Real ledger integrations (Hedera HCS, XRPL, EVM) would be implemented as separate adapters.
