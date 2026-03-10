@@ -198,6 +198,11 @@ Optional support for publishing intent hashes to distributed ledgers (public aud
 
 `verifyDisputedSettlement` validates disputed settlements using the full MPCP chain plus optional ledger anchor. See [Dispute Verification](./doc/architecture/DISPUTE_VERIFICATION.md).
 
+## Fleet Operator Tooling (optional)
+
+- **Settlement verification logs** — `mpcp verify <file> --append-log audit.jsonl` appends verification results to a JSONL audit trail
+- **Fleet policy summary** — `mpcp policy-summary <policy.json>` prints policy constraints. See [Fleet Operator Tooling](./doc/architecture/FLEET_OPERATOR_TOOLING.md).
+
 ---
 
 ## Verification Engine

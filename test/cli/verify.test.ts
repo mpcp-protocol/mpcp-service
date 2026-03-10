@@ -1,7 +1,7 @@
 import crypto from "node:crypto";
 import { afterEach, describe, expect, it } from "vitest";
 import { tmpdir } from "node:os";
-import { writeFileSync, unlinkSync, existsSync } from "node:fs";
+import { readFileSync, writeFileSync, unlinkSync, existsSync } from "node:fs";
 import { join } from "node:path";
 import type { PaymentPolicyDecision, SettlementResult } from "../../src/policy-core/types.js";
 import { createSignedSessionBudgetAuthorization } from "../../src/protocol/sba.js";
@@ -310,6 +310,48 @@ describe("runVerify", () => {
       expect(Array.isArray(parsed.checks)).toBe(true);
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
+
+  it("--append-log appends verification result to file", () => {
+    setupBothKeys();
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      policyHash: "a1b2c3",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+    );
+    const ctx = {
+      policyGrant: baseGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+    };
+    const tmpPath = join(tmpdir(), `mpcp-audit-${Date.now()}.json`);
+    const logPath = join(tmpdir(), `mpcp-audit-log-${Date.now()}.jsonl`);
+    writeFileSync(tmpPath, JSON.stringify(ctx));
+    try {
+      const { ok } = runVerify(tmpPath, { appendLog: logPath });
+      expect(ok).toBe(true);
+      expect(existsSync(logPath)).toBe(true);
+      const logContent = readFileSync(logPath, "utf-8");
+      const entry = JSON.parse(logContent.trim());
+      expect(entry.event).toBe("settlement_verification");
+      expect(entry.valid).toBe(true);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+      if (existsSync(logPath)) unlinkSync(logPath);
     }
   });
 });

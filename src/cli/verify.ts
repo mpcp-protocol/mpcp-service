@@ -1,4 +1,4 @@
-import { readFileSync } from "node:fs";
+import { appendFileSync, readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import type { SettlementVerificationContext } from "../verify/types.js";
 import {
@@ -9,9 +9,32 @@ import { formatVerificationReport } from "./formatReport.js";
 import { formatExplainOutput } from "./formatExplain.js";
 import { isSettlementBundle, bundleToContext } from "./bundle.js";
 
+function appendAuditLog(
+  logPath: string | undefined,
+  filePath: string,
+  report: { valid: boolean },
+  resolvedPath: string,
+): void {
+  if (!logPath) return;
+  try {
+    const entry = {
+      ts: new Date().toISOString(),
+      event: "settlement_verification",
+      file: filePath,
+      resolvedPath,
+      valid: report.valid,
+    };
+    appendFileSync(resolve(process.cwd(), logPath), JSON.stringify(entry) + "\n");
+  } catch {
+    /* ignore audit log write errors */
+  }
+}
+
 export interface VerifyOptions {
   explain?: boolean;
   json?: boolean;
+  /** Append verification result to audit log (JSONL file). */
+  appendLog?: string;
 }
 
 export function runVerify(
@@ -57,24 +80,21 @@ export function runVerify(
       ? bundleToContext(data)
       : (data as SettlementVerificationContext);
 
+    let report: { valid: boolean; result?: { valid: boolean }; checks?: unknown[] };
     if (options.explain || options.json) {
-      const report = verifySettlementDetailedSafe(ctx);
+      const detailedReport = verifySettlementDetailedSafe(ctx);
+      appendAuditLog(options.appendLog, filePath, { valid: detailedReport.valid }, resolve(process.cwd(), filePath));
       if (options.json) {
-        return {
-          ok: report.valid,
-          output: JSON.stringify(report, null, 2),
-        };
+        return { ok: detailedReport.valid, output: JSON.stringify(detailedReport, null, 2) };
       }
-      return {
-        ok: report.valid,
-        output: formatExplainOutput(report),
-      };
+      return { ok: detailedReport.valid, output: formatExplainOutput(detailedReport) };
     }
 
-    const report = verifySettlementWithReportSafe(ctx);
+    const reportWithSteps = verifySettlementWithReportSafe(ctx);
+    appendAuditLog(options.appendLog, filePath, { valid: reportWithSteps.result.valid }, resolve(process.cwd(), filePath));
     return {
-      ok: report.result.valid,
-      output: formatVerificationReport(report),
+      ok: reportWithSteps.result.valid,
+      output: formatVerificationReport(reportWithSteps),
     };
   } finally {
     for (const [k, v] of Object.entries(saved)) {
