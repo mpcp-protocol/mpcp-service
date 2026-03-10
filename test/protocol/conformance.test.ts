@@ -164,6 +164,13 @@ describe("Reference Implementation Conformance", () => {
       expect(computeSettlementIntentHash(intent)).not.toBe(computeSettlementIntentHash(altered));
     });
 
+    it("excludes metadata (createdAt) from hash; identical payloads produce same hash", () => {
+      const semantic = { rail: "xrpl" as const, amount: "19440000", destination: "rDest" };
+      const h = computeSettlementIntentHash(semantic);
+      expect(computeSettlementIntentHash({ ...semantic, createdAt: "2026-03-08T13:55:00Z" })).toBe(h);
+      expect(computeSettlementIntentHash({ ...semantic, createdAt: "2026-03-09T00:00:00Z" })).toBe(h);
+    });
+
     it("verifier rejects tampered intent with forged intentHash (recomputes from intent, never trusts provided hash)", () => {
       setupBothKeys();
       const validIntent = makeIntent();

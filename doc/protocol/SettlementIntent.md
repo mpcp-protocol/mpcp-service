@@ -50,7 +50,7 @@ SettlementIntent solves this by defining a **canonical payment description** who
 | amount | string | yes | Amount in atomic units |
 | destination | string | conditional | Destination address for on‑chain rails |
 | referenceId | string | optional | Identifier linking intent to decision or quote |
-| createdAt | string | yes | ISO 8601 timestamp |
+| createdAt | string | optional | ISO 8601 timestamp. Metadata for audit/debugging; excluded from canonical hashing unless a temporal profile explicitly requires it. |
 
 ---
 
@@ -82,7 +82,7 @@ Hash computation uses **domain‑separated hashing** consistent with MPCP artifa
 
 ```
 intentHash = SHA256(
-  "MPCP:Intent:1.0:" || canonicalJson(settlementIntent)
+  "MPCP:SettlementIntent:1.0:" || canonicalJson(canonicalIntent)
 )
 ```
 
@@ -90,9 +90,51 @@ Domain separation ensures the hash cannot collide with other MPCP artifact hashe
 
 ---
 
+## Canonical Hash Payload
+
+The intent hash MUST be computed from a **canonical payload** containing only fields that define the **settlement semantics**.
+
+Metadata fields MUST be excluded.
+
+Default canonical payload fields:
+
+- version
+- rail
+- asset (if present)
+- amount
+- destination (if present)
+- referenceId (if present)
+
+The following fields MUST NOT participate in canonical hashing under the default MPCP profile:
+
+- createdAt
+
+Example canonical payload:
+
+```json
+{
+  "version": "1.0",
+  "rail": "xrpl",
+  "asset": {
+    "kind": "IOU",
+    "currency": "RLUSD",
+    "issuer": "rIssuer..."
+  },
+  "amount": "19440000",
+  "destination": "rDestination...",
+  "referenceId": "quote_17"
+}
+```
+
+This ensures that two semantically identical intents produce the same `intentHash` even if metadata such as `createdAt` differs.
+
+Implementations MAY define extended profiles where metadata fields participate in hashing, but such profiles MUST be explicitly documented and versioned.
+
+---
+
 ## Canonical JSON
 
-Implementations MUST compute the hash using a canonical JSON representation of the intent object.
+Implementations MUST compute the hash using a canonical JSON representation of the canonical payload defined above (not the full artifact).
 
 Requirements:
 
@@ -115,7 +157,7 @@ A **SignedPaymentAuthorization (SPA)** may include `intentHash`.
 When present, the SPA verifier must ensure:
 
 ```
-intentHash == SHA256("MPCP:Intent:<version>:" || canonicalJson(intent))
+intentHash == SHA256("MPCP:SettlementIntent:<version>:" || canonicalJson(intent))
 ```
 
 This binds the SPA to a specific settlement intent.

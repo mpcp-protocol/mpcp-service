@@ -71,4 +71,18 @@ describe("computeSettlementIntentHash", () => {
     const intentWithFakeHash = { ...intent, intentHash: "a".repeat(64) };
     expect(computeSettlementIntentHash(intentWithFakeHash)).toBe(hashWithout);
   });
+
+  it("excludes createdAt from hash input (metadata field; identical payloads produce same hash)", () => {
+    const semantic = {
+      rail: "xrpl" as const,
+      amount: "19440000",
+      destination: "rDest",
+      asset: { kind: "IOU" as const, currency: "USDC", issuer: "rIssuer" },
+    };
+    const h1 = computeSettlementIntentHash(semantic);
+    const withCreatedAt1 = { ...semantic, createdAt: "2026-03-08T13:55:00Z" };
+    const withCreatedAt2 = { ...semantic, createdAt: "2026-03-09T00:00:00Z" };
+    expect(computeSettlementIntentHash(withCreatedAt1)).toBe(h1);
+    expect(computeSettlementIntentHash(withCreatedAt2)).toBe(h1);
+  });
 });

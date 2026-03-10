@@ -11,11 +11,48 @@ When present, it ensures the executed settlement matches the authorized intent.
 ## Definition
 
 ```
-intentHash = SHA256(canonicalJson(settlementIntent))
+intentHash = SHA256(
+  "MPCP:SettlementIntent:1.0:" || canonicalJson(canonicalIntent)
+)
 ```
 
 - **canonicalJson**: Deterministic JSON serialization (sorted keys, omit null/undefined)
 - **SHA256**: Output as hex string
+
+## Canonical Hash Payload
+
+The intent hash MUST be computed from a **canonical payload** that includes only the fields defining the settlement semantics.
+
+Metadata fields present in the artifact MUST be excluded from the hash input.
+
+Default canonical payload fields:
+
+- version
+- rail
+- asset (if present)
+- amount
+- destination (if present)
+- referenceId (if present)
+
+The following fields MUST NOT participate in hashing under the default MPCP profile:
+
+- createdAt
+
+Example canonical payload:
+
+```json
+{
+  "version": "1.0",
+  "rail": "xrpl",
+  "asset": { "kind": "IOU", "currency": "USDC", "issuer": "rIssuer..." },
+  "amount": "19440000",
+  "destination": "rDest...",
+  "referenceId": "quote_17"
+}
+```
+
+
+See also: [SettlementIntent.md](./SettlementIntent.md) §Canonical Hash Payload.
 
 ---
 
@@ -29,7 +66,7 @@ intentHash = SHA256(canonicalJson(settlementIntent))
 
 ## Canonical JSON Rules
 
-Per the MPCP spec, `canonicalJson`:
+Per the MPCP spec, canonicalJson is applied to the canonical payload defined above:
 
 - Sorts object keys lexicographically
 - Omits fields with `null` or `undefined` values
@@ -43,18 +80,26 @@ Per the MPCP spec, `canonicalJson`:
 
 ```json
 {
+  "version": "1.0",
   "rail": "xrpl",
   "destination": "rDest...",
   "amount": "19440000",
-  "asset": { "kind": "IOU", "currency": "USDC", "issuer": "rIssuer..." }
+  "asset": { "kind": "IOU", "currency": "USDC", "issuer": "rIssuer..." },
+  "createdAt": "2026-03-08T13:55:00Z"
 }
 ```
 
 ### Computation
 
 ```text
-canonicalIntent = canonicalJson(intent)
-intentHash = sha256Hex(canonicalIntent)
+canonicalIntent = canonicalJson({
+  version,
+  rail,
+  asset,
+  amount,
+  destination
+})
+intentHash = sha256Hex("MPCP:SettlementIntent:1.0:" || canonicalIntent)
 ```
 
 ### SPA with intentHash
