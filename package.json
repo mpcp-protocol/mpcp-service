@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "bin": {
+    "mpcp": "./dist/cli/index.js"
+  },
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
@@ -21,7 +24,9 @@
   "scripts": {
     "build": "tsc -p tsconfig.build.json",
     "check": "tsc -p tsconfig.json --noEmit",
-    "test": "vitest run"
+    "test": "vitest run",
+    "mpcp": "node dist/cli/index.js",
+    "demo:verify": "node scripts/demo-verify.mjs"
   },
   "dependencies": {
     "zod": "^3.25.76"
