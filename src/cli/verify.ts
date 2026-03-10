@@ -1,11 +1,23 @@
 import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import type { SettlementVerificationContext } from "../verify/types.js";
-import { verifySettlementWithReportSafe } from "../verify/index.js";
+import {
+  verifySettlementDetailedSafe,
+  verifySettlementWithReportSafe,
+} from "../verify/index.js";
 import { formatVerificationReport } from "./formatReport.js";
+import { formatExplainOutput } from "./formatExplain.js";
 import { isSettlementBundle, bundleToContext } from "./bundle.js";
 
-export function runVerify(filePath: string): { ok: boolean; output: string } {
+export interface VerifyOptions {
+  explain?: boolean;
+  json?: boolean;
+}
+
+export function runVerify(
+  filePath: string,
+  options: VerifyOptions = {},
+): { ok: boolean; output: string } {
   let raw: string;
   try {
     raw = readFileSync(resolve(process.cwd(), filePath), "utf-8");
@@ -25,6 +37,20 @@ export function runVerify(filePath: string): { ok: boolean; output: string } {
   const ctx: SettlementVerificationContext = isSettlementBundle(data)
     ? bundleToContext(data)
     : (data as SettlementVerificationContext);
+
+  if (options.explain || options.json) {
+    const report = verifySettlementDetailedSafe(ctx);
+    if (options.json) {
+      return {
+        ok: report.valid,
+        output: JSON.stringify(report, null, 2),
+      };
+    }
+    return {
+      ok: report.valid,
+      output: formatExplainOutput(report),
+    };
+  }
 
   const report = verifySettlementWithReportSafe(ctx);
   return {

@@ -33,6 +33,22 @@ export interface VerificationReport {
   steps: VerificationStep[];
 }
 
+/** Single check in a detailed verification report (--explain mode). */
+export interface VerificationCheck {
+  name: string;
+  valid: boolean;
+  reason?: string;
+  expected?: unknown;
+  actual?: unknown;
+  artifact?: string;
+}
+
+/** Detailed report for CLI --explain and --json. */
+export interface DetailedVerificationReport {
+  valid: boolean;
+  checks: VerificationCheck[];
+}
+
 /**
  * Fixed verification order applied across all verifiers:
  * 1. Schema validation

@@ -235,4 +235,81 @@ describe("runVerify", () => {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
     }
   });
+
+  it("--explain outputs detailed report with schema checks", () => {
+    setupBothKeys();
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      policyHash: "a1b2c3",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+    );
+    const ctx = {
+      policyGrant: baseGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+    };
+    const tmpPath = join(tmpdir(), `mpcp-explain-${Date.now()}.json`);
+    writeFileSync(tmpPath, JSON.stringify(ctx));
+    try {
+      const { ok, output } = runVerify(tmpPath, { explain: true });
+      expect(ok).toBe(true);
+      expect(output).toContain("MPCP Verification Report");
+      expect(output).toContain("PolicyGrant schema valid");
+      expect(output).toContain("Verification PASSED");
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
+
+  it("--json outputs machine-readable report", () => {
+    setupBothKeys();
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      policyHash: "a1b2c3",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+    );
+    const ctx = {
+      policyGrant: baseGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+    };
+    const tmpPath = join(tmpdir(), `mpcp-json-${Date.now()}.json`);
+    writeFileSync(tmpPath, JSON.stringify(ctx));
+    try {
+      const { ok, output } = runVerify(tmpPath, { json: true });
+      expect(ok).toBe(true);
+      const parsed = JSON.parse(output);
+      expect(parsed).toHaveProperty("valid", true);
+      expect(parsed).toHaveProperty("checks");
+      expect(Array.isArray(parsed.checks)).toBe(true);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
 });

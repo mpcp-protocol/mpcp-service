@@ -1,5 +1,7 @@
 export type {
+  DetailedVerificationReport,
   PolicyGrantLike,
+  VerificationCheck,
   VerificationReport,
   VerificationResult,
   VerificationStep,
@@ -15,3 +17,7 @@ export {
   verifySettlementWithReport,
   verifySettlementWithReportSafe,
 } from "./verifySettlement.js";
+export {
+  verifySettlementDetailed,
+  verifySettlementDetailedSafe,
+} from "./verifySettlementDetailed.js";

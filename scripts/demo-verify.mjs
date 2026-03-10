@@ -109,8 +109,9 @@ const ctx = {
 const tmpPath = join(tmpdir(), `mpcp-demo-${Date.now()}.json`);
 writeFileSync(tmpPath, JSON.stringify(ctx));
 try {
-  console.log("Verifying settlement (with intent hash)...\n");
-  const { ok, output } = runVerify(tmpPath);
+  const explain = process.argv.includes("--explain");
+  console.log(explain ? "Verifying settlement (--explain mode)...\n" : "Verifying settlement (with intent hash)...\n");
+  const { ok, output } = runVerify(tmpPath, { explain });
   console.log(output);
   process.exit(ok ? 0 : 1);
 } finally {
