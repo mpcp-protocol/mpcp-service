@@ -141,7 +141,7 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     };
 
     const verification = verifySignedSessionBudgetAuthorizationForDecision(envelope!, { sessionId: envelope!.authorization.sessionId, decision });
-    expect(verification).toEqual({ ok: false, reason: "mismatch" });
+    expect(verification).toEqual({ ok: false, reason: "budget_exceeded" });
   });
 
   it("fails on unsupported scope (DAY not SESSION)", () => {

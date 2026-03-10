@@ -1,12 +1,16 @@
 /**
- * PR6 — Protocol Conformance Tests
+ * PR6 — Reference Implementation Conformance
  *
- * Full protocol verification suite. Each area must pass for protocol conformance.
+ * Verification suite for this implementation. Each area must pass.
  * - intent hash correctness
  * - policy grant validation
  * - budget authorization limits
  * - SPA verification
  * - settlement verification
+ *
+ * Uses Parker-shaped inputs (PaymentPolicyDecision, createSigned* helpers, quote
+ * structures). For pure protocol conformance across implementations, use protocol-
+ * agnostic fixtures and raw artifacts instead.
  */
 
 import crypto from "node:crypto";
@@ -104,7 +108,47 @@ const baseSettlement: SettlementResult = {
   nowISO: verificationNowIso,
 };
 
-describe("Protocol Conformance", () => {
+const defaultSbaConfig = {
+  sessionId: "11111111-1111-4111-8111-111111111111",
+  vehicleId: "1234567",
+  policyHash: "a1b2c3",
+  currency: "USD",
+  maxAmountMinor: "3000",
+  allowedRails: ["xrpl"] as const,
+  allowedAssets: [{ kind: "IOU" as const, currency: "RLUSD", issuer: "rIssuer" }],
+  destinationAllowlist: ["rDestination"],
+  expiresAt: futureExpiry,
+};
+
+function makeSba(overrides?: Partial<typeof defaultSbaConfig>) {
+  const sba = createSignedSessionBudgetAuthorization({ ...defaultSbaConfig, ...overrides });
+  expect(sba).not.toBeNull();
+  return sba!;
+}
+
+function makeSpa(opts?: { sessionId?: string; settlementIntent?: unknown }) {
+  const sessionId = opts?.sessionId ?? defaultSbaConfig.sessionId;
+  const spa = createSignedPaymentAuthorization(
+    sessionId,
+    baseDecision,
+    opts?.settlementIntent ? { settlementIntent: opts.settlementIntent } : undefined,
+  );
+  expect(spa).not.toBeNull();
+  return spa!;
+}
+
+const defaultIntent = {
+  rail: "xrpl" as const,
+  amount: "19440000",
+  destination: "rDestination",
+  asset: { kind: "IOU" as const, currency: "RLUSD", issuer: "rIssuer" },
+};
+
+function makeIntent(overrides?: Partial<typeof defaultIntent>) {
+  return { ...defaultIntent, ...overrides };
+}
+
+describe("Reference Implementation Conformance", () => {
   describe("intent hash correctness", () => {
     it("produces deterministic hash from canonical intent", () => {
       const intent = { rail: "xrpl" as const, amount: "19440000", destination: "rDest" };
@@ -120,10 +164,13 @@ describe("Protocol Conformance", () => {
       expect(computeSettlementIntentHash(intent)).not.toBe(computeSettlementIntentHash(altered));
     });
 
-    it("ignores intentHash field in intent (verifier recomputes)", () => {
-      const intent = { rail: "xrpl", amount: "1000", destination: "rD" };
-      const withFake = { ...intent, intentHash: "a".repeat(64) };
-      expect(computeSettlementIntentHash(intent)).toBe(computeSettlementIntentHash(withFake));
+    it("verifier rejects tampered intent with forged intentHash (recomputes from intent, never trusts provided hash)", () => {
+      setupBothKeys();
+      const validIntent = makeIntent();
+      const spa = makeSpa({ settlementIntent: validIntent });
+      const tamperedIntent = { ...validIntent, amount: "99999999", intentHash: spa.authorization.intentHash };
+      const result = verifySettlementIntent(spa, tamperedIntent);
+      expect(result).toMatchObject({ valid: false, reason: "intent_hash_mismatch", artifact: "settlementIntent" });
     });
   });
 
@@ -136,48 +183,18 @@ describe("Protocol Conformance", () => {
       const expired = { ...baseGrant, expiresAt: pastExpiry };
       expect(verifyPolicyGrant(expired)).toMatchObject({ valid: false, reason: "policy_grant_expired", artifact: "policyGrant" });
     });
-
-    it("rejects malformed grant", () => {
-      const malformed = { policyHash: "not-hex!", allowedRails: ["xrpl"] };
-      const result = verifyPolicyGrant(malformed);
-      expect(result.valid).toBe(false);
-      expect(result).toMatchObject({ valid: false, artifact: "policyGrant" });
-    });
   });
 
   describe("budget authorization limits", () => {
     it("passes when SBA valid and decision fits budget", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-        destinationAllowlist: ["rDestination"],
-        expiresAt: futureExpiry,
-      });
-      expect(sba).not.toBeNull();
-      expect(verifyBudgetAuthorization(sba!, baseGrant, baseDecision)).toEqual({ valid: true });
+      expect(verifyBudgetAuthorization(makeSba(), baseGrant, baseDecision)).toEqual({ valid: true });
     });
 
     it("fails when policy hash mismatch", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "deadbeef",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [],
-        destinationAllowlist: [],
-        expiresAt: futureExpiry,
-      });
-      expect(sba).not.toBeNull();
-      expect(verifyBudgetAuthorization(sba!, baseGrant, baseDecision)).toMatchObject({
+      const sba = makeSba({ policyHash: "deadbeef", allowedAssets: [], destinationAllowlist: [] });
+      expect(verifyBudgetAuthorization(sba, baseGrant, baseDecision)).toMatchObject({
         valid: false,
         reason: "budget_policy_hash_mismatch",
         artifact: "signedBudgetAuthorization",
@@ -187,17 +204,7 @@ describe("Protocol Conformance", () => {
     it("fails when budget exceeded", () => {
       setupBothKeys();
       const grantWithStripe: PolicyGrantLike = { ...baseGrant, allowedRails: ["xrpl", "stripe"] };
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "1000",
-        allowedRails: ["stripe"],
-        allowedAssets: [],
-        destinationAllowlist: [],
-        expiresAt: futureExpiry,
-      });
+      const sba = makeSba({ maxAmountMinor: "1000", allowedRails: ["stripe"], allowedAssets: [], destinationAllowlist: [] });
       const decision: PaymentPolicyDecision = {
         ...baseDecision,
         rail: "stripe",
@@ -211,48 +218,27 @@ describe("Protocol Conformance", () => {
           expiresAt: futureExpiry,
         }],
       };
-      expect(sba).not.toBeNull();
-      expect(verifyBudgetAuthorization(sba!, grantWithStripe, decision)).toMatchObject({ valid: false, reason: "mismatch" });
+      expect(verifyBudgetAuthorization(sba, grantWithStripe, decision)).toMatchObject({
+        valid: false,
+        reason: "budget_exceeded",
+        artifact: "signedBudgetAuthorization",
+      });
     });
   });
 
   describe("SPA verification", () => {
     it("passes when full chain valid and settlement matches", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-        destinationAllowlist: ["rDestination"],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision);
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
-      expect(verifyPaymentAuthorization(spa!, sba!, baseGrant, baseDecision, baseSettlement)).toEqual({ valid: true });
+      const sba = makeSba();
+      const spa = makeSpa();
+      expect(verifyPaymentAuthorization(spa, sba, baseGrant, baseDecision, baseSettlement)).toEqual({ valid: true });
     });
 
     it("fails when session mismatch between SPA and SBA", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [],
-        destinationAllowlist: [],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization("22222222-2222-4222-8222-222222222222", baseDecision);
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
-      expect(verifyPaymentAuthorization(spa!, sba!, baseGrant, baseDecision, baseSettlement)).toMatchObject({
+      const sba = makeSba({ allowedAssets: [], destinationAllowlist: [] });
+      const spa = makeSpa({ sessionId: "22222222-2222-4222-8222-222222222222" });
+      expect(verifyPaymentAuthorization(spa, sba, baseGrant, baseDecision, baseSettlement)).toMatchObject({
         valid: false,
         reason: "payment_auth_session_mismatch",
         artifact: "signedPaymentAuthorization",
@@ -261,13 +247,11 @@ describe("Protocol Conformance", () => {
 
     it("verifies intentHash when SPA binds intent", () => {
       setupBothKeys();
-      const intent = { rail: "xrpl", amount: "19440000", destination: "rDestination", asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" } };
-      const spa = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision, { settlementIntent: intent });
-      expect(spa).not.toBeNull();
-      expect(spa!.authorization.intentHash).toBeDefined();
-      expect(verifySettlementIntent(spa!, intent)).toEqual({ valid: true });
-      const wrongIntent = { ...intent, amount: "99999999" };
-      expect(verifySettlementIntent(spa!, wrongIntent)).toMatchObject({
+      const intent = makeIntent();
+      const spa = makeSpa({ settlementIntent: intent });
+      expect(spa.authorization.intentHash).toBeDefined();
+      expect(verifySettlementIntent(spa, intent)).toEqual({ valid: true });
+      expect(verifySettlementIntent(spa, makeIntent({ amount: "99999999" }))).toMatchObject({
         valid: false,
         reason: "intent_hash_mismatch",
         artifact: "settlementIntent",
@@ -278,24 +262,12 @@ describe("Protocol Conformance", () => {
   describe("settlement verification", () => {
     it("passes full chain without intentHash", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-        destinationAllowlist: ["rDestination"],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision);
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
+      const sba = makeSba();
+      const spa = makeSpa();
       const result = verifySettlement({
         policyGrant: baseGrant,
-        signedBudgetAuthorization: sba!,
-        signedPaymentAuthorization: spa!,
+        signedBudgetAuthorization: sba,
+        signedPaymentAuthorization: spa,
         settlement: baseSettlement,
         paymentPolicyDecision: baseDecision,
         decisionId: "dec-1",
@@ -305,29 +277,13 @@ describe("Protocol Conformance", () => {
 
     it("passes full chain with settlementIntent", () => {
       setupBothKeys();
-      const intent = { rail: "xrpl", amount: "19440000", destination: "rDestination", asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" } };
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-        destinationAllowlist: ["rDestination"],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization(
-        "11111111-1111-4111-8111-111111111111",
-        baseDecision,
-        { settlementIntent: intent },
-      );
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
+      const intent = makeIntent();
+      const sba = makeSba();
+      const spa = makeSpa({ settlementIntent: intent });
       const result = verifySettlement({
         policyGrant: baseGrant,
-        signedBudgetAuthorization: sba!,
-        signedPaymentAuthorization: spa!,
+        signedBudgetAuthorization: sba,
+        signedPaymentAuthorization: spa,
         settlement: baseSettlement,
         paymentPolicyDecision: baseDecision,
         decisionId: "dec-1",
@@ -338,24 +294,12 @@ describe("Protocol Conformance", () => {
 
     it("fails when grant expired", () => {
       setupBothKeys();
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [],
-        destinationAllowlist: [],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision);
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
+      const sba = makeSba({ allowedAssets: [], destinationAllowlist: [] });
+      const spa = makeSpa();
       const result = verifySettlement({
         policyGrant: { ...baseGrant, expiresAt: pastExpiry },
-        signedBudgetAuthorization: sba!,
-        signedPaymentAuthorization: spa!,
+        signedBudgetAuthorization: sba,
+        signedPaymentAuthorization: spa,
         settlement: baseSettlement,
         paymentPolicyDecision: baseDecision,
         decisionId: "dec-1",
@@ -364,31 +308,33 @@ describe("Protocol Conformance", () => {
       expect(result).toMatchObject({ valid: false, reason: "policy_grant_expired", artifact: "policyGrant" });
     });
 
+    it("fails when policy grant malformed (schema validation at pipeline)", () => {
+      setupBothKeys();
+      const sba = makeSba({ allowedAssets: [], destinationAllowlist: [] });
+      const spa = makeSpa();
+      const malformedGrant = { policyHash: "not-hex!", allowedRails: ["xrpl"] };
+      const result = verifySettlement({
+        policyGrant: malformedGrant,
+        signedBudgetAuthorization: sba,
+        signedPaymentAuthorization: spa,
+        settlement: baseSettlement,
+        paymentPolicyDecision: baseDecision,
+        decisionId: "dec-1",
+      });
+      expect(result.valid).toBe(false);
+      expect(result).toMatchObject({ artifact: "policyGrant" });
+      expect(result.valid === false && result.reason).toMatch(/invalid_artifact/);
+    });
+
     it("fails when SPA has intentHash but settlementIntent missing", () => {
       setupBothKeys();
-      const intent = { rail: "xrpl", amount: "19440000", destination: "rDest" };
-      const sba = createSignedSessionBudgetAuthorization({
-        sessionId: "11111111-1111-4111-8111-111111111111",
-        vehicleId: "1234567",
-        policyHash: "a1b2c3",
-        currency: "USD",
-        maxAmountMinor: "3000",
-        allowedRails: ["xrpl"],
-        allowedAssets: [],
-        destinationAllowlist: [],
-        expiresAt: futureExpiry,
-      });
-      const spa = createSignedPaymentAuthorization(
-        "11111111-1111-4111-8111-111111111111",
-        baseDecision,
-        { settlementIntent: intent },
-      );
-      expect(sba).not.toBeNull();
-      expect(spa).not.toBeNull();
+      const intent = makeIntent({ destination: "rDest" });
+      const sba = makeSba({ allowedAssets: [], destinationAllowlist: [] });
+      const spa = makeSpa({ settlementIntent: intent });
       const result = verifySettlement({
         policyGrant: baseGrant,
-        signedBudgetAuthorization: sba!,
-        signedPaymentAuthorization: spa!,
+        signedBudgetAuthorization: sba,
+        signedPaymentAuthorization: spa,
         settlement: baseSettlement,
         paymentPolicyDecision: baseDecision,
         decisionId: "dec-1",
