@@ -1,5 +1,4 @@
 
-
 # MPCP Implementation Roadmap
 
 This document defines the implementation plan for the **Machine Payment Control Protocol (MPCP)** reference implementation.
@@ -359,6 +358,130 @@ Artifacts:
 Purpose:
 
 Provide a full reference flow for developers.
+
+### PR 8A — Autonomous Spend Guardrails Demo
+
+Introduce a reference demonstration that highlights MPCP's core capability for **Machine Wallet Guardrails** — the ability for autonomous systems to spend money safely within cryptographically enforced limits.
+
+Background:
+
+Autonomous machines (robotaxis, delivery robots, charging systems, parking meters) must often perform payments without human approval. The primary risk for fleet operators is **unbounded or fraudulent machine spending**.
+
+MPCP addresses this by enforcing a chain of authorization artifacts:
+
+FleetPolicy → PolicyGrant → BudgetAuthorization → SignedPaymentAuthorization → Settlement
+
+Each step progressively constrains the machine's spending ability through:
+
+- maximum spend limits
+- allowed payment rails
+- allowed assets
+- destination allowlists
+- expiration times
+- cryptographic signatures
+
+This forms a **machine‑enforced spending sandbox**.
+
+Example scenario:
+
+A robotaxi performs autonomous payments during a trip:
+
+vehicle arrives at parking
+
+→ parking meter issues payment request
+
+→ vehicle evaluates policy constraints
+
+→ vehicle signs SPA within its authorized budget
+
+→ parking meter verifies MPCP artifact chain
+
+→ gate opens
+
+No centralized payment API is required.
+
+Demo Architecture:
+
+Reference components may include:
+
+- autonomous vehicle agent (wallet + MPCP SDK)
+- parking / charging / toll service endpoint
+- MPCP verifier
+- settlement rail (XRPL, Stripe, etc.)
+
+The demo should illustrate:
+
+- policy‑limited autonomous spending
+- local verification of MPCP artifacts
+- tamper‑resistant authorization chains
+
+Purpose:
+
+### PR 8B — Automated Fleet Payment Demo
+
+Create a runnable demonstration showing how an autonomous fleet vehicle performs a real MPCP‑controlled payment during operation.
+
+Goal:
+
+Demonstrate the complete **machine‑to‑machine payment loop** using MPCP artifacts and local verification.
+
+Example Flow:
+
+Robotaxi enters a parking facility
+
+→ parking meter or gate sends payment request
+
+→ vehicle evaluates its fleet policy and session budget
+
+→ vehicle generates SettlementIntent
+
+→ vehicle signs SignedPaymentAuthorization (SPA)
+
+→ payment is executed on the configured settlement rail
+
+→ parking system verifies MPCP artifact chain
+
+→ gate opens
+
+Components:
+
+The demo should include minimal reference services:
+
+- **Vehicle Agent**
+  - MPCP SDK
+  - wallet / signing keys
+  - policy + budget enforcement
+
+- **Parking / Charging Service**
+  - payment request endpoint
+  - MPCP verification endpoint
+
+- **Verifier**
+  - validates PolicyGrant → SBA → SPA → SettlementIntent chain
+
+- **Settlement Rail Adapter**
+  - mock rail or XRPL reference implementation
+
+Key Behaviors to Demonstrate:
+
+- autonomous payment authorization within fleet limits
+- enforcement of session budgets
+- deterministic SettlementIntent hashing
+- verification without centralized payment infrastructure
+- tamper detection if artifacts are modified
+
+Deliverables:
+
+- runnable demo script
+- architecture diagram
+- example MPCP artifact bundle
+- documentation describing the end‑to‑end flow
+
+Purpose:
+
+Provide a **clear real‑world demonstration** of MPCP enabling autonomous machine payments for fleet systems such as robotaxis, delivery robots, charging infrastructure, and logistics automation.
+
+This demo will serve as the primary reference for developers, partners, and mobility companies evaluating MPCP.
 
 ---
 
