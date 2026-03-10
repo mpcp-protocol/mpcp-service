@@ -16,8 +16,8 @@ The bundle is a JSON object with artifact-keyed fields. Required fields:
 | Field | Type | Description |
 |-------|------|--------------|
 | `policyGrant` | object | Policy grant constraining the session |
-| `sba` | object | Signed budget authorization |
-| `spa` | object | Signed payment authorization |
+| `sba` | object | SignedBudgetAuthorization artifact |
+| `spa` | object | SignedPaymentAuthorization artifact |
 | `settlement` | object | Executed settlement result |
 
 Optional fields:
