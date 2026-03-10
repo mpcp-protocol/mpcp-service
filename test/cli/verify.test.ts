@@ -190,7 +190,7 @@ describe("runVerify", () => {
     }
   });
 
-  it("accepts settlement bundle format (settlement, intent, spa, sba, policyGrant)", () => {
+  it("accepts settlement bundle format (settlement, settlementIntent, spa, sba, policyGrant)", () => {
     setupBothKeys();
     const intent = {
       rail: "xrpl",
@@ -216,7 +216,7 @@ describe("runVerify", () => {
     );
     const bundle = {
       settlement: baseSettlement,
-      intent,
+      settlementIntent: intent,
       spa: spa!,
       sba: sba!,
       policyGrant: baseGrant,

@@ -16,7 +16,7 @@ import type { SettlementVerificationContext } from "../verify/types.js";
  */
 export interface SettlementBundle {
   settlement: SettlementResult;
-  intent?: unknown;
+  settlementIntent?: unknown;
   spa: SignedPaymentAuthorization;
   sba: SignedSessionBudgetAuthorization;
   policyGrant: PolicyGrantLike;
@@ -86,6 +86,6 @@ export function bundleToContext(bundle: SettlementBundle): SettlementVerificatio
     settlement: bundle.settlement,
     paymentPolicyDecision: decision,
     decisionId: bundle.spa.authorization.decisionId,
-    settlementIntent: bundle.intent,
+    settlementIntent: bundle.settlementIntent ?? (bundle as { intent?: unknown }).intent,
   };
 }

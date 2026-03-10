@@ -138,7 +138,7 @@ writeFileSync(join(EXAMPLE_DIR, "payment-policy-decision.json"), JSON.stringify(
 // Write bundle for verification (include public keys for self-contained verify)
 const bundle = {
   settlement,
-  intent,
+  settlementIntent: intent,
   spa: signedPaymentAuth,
   sba: signedBudgetAuth,
   policyGrant,
