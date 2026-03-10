@@ -117,44 +117,54 @@ function makeSettlement(overrides?: Partial<SettlementResult>): SettlementResult
   };
 }
 
+function buildLifecycle() {
+  const policyGrant = makeGrant();
+  const budgetAuth = makeBudgetAuth();
+  const signedBudgetAuth = createSignedBudgetAuthorization({
+    sessionId: budgetAuth.sessionId,
+    vehicleId: budgetAuth.vehicleId,
+    policyHash: budgetAuth.policyHash,
+    currency: budgetAuth.currency,
+    maxAmountMinor: budgetAuth.maxAmountMinor,
+    allowedRails: budgetAuth.allowedRails,
+    allowedAssets: budgetAuth.allowedAssets,
+    destinationAllowlist: budgetAuth.destinationAllowlist,
+    expiresAt: budgetAuth.expiresAt,
+  });
+  const intent = createSettlementIntent({
+    rail: "xrpl",
+    amount: "19440000",
+    destination: "rDestination",
+    asset: ASSET,
+  });
+  const paymentPolicyDecision = makeDecision();
+  const signedPaymentAuth = createSignedPaymentAuthorization(
+    budgetAuth.sessionId,
+    paymentPolicyDecision,
+    { settlementIntent: intent },
+  );
+  return {
+    policyGrant,
+    budgetAuth,
+    signedBudgetAuth: signedBudgetAuth!,
+    intent,
+    paymentPolicyDecision,
+    signedPaymentAuth: signedPaymentAuth!,
+  };
+}
+
 describe("MPCP full lifecycle integration", () => {
   it("fleet policy → policy grant → budget auth → SBA → SPA → settlement intent → settlement → verification passes", () => {
     setupKeys();
-    const policyGrant = makeGrant();
-    const budgetAuth = makeBudgetAuth();
-    const signedBudgetAuth = createSignedBudgetAuthorization({
-      sessionId: budgetAuth.sessionId,
-      vehicleId: budgetAuth.vehicleId,
-      policyHash: budgetAuth.policyHash,
-      currency: budgetAuth.currency,
-      maxAmountMinor: budgetAuth.maxAmountMinor,
-      allowedRails: budgetAuth.allowedRails,
-      allowedAssets: budgetAuth.allowedAssets,
-      destinationAllowlist: budgetAuth.destinationAllowlist,
-      expiresAt: budgetAuth.expiresAt,
-    });
-    const intent = createSettlementIntent({
-      rail: "xrpl",
-      amount: "19440000",
-      destination: "rDestination",
-      asset: ASSET,
-    });
-    const paymentPolicyDecision = makeDecision();
-    const signedPaymentAuth = createSignedPaymentAuthorization(
-      budgetAuth.sessionId,
-      paymentPolicyDecision,
-      { settlementIntent: intent },
-    );
+    const { policyGrant, signedBudgetAuth, intent, paymentPolicyDecision, signedPaymentAuth } = buildLifecycle();
 
     expect(policyGrant).toBeDefined();
-    expect(signedBudgetAuth).not.toBeNull();
-    expect(signedPaymentAuth).not.toBeNull();
-    expect(signedPaymentAuth!.authorization.intentHash).toBeDefined();
+    expect(signedPaymentAuth.authorization.intentHash).toBeDefined();
 
     const result = verifySettlement({
-      policyGrant: policyGrant!,
-      signedBudgetAuthorization: signedBudgetAuth!,
-      signedPaymentAuthorization: signedPaymentAuth!,
+      policyGrant,
+      signedBudgetAuthorization: signedBudgetAuth,
+      signedPaymentAuthorization: signedPaymentAuth,
       settlement: makeSettlement(),
       paymentPolicyDecision,
       decisionId: paymentPolicyDecision.decisionId,
@@ -166,39 +176,12 @@ describe("MPCP full lifecycle integration", () => {
 
   it("tampered settlement amount → verification fails", () => {
     setupKeys();
-    const policyGrant = makeGrant();
-    const budgetAuth = makeBudgetAuth();
-    const signedBudgetAuth = createSignedBudgetAuthorization({
-      sessionId: budgetAuth.sessionId,
-      vehicleId: budgetAuth.vehicleId,
-      policyHash: budgetAuth.policyHash,
-      currency: budgetAuth.currency,
-      maxAmountMinor: budgetAuth.maxAmountMinor,
-      allowedRails: budgetAuth.allowedRails,
-      allowedAssets: budgetAuth.allowedAssets,
-      destinationAllowlist: budgetAuth.destinationAllowlist,
-      expiresAt: budgetAuth.expiresAt,
-    });
-    const intent = createSettlementIntent({
-      rail: "xrpl",
-      amount: "19440000",
-      destination: "rDestination",
-      asset: ASSET,
-    });
-    const paymentPolicyDecision = makeDecision();
-    const signedPaymentAuth = createSignedPaymentAuthorization(
-      budgetAuth.sessionId,
-      paymentPolicyDecision,
-      { settlementIntent: intent },
-    );
-
-    expect(signedBudgetAuth).not.toBeNull();
-    expect(signedPaymentAuth).not.toBeNull();
+    const { policyGrant, signedBudgetAuth, intent, paymentPolicyDecision, signedPaymentAuth } = buildLifecycle();
 
     const result = verifySettlement({
-      policyGrant: policyGrant!,
-      signedBudgetAuthorization: signedBudgetAuth!,
-      signedPaymentAuthorization: signedPaymentAuth!,
+      policyGrant,
+      signedBudgetAuthorization: signedBudgetAuth,
+      signedPaymentAuthorization: signedPaymentAuth,
       settlement: makeSettlement({ amount: "99999999" }),
       paymentPolicyDecision,
       decisionId: paymentPolicyDecision.decisionId,
@@ -210,40 +193,13 @@ describe("MPCP full lifecycle integration", () => {
 
   it("CLI verify on bundle passes (self-contained with embedded public keys)", () => {
     setupKeys();
-    const policyGrant = makeGrant();
-    const budgetAuth = makeBudgetAuth();
-    const signedBudgetAuth = createSignedBudgetAuthorization({
-      sessionId: budgetAuth.sessionId,
-      vehicleId: budgetAuth.vehicleId,
-      policyHash: budgetAuth.policyHash,
-      currency: budgetAuth.currency,
-      maxAmountMinor: budgetAuth.maxAmountMinor,
-      allowedRails: budgetAuth.allowedRails,
-      allowedAssets: budgetAuth.allowedAssets,
-      destinationAllowlist: budgetAuth.destinationAllowlist,
-      expiresAt: budgetAuth.expiresAt,
-    });
-    const intent = createSettlementIntent({
-      rail: "xrpl",
-      amount: "19440000",
-      destination: "rDestination",
-      asset: ASSET,
-    });
-    const paymentPolicyDecision = makeDecision();
-    const signedPaymentAuth = createSignedPaymentAuthorization(
-      budgetAuth.sessionId,
-      paymentPolicyDecision,
-      { settlementIntent: intent },
-    );
-
-    expect(signedBudgetAuth).not.toBeNull();
-    expect(signedPaymentAuth).not.toBeNull();
+    const { policyGrant, intent, paymentPolicyDecision, signedPaymentAuth, signedBudgetAuth } = buildLifecycle();
 
     const bundle = {
       settlement: makeSettlement(),
       settlementIntent: intent,
-      spa: signedPaymentAuth!,
-      sba: signedBudgetAuth!,
+      spa: signedPaymentAuth,
+      sba: signedBudgetAuth,
       policyGrant,
       paymentPolicyDecision,
       sbaPublicKeyPem: process.env.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM,
