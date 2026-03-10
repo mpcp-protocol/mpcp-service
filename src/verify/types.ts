@@ -20,6 +20,19 @@ export type VerificationResult =
   | { valid: true }
   | { valid: false; reason: string; artifact?: string };
 
+/** Single step in verification chain, for CLI and debugging. */
+export interface VerificationStep {
+  name: string;
+  ok: boolean;
+  reason?: string;
+}
+
+/** Result with per-step breakdown for formatted CLI output. */
+export interface VerificationReport {
+  result: VerificationResult;
+  steps: VerificationStep[];
+}
+
 /**
  * Fixed verification order applied across all verifiers:
  * 1. Schema validation
