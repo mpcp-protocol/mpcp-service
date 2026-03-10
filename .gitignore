@@ -5,3 +5,5 @@ dist/
 *.test.d.ts
 .DS_Store
 diff.tmp
+guardrails-demo-bundle.json
+guardrails-demo-tampered.json
