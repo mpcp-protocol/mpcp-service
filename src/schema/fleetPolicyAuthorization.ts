@@ -1,26 +1,31 @@
 import { z } from "zod";
-import { railSchema } from "./shared.js";
-import { mpcpVersionSchema } from "./shared.js";
+import {
+  railSchema,
+  mpcpVersionSchema,
+  currencySchema,
+  minorUnitSchema,
+  iso8601DatetimeSchema,
+} from "./shared.js";
 
 const fleetScopeSchema = z.enum(["SESSION", "DAY", "SHIFT"]);
 
-export const fleetPolicyAuthorizationPayloadSchema = z.object({
+export const fleetPolicyAuthorizationPayloadSchema = z.strictObject({
   version: mpcpVersionSchema,
   fleetPolicyId: z.string(),
   fleetId: z.string(),
   vehicleId: z.string(),
   scope: fleetScopeSchema,
-  currency: z.string(),
-  minorUnit: z.number(),
+  currency: currencySchema,
+  minorUnit: minorUnitSchema,
   maxAmountMinor: z.string(),
   allowedRails: z.array(railSchema),
   allowedAssets: z.array(z.string()),
   allowedOperators: z.array(z.string()),
   geoFence: z.array(z.string()).optional(),
-  expiresAt: z.string(),
+  expiresAt: iso8601DatetimeSchema,
 });
 
-export const fleetPolicyAuthorizationSchema = z.object({
+export const fleetPolicyAuthorizationSchema = z.strictObject({
   authorization: fleetPolicyAuthorizationPayloadSchema,
   signature: z.string(),
   keyId: z.string(),

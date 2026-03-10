@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { budgetAuthorizationSchema } from "./budgetAuthorization.js";
 
-export const signedBudgetAuthorizationSchema = z.object({
+export const signedBudgetAuthorizationSchema = z.strictObject({
   authorization: budgetAuthorizationSchema,
   signature: z.string(),
   keyId: z.string(),

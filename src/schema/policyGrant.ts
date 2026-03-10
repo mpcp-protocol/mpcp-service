@@ -1,23 +1,31 @@
 import { z } from "zod";
-import { railSchema, assetSchema, mpcpVersionSchema } from "./shared.js";
+import {
+  railSchema,
+  assetSchema,
+  mpcpVersionSchema,
+  policyHashSchema,
+  iso8601DatetimeSchema,
+} from "./shared.js";
 
-const maxSpendSchema = z.object({
+const policyGrantScopeSchema = z.enum(["SESSION", "VEHICLE", "FLEET"]);
+
+const maxSpendSchema = z.strictObject({
   perTxMinor: z.string().optional(),
   perSessionMinor: z.string().optional(),
   perDayMinor: z.string().optional(),
 });
 
-export const policyGrantSchema = z.object({
+export const policyGrantSchema = z.strictObject({
   version: mpcpVersionSchema,
   grantId: z.string(),
-  policyHash: z.string(),
+  policyHash: policyHashSchema,
   subjectId: z.string(),
   operatorId: z.string().optional(),
-  scope: z.string(),
+  scope: policyGrantScopeSchema,
   allowedRails: z.array(railSchema),
   allowedAssets: z.array(assetSchema).optional(),
   maxSpend: maxSpendSchema.optional(),
-  expiresAt: z.string(),
+  expiresAt: iso8601DatetimeSchema,
   requireApproval: z.boolean().optional(),
   reasons: z.array(z.string()).optional(),
 });
