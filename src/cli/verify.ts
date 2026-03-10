@@ -34,39 +34,52 @@ export function runVerify(
     return { ok: false, output: `Error: invalid JSON in ${filePath}: ${msg}` };
   }
 
-  // Inject bundle public keys into env so verification can proceed without env config
+  // Inject bundle public keys into env so verification can proceed without env config.
+  // Save and restore to avoid mutating caller's process.env.
+  const saved: Record<string, string | undefined> = {};
   if (isSettlementBundle(data)) {
     if (data.sbaPublicKeyPem) {
+      saved.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM = process.env.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM;
+      saved.MPCP_SBA_SIGNING_KEY_ID = process.env.MPCP_SBA_SIGNING_KEY_ID;
       process.env.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM = data.sbaPublicKeyPem;
       process.env.MPCP_SBA_SIGNING_KEY_ID = data.sba.keyId;
     }
     if (data.spaPublicKeyPem) {
+      saved.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM = process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM;
+      saved.MPCP_SPA_SIGNING_KEY_ID = process.env.MPCP_SPA_SIGNING_KEY_ID;
       process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM = data.spaPublicKeyPem;
       process.env.MPCP_SPA_SIGNING_KEY_ID = data.spa.keyId;
     }
   }
 
-  const ctx: SettlementVerificationContext = isSettlementBundle(data)
-    ? bundleToContext(data)
-    : (data as SettlementVerificationContext);
+  try {
+    const ctx: SettlementVerificationContext = isSettlementBundle(data)
+      ? bundleToContext(data)
+      : (data as SettlementVerificationContext);
 
-  if (options.explain || options.json) {
-    const report = verifySettlementDetailedSafe(ctx);
-    if (options.json) {
+    if (options.explain || options.json) {
+      const report = verifySettlementDetailedSafe(ctx);
+      if (options.json) {
+        return {
+          ok: report.valid,
+          output: JSON.stringify(report, null, 2),
+        };
+      }
       return {
         ok: report.valid,
-        output: JSON.stringify(report, null, 2),
+        output: formatExplainOutput(report),
       };
     }
-    return {
-      ok: report.valid,
-      output: formatExplainOutput(report),
-    };
-  }
 
-  const report = verifySettlementWithReportSafe(ctx);
-  return {
-    ok: report.result.valid,
-    output: formatVerificationReport(report),
-  };
+    const report = verifySettlementWithReportSafe(ctx);
+    return {
+      ok: report.result.valid,
+      output: formatVerificationReport(report),
+    };
+  } finally {
+    for (const [k, v] of Object.entries(saved)) {
+      if (v !== undefined) process.env[k] = v;
+      else delete process.env[k];
+    }
+  }
 }

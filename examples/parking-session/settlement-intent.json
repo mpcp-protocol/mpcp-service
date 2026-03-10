@@ -2,7 +2,7 @@
   "version": "1.0",
   "rail": "xrpl",
   "amount": "19440000",
-  "createdAt": "2026-03-10T13:52:10.834Z",
+  "createdAt": "2026-03-10T14:14:39.841Z",
   "destination": "rDestination",
   "asset": {
     "kind": "IOU",

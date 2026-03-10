@@ -30,11 +30,13 @@ process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM = spaKeys.publicKey
   .toString();
 process.env.MPCP_SPA_SIGNING_KEY_ID = "mpcp-spa-signing-key-1";
 
-const futureExpiry = new Date(Date.now() + 60_000).toISOString();
+// Fixed timestamps so committed fixture remains verifiable (no time-sensitive expiry)
+const EXPIRY = "2030-12-31T23:59:59Z";
+const SETTLEMENT_NOW = "2026-01-15T12:00:00Z";
 const baseGrant = {
   grantId: "grant-1",
   policyHash: "a1b2c3",
-  expiresAt: futureExpiry,
+  expiresAt: EXPIRY,
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
 };
@@ -43,7 +45,7 @@ const baseDecision = {
   policyHash: "a1b2c3",
   action: "ALLOW",
   reasons: ["OK"],
-  expiresAtISO: futureExpiry,
+  expiresAtISO: EXPIRY,
   rail: "xrpl",
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
   priceFiat: { amountMinor: "2500", currency: "USD" },
@@ -54,7 +56,7 @@ const baseDecision = {
       rail: "xrpl",
       amount: { amount: "19440000", decimals: 6 },
       destination: "rDestination",
-      expiresAt: futureExpiry,
+      expiresAt: EXPIRY,
       asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
     },
   ],
@@ -64,7 +66,7 @@ const baseSettlement = {
   rail: "xrpl",
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
   destination: "rDestination",
-  nowISO: new Date(Date.now() - 1000).toISOString(),
+  nowISO: SETTLEMENT_NOW,
 };
 const intent = {
   rail: "xrpl",
@@ -82,7 +84,7 @@ const sba = createSignedSessionBudgetAuthorization({
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
   destinationAllowlist: ["rDestination"],
-  expiresAt: futureExpiry,
+  expiresAt: EXPIRY,
 });
 const spa = createSignedPaymentAuthorization(
   "11111111-1111-4111-8111-111111111111",
