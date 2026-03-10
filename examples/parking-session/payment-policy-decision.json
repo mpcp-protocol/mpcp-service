@@ -5,7 +5,7 @@
   "reasons": [
     "OK"
   ],
-  "expiresAtISO": "2026-03-10T13:30:08.991Z",
+  "expiresAtISO": "2030-12-31T23:59:59Z",
   "rail": "xrpl",
   "asset": {
     "kind": "IOU",
@@ -29,7 +29,7 @@
         "decimals": 6
       },
       "destination": "rDestination",
-      "expiresAt": "2026-03-10T13:30:08.991Z",
+      "expiresAt": "2030-12-31T23:59:59Z",
       "asset": {
         "kind": "IOU",
         "currency": "RLUSD",

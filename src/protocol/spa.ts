@@ -4,7 +4,7 @@ import { canonicalJson } from "../canonical/canonicalJson.js";
 import { computeIntentHash } from "../crypto/intentHash.js";
 
 export interface PaymentAuthorization {
-  version: 1;
+  version: "1.0";
   decisionId: string;
   sessionId: string;
   policyHash: string;
@@ -83,7 +83,7 @@ function buildAuthorization(
   if (!quoteId || !quote || !decision.rail || !decision.asset || !quote.destination) return null;
 
   return {
-    version: 1,
+    version: "1.0",
     decisionId: decision.decisionId,
     sessionId,
     policyHash: decision.policyHash,

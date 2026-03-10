@@ -4,14 +4,19 @@ A full MPCP settlement flow for a parking payment scenario.
 
 ## Flow
 
-1. **fleet-policy.json** — Fleet policy constraints (reference)
-2. **policy-grant.json** — Grant derived from fleet policy
-3. **budget-auth.json** — Unsigned budget authorization
-4. **signed-budget-auth.json** — Signed budget auth (SBA)
-5. **spa.json** — Signed payment authorization
-6. **settlement-intent.json** — Settlement intent
-7. **settlement.json** — Settlement result
-8. **settlement-bundle.json** — Combined bundle for verification
+**Reference artifact** (static, not generated):
+
+- **fleet-policy.json** — Fleet policy constraints. A minimal policy for illustration; the generate script does not use or produce this file.
+
+**Generated artifacts** (created by `generate.mjs`):
+
+1. **policy-grant.json** — Grant derived from policy constraints
+2. **budget-auth.json** — Unsigned budget authorization
+3. **signed-budget-auth.json** — Signed budget auth (SBA)
+4. **spa.json** — Signed payment authorization
+5. **settlement-intent.json** — Settlement intent
+6. **settlement.json** — Settlement result
+7. **settlement-bundle.json** — Combined bundle for verification
 
 ## Generate and Verify
 
@@ -42,4 +47,6 @@ If you have already run generate and want to re-verify:
 npx mpcp verify examples/parking-session/settlement-bundle.json --explain
 ```
 
-Verification is self-contained: the bundle includes signed payloads with embedded public keys, so anyone can run `mpcp verify` on the bundle without regenerating it.
+The bundle is self-contained: it includes `sbaPublicKeyPem` and `spaPublicKeyPem`, so anyone can run `mpcp verify` on it without setting env vars or regenerating.
+
+Committed artifacts use fixed timestamps (`expiresAt: 2030-12-31`, `nowISO: 2026-01-15`) so they remain verifiable indefinitely.

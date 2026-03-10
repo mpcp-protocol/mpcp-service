@@ -34,6 +34,18 @@ export function runVerify(
     return { ok: false, output: `Error: invalid JSON in ${filePath}: ${msg}` };
   }
 
+  // Inject bundle public keys into env so verification can proceed without env config
+  if (isSettlementBundle(data)) {
+    if (data.sbaPublicKeyPem) {
+      process.env.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM = data.sbaPublicKeyPem;
+      process.env.MPCP_SBA_SIGNING_KEY_ID = data.sba.keyId;
+    }
+    if (data.spaPublicKeyPem) {
+      process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM = data.spaPublicKeyPem;
+      process.env.MPCP_SPA_SIGNING_KEY_ID = data.spa.keyId;
+    }
+  }
+
   const ctx: SettlementVerificationContext = isSettlementBundle(data)
     ? bundleToContext(data)
     : (data as SettlementVerificationContext);

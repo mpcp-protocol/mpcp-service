@@ -34,21 +34,25 @@ process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM = spaKeys.publicKey
   .toString();
 process.env.MPCP_SPA_SIGNING_KEY_ID = "mpcp-spa-signing-key-1";
 
-const { createPolicyGrant } = await import("../../dist/sdk/createPolicyGrant.js");
-const { createBudgetAuthorization } = await import("../../dist/sdk/createBudgetAuthorization.js");
-const { createSignedBudgetAuthorization } = await import("../../dist/sdk/index.js");
-const { createSignedPaymentAuthorization } = await import("../../dist/sdk/index.js");
-const { createSettlementIntent } = await import("../../dist/sdk/createSettlementIntent.js");
+const {
+  createPolicyGrant,
+  createBudgetAuthorization,
+  createSignedBudgetAuthorization,
+  createSignedPaymentAuthorization,
+  createSettlementIntent,
+} = await import("../../dist/sdk/index.js");
 const { runVerify } = await import("../../dist/cli/verify.js");
 
-const futureExpiry = new Date(Date.now() + 60_000).toISOString();
+// Fixed timestamps so committed artifacts remain verifiable (no time-sensitive expiry)
+const EXPIRY = "2030-12-31T23:59:59Z";
+const SETTLEMENT_NOW = "2026-01-15T12:00:00Z";
 const policyHash = "a1b2c3d4e5f6";
 
 const policyGrant = createPolicyGrant({
   policyHash,
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-  expiresAt: futureExpiry,
+  expiresAt: EXPIRY,
 });
 
 const budgetAuth = createBudgetAuthorization({
@@ -60,7 +64,7 @@ const budgetAuth = createBudgetAuthorization({
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
   destinationAllowlist: ["rDestination"],
-  expiresAt: futureExpiry,
+  expiresAt: EXPIRY,
 });
 
 const signedBudgetAuth = createSignedBudgetAuthorization({
@@ -89,7 +93,7 @@ const paymentPolicyDecision = {
   policyHash,
   action: "ALLOW",
   reasons: ["OK"],
-  expiresAtISO: futureExpiry,
+  expiresAtISO: EXPIRY,
   rail: "xrpl",
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
   priceFiat: { amountMinor: "2500", currency: "USD" },
@@ -100,7 +104,7 @@ const paymentPolicyDecision = {
       rail: "xrpl",
       amount: { amount: "19440000", decimals: 6 },
       destination: "rDestination",
-      expiresAt: futureExpiry,
+      expiresAt: EXPIRY,
       asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
     },
   ],
@@ -119,7 +123,7 @@ const settlement = {
   rail: "xrpl",
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
   destination: "rDestination",
-  nowISO: new Date(Date.now() - 1000).toISOString(),
+  nowISO: SETTLEMENT_NOW,
 };
 
 // Write individual artifacts
@@ -131,7 +135,7 @@ writeFileSync(join(EXAMPLE_DIR, "settlement-intent.json"), JSON.stringify(intent
 writeFileSync(join(EXAMPLE_DIR, "settlement.json"), JSON.stringify(settlement, null, 2));
 writeFileSync(join(EXAMPLE_DIR, "payment-policy-decision.json"), JSON.stringify(paymentPolicyDecision, null, 2));
 
-// Write bundle for verification
+// Write bundle for verification (include public keys for self-contained verify)
 const bundle = {
   settlement,
   intent,
@@ -139,6 +143,8 @@ const bundle = {
   sba: signedBudgetAuth,
   policyGrant,
   paymentPolicyDecision,
+  sbaPublicKeyPem: process.env.MPCP_SBA_SIGNING_PUBLIC_KEY_PEM,
+  spaPublicKeyPem: process.env.MPCP_SPA_SIGNING_PUBLIC_KEY_PEM,
 };
 writeFileSync(join(EXAMPLE_DIR, "settlement-bundle.json"), JSON.stringify(bundle, null, 2));
 

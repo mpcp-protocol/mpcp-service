@@ -10,6 +10,9 @@ import type { SettlementVerificationContext } from "../verify/types.js";
 /**
  * JSON artifact bundle format for CLI verification.
  * Alternative to full SettlementVerificationContext — artifacts keyed by type.
+ *
+ * Optional sbaPublicKeyPem and spaPublicKeyPem make the bundle self-contained:
+ * verification can run without env vars when these are present.
  */
 export interface SettlementBundle {
   settlement: SettlementResult;
@@ -18,6 +21,10 @@ export interface SettlementBundle {
   sba: SignedSessionBudgetAuthorization;
   policyGrant: PolicyGrantLike;
   paymentPolicyDecision?: PaymentPolicyDecision;
+  /** PEM of SBA signing public key. When present, enables verify without MPCP_SBA_SIGNING_PUBLIC_KEY_PEM env. */
+  sbaPublicKeyPem?: string;
+  /** PEM of SPA signing public key. When present, enables verify without MPCP_SPA_SIGNING_PUBLIC_KEY_PEM env. */
+  spaPublicKeyPem?: string;
 }
 
 function isBundleLike(obj: unknown): obj is Record<string, unknown> {

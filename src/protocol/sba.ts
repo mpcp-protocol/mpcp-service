@@ -5,7 +5,7 @@ import { canonicalJson } from "../canonical/canonicalJson.js";
 export type BudgetScope = "SESSION" | "DAY" | "VEHICLE" | "FLEET";
 
 export interface SessionBudgetAuthorization {
-  version: 1;
+  version: "1.0";
   budgetId: string;
   sessionId: string;
   vehicleId: string;
@@ -77,7 +77,7 @@ export function createSignedSessionBudgetAuthorization(input: {
   if (!privateKey) return null;
 
   const authorization: SessionBudgetAuthorization = {
-    version: 1,
+    version: "1.0",
     budgetId: randomUUID(),
     sessionId: input.sessionId,
     vehicleId: input.vehicleId,

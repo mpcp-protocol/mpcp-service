@@ -107,7 +107,7 @@ intentHash = sha256Hex("MPCP:SettlementIntent:1.0:" || canonicalIntent)
 ```json
 {
   "authorization": {
-    "version": 1,
+    "version": "1.0",
     "decisionId": "dec_123",
     "sessionId": "sess_456",
     "rail": "xrpl",
