@@ -33,6 +33,7 @@ function setupBothKeys() {
 }
 
 const futureExpiry = new Date(Date.now() + 60_000).toISOString();
+const pastExpiry = new Date(Date.now() - 60_000).toISOString();
 const verificationNowIso = new Date(Date.now() - 1000).toISOString();
 
 const baseGrant: PolicyGrantLike = {
@@ -349,6 +350,50 @@ describe("runVerify", () => {
       const entry = JSON.parse(logContent.trim());
       expect(entry.event).toBe("settlement_verification");
       expect(entry.valid).toBe(true);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+      if (existsSync(logPath)) unlinkSync(logPath);
+    }
+  });
+
+  it("--append-log includes reason and artifact when verification fails", () => {
+    setupBothKeys();
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      policyHash: "a1b2c3",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+    );
+    const expiredGrant = { ...baseGrant, expiresAt: pastExpiry };
+    const ctx = {
+      policyGrant: expiredGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+    };
+    const tmpPath = join(tmpdir(), `mpcp-audit-fail-${Date.now()}.json`);
+    const logPath = join(tmpdir(), `mpcp-audit-fail-log-${Date.now()}.jsonl`);
+    writeFileSync(tmpPath, JSON.stringify(ctx));
+    try {
+      const { ok } = runVerify(tmpPath, { appendLog: logPath });
+      expect(ok).toBe(false);
+      expect(existsSync(logPath)).toBe(true);
+      const logContent = readFileSync(logPath, "utf-8");
+      const entry = JSON.parse(logContent.trim());
+      expect(entry.valid).toBe(false);
+      expect(entry.reason).toBeDefined();
+      expect(entry.artifact).toBeDefined();
     } finally {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
       if (existsSync(logPath)) unlinkSync(logPath);

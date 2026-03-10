@@ -16,25 +16,6 @@ This architecture ensures that machine-initiated payments remain bounded, audita
 
 ---
 
-## Protocol Artifacts
-
-MPCP defines a set of signed artifacts exchanged between machines
-to authorize and verify payments.
-
-| Artifact | Purpose |
-|----------|---------|
-| PolicyGrant | Operator or fleet policy granting permission to transact |
-| BudgetAuthorization | Session-level spending authorization |
-| SignedBudgetAuthorization | Signed form of BudgetAuthorization |
-| SignedPaymentAuthorization | Authorization for a specific payment |
-| SettlementIntent | Canonical description of the intended settlement |
-| SettlementIntentHash | Deterministic hash of a canonical SettlementIntent |
-| FleetPolicyAuthorization | Fleet-level policy constraints |
-
-See the corresponding specification documents under `doc/protocol/`.
-
----
-
 # Motivation
 
 Autonomous systems increasingly participate in economic activity.
@@ -99,13 +80,13 @@ Intent commitments can optionally be anchored to a public ledger for additional 
 
 ## Version Field
 
-All MPCP artifacts SHOULD include a version field.
+All MPCP artifacts SHOULD include a semantic version string in the `version` field.
 
 Example:
 
 ```json
 {
-  "version": 1,
+  "version": "1.0",
   "decisionId": "dec_123",
   ...
 }
@@ -218,6 +199,7 @@ Example structure:
 
 ```json
 {
+  "version": "1.0",
   "grantId": "grant_abc123",
   "vehicleId": "veh_001",
   "operatorId": "operator_42",
@@ -231,8 +213,6 @@ Example structure:
 
 The PolicyGrant defines the operational scope in which further authorizations may be issued.
 
-See [PolicyGrant](./PolicyGrant.md) for the full specification.
-
 ---
 
 ## SignedBudgetAuthorization (SBA)
@@ -243,6 +223,7 @@ Example structure:
 
 ```json
 {
+  "version": "1.0",
   "budgetId": "budget_123",
   "grantId": "grant_abc123",
   "sessionId": "sess_456",
@@ -260,8 +241,6 @@ Example structure:
 
 The SBA ensures that spending remains within defined limits.
 
-See [SignedBudgetAuthorization](./SignedBudgetAuthorization.md) for the full specification.
-
 ---
 
 ## SignedPaymentAuthorization (SPA)
@@ -272,6 +251,7 @@ Example structure:
 
 ```json
 {
+  "version": "1.0",
   "decisionId": "dec_123",
   "budgetId": "budget_123",
   "sessionId": "sess_456",
@@ -291,8 +271,6 @@ Example structure:
 
 The SPA binds the authorized payment parameters and optionally includes an `intentHash` to bind the authorization to a canonical settlement intent.
 
-See [SignedPaymentAuthorization](./SignedPaymentAuthorization.md) for the full specification. For `intentHash`, see [SettlementIntentHash](./SettlementIntentHash.md).
-
 ---
 
 ## SettlementIntent
@@ -303,6 +281,7 @@ Example structure:
 
 ```json
 {
+  "version": "1.0",
   "rail": "xrpl",
   "destination": "rDest...",
   "amount": "19440000",
@@ -317,8 +296,6 @@ Example structure:
 
 This structure is used to compute the `intentHash`.
 
-See [SettlementIntent](./SettlementIntent.md) for the full specification. For the hash computation, see [SettlementIntentHash](./SettlementIntentHash.md).
-
 ---
 
 ## IntentCommitment
@@ -328,7 +305,7 @@ An **IntentCommitment** represents the hashed commitment of the settlement inten
 Example:
 
 ```text
-commitment = SHA256(canonical_json(settlementIntent))
+commitment = SHA256("MPCP:SettlementIntent:1.0:" || canonical_json(settlementIntent))
 ```
 
 Commitments may optionally be published to the **Intent Attestation Layer (IAL)** to create a publicly verifiable record that the intent existed prior to settlement.
@@ -370,7 +347,7 @@ IntentCommitment (hash of SettlementIntent)
 - if present, `SPA.intentHash` MUST equal:
 
 ```text
-SHA256(canonical_json(SettlementIntent))
+SHA256("MPCP:SettlementIntent:1.0:" || canonical_json(SettlementIntent))
 ```
 
 **SettlementIntent → IntentCommitment**
@@ -452,7 +429,7 @@ If any constraint fails → **reject settlement**.
 If the SPA contains an `intentHash`, the verifier must reconstruct the canonical settlement intent and compare hashes.
 
 ```text
-computedHash = SHA256(canonical_json(settlementIntent))
+computedHash = SHA256("MPCP:SettlementIntent:1.0:" || canonical_json(settlementIntent))
 ```
 
 Verification rule:
@@ -511,6 +488,40 @@ Optional:
 
 # Canonical JSON Definition
 
+## Protocol Identifier & Domain Separation
+
+To prevent cross‑protocol hash collisions, MPCP implementations MUST apply **domain separation** when hashing protocol artifacts.
+
+Hash inputs MUST be prefixed with a protocol‑specific identifier before hashing.
+
+Recommended format:
+
+```text
+MPCP:<artifact-type>:<version>:<canonical-json>
+```
+
+Example:
+
+```text
+MPCP:SettlementIntent:1.0:{"amount":"19440000","destination":"rDest...","rail":"xrpl"}
+```
+
+Hash computation therefore becomes:
+
+```text
+intentHash = SHA256("MPCP:SettlementIntent:1.0:" || canonical_json(settlementIntent))
+```
+
+This ensures:
+
+- MPCP hashes cannot collide with hashes from other protocols
+- different MPCP artifact types produce distinct hash domains
+- future protocol versions remain cryptographically isolated
+
+Implementations MUST apply the same domain prefix rules when generating and verifying hashes.
+
+The version component in the domain prefix MUST use the same semantic version string carried in the artifact, for example `1.0`, `1.1`, or `2.0`. This keeps hashing behavior aligned with MPCP version negotiation and prevents ambiguity between artifact formats.
+
 To ensure deterministic hashing across systems, MPCP defines a **canonical JSON encoding** used when computing hashes such as `intentHash`.
 
 All implementations MUST apply the same canonicalization rules before hashing.
@@ -544,7 +555,7 @@ Canonical form:
 Hash computation:
 
 ```text
-intentHash = SHA256(canonical_json(settlementIntent))
+intentHash = SHA256("MPCP:SettlementIntent:1.0:" || canonical_json(settlementIntent))
 ```
 
 ---
@@ -684,6 +695,7 @@ All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical 
 
 ```json
 {
+  "version": "1.0",
   "grantId": "grant_abc123",
   "vehicleId": "veh_001",
   "operatorId": "operator_42",
@@ -699,6 +711,7 @@ All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical 
 
 ```json
 {
+  "version": "1.0",
   "budgetId": "budget_123",
   "grantId": "grant_abc123",
   "sessionId": "sess_456",
@@ -718,6 +731,7 @@ All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical 
 
 ```json
 {
+  "version": "1.0",
   "decisionId": "dec_123",
   "budgetId": "budget_123",
   "sessionId": "sess_456",
@@ -739,6 +753,7 @@ All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical 
 
 ```json
 {
+  "version": "1.0",
   "rail": "xrpl",
   "destination": "rDest...",
   "amount": "19440000",
@@ -755,6 +770,7 @@ All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical 
 
 ```json
 {
+  "version": "1.0",
   "intentHash": "sha256(...)",
   "batchId": "batch_001",
   "merkleRoot": "sha256(...)",
@@ -809,7 +825,7 @@ function verifySettlement(grant, sba, spa, settlementTx):
 
     if spa.intentHash is present:
         settlementIntent = canonicalizeSettlementIntent(settlementTx)
-        computedHash = sha256(canonical_json(settlementIntent))
+        computedHash = sha256("MPCP:SettlementIntent:1.0:" || canonical_json(settlementIntent))
         assert computedHash == spa.intentHash
 
     assert decisionIdNotConsumed(spa.decisionId)
@@ -930,11 +946,61 @@ Parker therefore serves as a reference implementation for the Machine Payment Co
 
 ---
 
+# Protocol Extensions
+
+MPCP may be extended through additional authorization artifacts that introduce new policy authorities or control layers.
+
+Extensions MUST preserve the core MPCP lineage model and MUST NOT weaken the verification guarantees defined by the protocol.
+
+Current extensions include:
+
+## FleetPolicyAuthorization (FPA)
+
+FleetPolicyAuthorization introduces **fleet‑side policy authority** into MPCP.
+
+In many real-world deployments, machines operate under the control of a **fleet operator** rather than directly under the service provider issuing the PolicyGrant.  
+Examples include:
+
+- robotaxi fleets
+- delivery fleets
+- logistics robots
+- autonomous trucking
+
+FleetPolicyAuthorization allows fleets to issue a signed policy artifact that constrains machine payments before operator authorization occurs.
+
+The effective payment policy therefore becomes the **intersection of fleet policy and operator policy**.
+
+```
+FleetPolicyAuthorization
+        ↓
+PolicyGrant
+        ↓
+SignedBudgetAuthorization
+        ↓
+SignedPaymentAuthorization
+        ↓
+SettlementIntent
+```
+
+The FleetPolicyAuthorization artifact defines constraints such as:
+
+- fleet-level spending caps
+- approved service operators
+- permitted payment rails
+- permitted assets
+- geographic restrictions
+
+During settlement verification, implementations MUST ensure that all MPCP artifacts remain compliant with the constraints imposed by the FleetPolicyAuthorization artifact.
+
+The full extension specification is defined in:
+
+`doc/Protocol/FleetPolicyAuthorization.md`
+
 # Future Extensions
 
 Possible extensions include:
 
-- [Fleet Policy Authorization (FPA)](./FleetPolicyAuthorization.md) — fleet-level authorization hierarchies
+- fleet-level authorization hierarchies
 - delegated policy authorities
 - programmable payment intents
 - zero-knowledge compliance proofs

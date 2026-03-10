@@ -10,10 +10,16 @@ Append verification results to a JSONL audit log for payment audit trails.
 mpcp verify settlement-bundle.json --append-log audit.jsonl
 ```
 
-Each verification appends one JSON line:
+Each verification appends one JSON line. When valid:
 
 ```json
 {"ts":"2026-03-10T20:41:06.284Z","event":"settlement_verification","file":"settlement-bundle.json","resolvedPath":"/path/to/settlement-bundle.json","valid":true}
+```
+
+When invalid, `reason` and `artifact` are included:
+
+```json
+{"ts":"...","event":"settlement_verification","file":"...","resolvedPath":"...","valid":false,"reason":"policy_grant_expired","artifact":"policyGrant"}
 ```
 
 - **ts** — ISO 8601 timestamp
@@ -21,6 +27,8 @@ Each verification appends one JSON line:
 - **file** — Path as passed to CLI
 - **resolvedPath** — Absolute path
 - **valid** — Verification result
+- **reason** — (when invalid) Failure reason
+- **artifact** — (when invalid) Artifact that failed
 
 Use with `--explain` or `--json`; the audit log receives the same `valid` result.
 

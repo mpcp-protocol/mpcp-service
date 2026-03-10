@@ -12,18 +12,20 @@ import { isSettlementBundle, bundleToContext } from "./bundle.js";
 function appendAuditLog(
   logPath: string | undefined,
   filePath: string,
-  report: { valid: boolean },
+  result: { valid: boolean; reason?: string; artifact?: string },
   resolvedPath: string,
 ): void {
   if (!logPath) return;
   try {
-    const entry = {
+    const entry: Record<string, unknown> = {
       ts: new Date().toISOString(),
       event: "settlement_verification",
       file: filePath,
       resolvedPath,
-      valid: report.valid,
+      valid: result.valid,
     };
+    if (!result.valid && result.reason) entry.reason = result.reason;
+    if (!result.valid && result.artifact) entry.artifact = result.artifact;
     appendFileSync(resolve(process.cwd(), logPath), JSON.stringify(entry) + "\n");
   } catch {
     /* ignore audit log write errors */
@@ -80,10 +82,16 @@ export function runVerify(
       ? bundleToContext(data)
       : (data as SettlementVerificationContext);
 
-    let report: { valid: boolean; result?: { valid: boolean }; checks?: unknown[] };
     if (options.explain || options.json) {
       const detailedReport = verifySettlementDetailedSafe(ctx);
-      appendAuditLog(options.appendLog, filePath, { valid: detailedReport.valid }, resolve(process.cwd(), filePath));
+      const failedCheck = !detailedReport.valid
+        ? detailedReport.checks?.find((c) => !c.valid)
+        : undefined;
+      appendAuditLog(options.appendLog, filePath, {
+        valid: detailedReport.valid,
+        reason: failedCheck?.reason,
+        artifact: failedCheck?.artifact,
+      }, resolve(process.cwd(), filePath));
       if (options.json) {
         return { ok: detailedReport.valid, output: JSON.stringify(detailedReport, null, 2) };
       }
@@ -91,7 +99,12 @@ export function runVerify(
     }
 
     const reportWithSteps = verifySettlementWithReportSafe(ctx);
-    appendAuditLog(options.appendLog, filePath, { valid: reportWithSteps.result.valid }, resolve(process.cwd(), filePath));
+    const r = reportWithSteps.result;
+    appendAuditLog(options.appendLog, filePath, {
+      valid: r.valid,
+      reason: !r.valid ? r.reason : undefined,
+      artifact: !r.valid ? r.artifact : undefined,
+    }, resolve(process.cwd(), filePath));
     return {
       ok: reportWithSteps.result.valid,
       output: formatVerificationReport(reportWithSteps),
