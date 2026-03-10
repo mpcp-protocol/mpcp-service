@@ -31,16 +31,18 @@ export type SettlementResultSchema = z.infer<typeof settlementResultSchema>;
  * When sbaPublicKeyPem and spaPublicKeyPem are present, the bundle is self-contained
  * and verification can run without MPCP_*_SIGNING_PUBLIC_KEY_PEM env vars.
  */
-export const artifactBundleSchema = z.object({
-  policyGrant: policyGrantForVerificationSchema,
-  sba: signedBudgetAuthorizationSchema,
-  spa: signedPaymentAuthorizationSchema,
-  settlement: settlementResultSchema,
-  settlementIntent: settlementIntentForVerificationSchema.optional(),
-  paymentPolicyDecision: z.record(z.unknown()).optional(),
-  ledgerAnchor: z.record(z.unknown()).optional(),
-  sbaPublicKeyPem: z.string().optional(),
-  spaPublicKeyPem: z.string().optional(),
-});
+export const artifactBundleSchema = z
+  .object({
+    policyGrant: policyGrantForVerificationSchema,
+    sba: signedBudgetAuthorizationSchema,
+    spa: signedPaymentAuthorizationSchema,
+    settlement: settlementResultSchema,
+    settlementIntent: settlementIntentForVerificationSchema.optional(),
+    paymentPolicyDecision: z.record(z.unknown()).optional(),
+    ledgerAnchor: z.record(z.unknown()).optional(),
+    sbaPublicKeyPem: z.string().optional(),
+    spaPublicKeyPem: z.string().optional(),
+  })
+  .strict();
 
 export type ArtifactBundle = z.infer<typeof artifactBundleSchema>;

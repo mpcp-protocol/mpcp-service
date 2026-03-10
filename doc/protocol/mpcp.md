@@ -888,7 +888,7 @@ This pseudocode is illustrative only. Production systems may split verification 
 
 MPCP authorization and settlement artifacts move through a small set of states.
 
-### PolicyGrant
+## PolicyGrant
 
 ```text
 ISSUED → EXPIRED

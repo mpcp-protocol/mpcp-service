@@ -72,3 +72,5 @@ Bundles are distinguished from full `SettlementVerificationContext` by the prese
 ## Schema
 
 The bundle format is defined by `artifactBundleSchema` in `src/schema/artifactBundle.ts`. Each nested artifact conforms to its respective MPCP schema (PolicyGrant, SignedBudgetAuthorization, SignedPaymentAuthorization, SettlementIntent, SettlementResult).
+
+**Note:** `paymentPolicyDecision` and `ledgerAnchor` are currently loosely typed (generic object) in the schema. They will be formalized with strict schemas in a later update.

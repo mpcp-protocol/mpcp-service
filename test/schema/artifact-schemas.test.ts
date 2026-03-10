@@ -377,4 +377,12 @@ describe("ArtifactBundle schema", () => {
     });
     expect(result.ok).toBe(false);
   });
+
+  it("rejects bundle with unknown top-level fields (strict)", () => {
+    const result = validateWithSchema(artifactBundleSchema, {
+      ...validArtifactBundle,
+      unknownField: "should fail",
+    });
+    expect(result.ok).toBe(false);
+  });
 });
