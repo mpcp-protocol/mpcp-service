@@ -15,10 +15,19 @@ export interface PolicyGrantLike {
   allowedAssets?: unknown[];
 }
 
-/** Result of a verification step */
-export type VerifyResult =
-  | { ok: true }
-  | { ok: false; reason: string };
+/** Shared verification result for all verifiers. Use with CLI and callers. */
+export type VerificationResult =
+  | { valid: true }
+  | { valid: false; reason: string };
+
+/**
+ * Fixed verification order applied across all verifiers:
+ * 1. Schema validation
+ * 2. Hash validation (intentHash recompute)
+ * 3. Artifact linkage (chain references)
+ * 4. Budget limits
+ * 5. Policy constraints (signatures, expiry, settlement match)
+ */
 
 /** Context for full settlement verification */
 export interface SettlementVerificationContext {

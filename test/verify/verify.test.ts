@@ -57,7 +57,7 @@ const verificationNowIso = new Date(Date.now() - 1000).toISOString();
 
 const baseGrant: PolicyGrantLike = {
   grantId: "grant-1",
-  policyHash: "ph-1",
+  policyHash: "a1b2c3",
   expiresAt: futureExpiry,
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
@@ -65,7 +65,7 @@ const baseGrant: PolicyGrantLike = {
 
 const baseDecision: PaymentPolicyDecision = {
   decisionId: "dec-1",
-  policyHash: "ph-1",
+  policyHash: "a1b2c3",
   action: "ALLOW",
   reasons: ["OK"],
   expiresAtISO: futureExpiry,
@@ -95,22 +95,31 @@ const baseSettlement: SettlementResult = {
 
 describe("verifyPolicyGrant", () => {
   it("passes when grant not expired", () => {
-    expect(verifyPolicyGrant(baseGrant)).toEqual({ ok: true });
+    expect(verifyPolicyGrant(baseGrant)).toEqual({ valid: true });
   });
 
   it("fails when grant expired", () => {
     const expired = { ...baseGrant, expiresAt: pastExpiry };
-    expect(verifyPolicyGrant(expired)).toEqual({ ok: false, reason: "policy_grant_expired" });
+    expect(verifyPolicyGrant(expired)).toEqual({ valid: false, reason: "policy_grant_expired" });
   });
 
   it("fails when grant missing expiry", () => {
     const noExpiry = { ...baseGrant, expiresAt: undefined, expiresAtISO: undefined };
-    expect(verifyPolicyGrant(noExpiry)).toEqual({ ok: false, reason: "policy_grant_missing_expiry" });
+    const result = verifyPolicyGrant(noExpiry);
+    expect(result.valid).toBe(false);
+    expect(result.valid === false && result.reason).toContain("policy_grant_missing_expiry");
   });
 
   it("uses expiresAtISO when expiresAt missing", () => {
     const isoOnly = { ...baseGrant, expiresAt: undefined, expiresAtISO: futureExpiry };
-    expect(verifyPolicyGrant(isoOnly)).toEqual({ ok: true });
+    expect(verifyPolicyGrant(isoOnly)).toEqual({ valid: true });
+  });
+
+  it("rejects malformed grant with invalid_artifact", () => {
+    const malformed = { policyHash: "not-hex!", allowedRails: ["xrpl"] };
+    const result = verifyPolicyGrant(malformed);
+    expect(result.valid).toBe(false);
+    expect(result.valid === false && result.reason).toMatch(/invalid_artifact/);
   });
 });
 
@@ -120,7 +129,7 @@ describe("verifyBudgetAuthorization", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -130,7 +139,13 @@ describe("verifyBudgetAuthorization", () => {
     });
     expect(sba).not.toBeNull();
     const result = verifyBudgetAuthorization(sba!, baseGrant, baseDecision);
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
+  });
+
+  it("rejects malformed SBA with invalid_artifact", () => {
+    const result = verifyBudgetAuthorization({ authorization: {} }, baseGrant, baseDecision);
+    expect(result.valid).toBe(false);
+    expect(result.valid === false && result.reason).toMatch(/invalid_artifact/);
   });
 
   it("fails when policy hash mismatch", () => {
@@ -138,7 +153,7 @@ describe("verifyBudgetAuthorization", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-other",
+      policyHash: "deadbeef",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -148,7 +163,7 @@ describe("verifyBudgetAuthorization", () => {
     });
     expect(sba).not.toBeNull();
     const result = verifyBudgetAuthorization(sba!, baseGrant, baseDecision);
-    expect(result).toEqual({ ok: false, reason: "budget_policy_hash_mismatch" });
+    expect(result).toEqual({ valid: false, reason: "budget_policy_hash_mismatch" });
   });
 });
 
@@ -158,7 +173,7 @@ describe("verifyPaymentAuthorization", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -179,7 +194,7 @@ describe("verifyPaymentAuthorization", () => {
       baseDecision,
       baseSettlement,
     );
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
   });
 
   it("fails when session mismatch", () => {
@@ -187,7 +202,7 @@ describe("verifyPaymentAuthorization", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -208,7 +223,7 @@ describe("verifyPaymentAuthorization", () => {
       baseDecision,
       baseSettlement,
     );
-    expect(result).toEqual({ ok: false, reason: "payment_auth_session_mismatch" });
+    expect(result).toEqual({ valid: false, reason: "payment_auth_session_mismatch" });
   });
 });
 
@@ -227,7 +242,7 @@ describe("verifySettlementIntent", () => {
       asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
     };
     const result = verifySettlementIntent(spa!, intent);
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
   });
 
   it("passes when intentHash matches", () => {
@@ -246,7 +261,7 @@ describe("verifySettlementIntent", () => {
     expect(spa).not.toBeNull();
     expect(spa!.authorization.intentHash).toBeDefined();
     const result = verifySettlementIntent(spa!, intent);
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
   });
 
   it("fails when intentHash present but does not match", () => {
@@ -260,7 +275,30 @@ describe("verifySettlementIntent", () => {
     expect(spa).not.toBeNull();
     const wrongIntent = { rail: "xrpl", amount: "99999999", destination: "rDest" };
     const result = verifySettlementIntent(spa!, wrongIntent);
-    expect(result).toEqual({ ok: false, reason: "intent_hash_mismatch" });
+    expect(result).toEqual({ valid: false, reason: "intent_hash_mismatch" });
+  });
+
+  it("rejects modified intent even when attacker forges intentHash field (verifier recomputes)", () => {
+    setupBothKeys();
+    const validIntent = {
+      rail: "xrpl",
+      amount: "19440000",
+      destination: "rDestination",
+      asset: { kind: "IOU" as const, currency: "RLUSD", issuer: "rIssuer" },
+    };
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+      { settlementIntent: validIntent },
+    );
+    expect(spa).not.toBeNull();
+    const tamperedIntent = {
+      ...validIntent,
+      amount: "99999999",
+      intentHash: spa!.authorization.intentHash,
+    };
+    const result = verifySettlementIntent(spa!, tamperedIntent);
+    expect(result).toEqual({ valid: false, reason: "intent_hash_mismatch" });
   });
 });
 
@@ -270,7 +308,7 @@ describe("verifySettlement", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -292,7 +330,7 @@ describe("verifySettlement", () => {
       paymentPolicyDecision: baseDecision,
       decisionId: "dec-1",
     });
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
   });
 
   it("passes full chain with settlementIntent", () => {
@@ -306,7 +344,7 @@ describe("verifySettlement", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -330,7 +368,7 @@ describe("verifySettlement", () => {
       decisionId: "dec-1",
       settlementIntent: intent,
     });
-    expect(result).toEqual({ ok: true });
+    expect(result).toEqual({ valid: true });
   });
 
   it("fails when SPA has intentHash but settlementIntent missing", () => {
@@ -339,7 +377,7 @@ describe("verifySettlement", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -363,7 +401,7 @@ describe("verifySettlement", () => {
       decisionId: "dec-1",
       // settlementIntent omitted
     });
-    expect(result).toEqual({ ok: false, reason: "intent_required" });
+    expect(result).toEqual({ valid: false, reason: "intent_required" });
   });
 
   it("fails when grant expired", () => {
@@ -371,7 +409,7 @@ describe("verifySettlement", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
-      policyHash: "ph-1",
+      policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -394,6 +432,6 @@ describe("verifySettlement", () => {
       decisionId: "dec-1",
       nowMs: Date.now(),
     });
-    expect(result).toEqual({ ok: false, reason: "policy_grant_expired" });
+    expect(result).toEqual({ valid: false, reason: "policy_grant_expired" });
   });
 });
