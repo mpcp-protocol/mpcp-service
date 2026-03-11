@@ -27,11 +27,17 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Cache pip
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-${{ hashFiles('docs-requirements.txt') }}
+
       - name: Install MkDocs
         run: pip install -r docs-requirements.txt
 
       - name: Build site
-        run: mkdocs build
+        run: mkdocs build --strict
 
       - name: Setup Pages
         uses: actions/configure-pages@v4

@@ -4,13 +4,27 @@ site_description: Machine Payment Control Protocol
 site_url: https://naory.github.io/mpcp-service/
 repo_url: https://github.com/naory/mpcp-service
 repo_name: mpcp-service
+edit_uri: edit/main/docs/
+
+plugins:
+  - search
 
 theme:
   name: material
+  logo: assets/logo.svg
+  favicon: assets/favicon.svg
   palette:
     - scheme: default
       primary: slate
       accent: indigo
+  features:
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.action.edit
 
 nav:
   - Home: index.md
