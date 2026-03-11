@@ -200,6 +200,10 @@ Optional support for publishing intent hashes to distributed ledgers (public aud
 
 `verifyDisputedSettlement` validates disputed settlements using the full MPCP chain plus optional ledger anchor. See [Dispute Verification](./doc/architecture/DISPUTE_VERIFICATION.md).
 
+## Reference Service API (optional)
+
+Backend-friendly facade: `issueBudget`, `verifySettlementService`, `verifyDispute` / `verifyDisputeAsync`, `anchorIntent`. See [REFERENCE_SERVICE_API](./doc/architecture/REFERENCE_SERVICE_API.md). Import from `mpcp-service/service`.
+
 ## Fleet Operator Tooling (optional)
 
 - **Settlement verification logs** — `mpcp verify <file> --append-log audit.jsonl` appends verification results to a JSONL audit trail

@@ -798,7 +798,7 @@ Implemented: `doc/architecture/COMPATIBILITY_AND_VERSIONING.md`.
 
 ⸻
 
-PR17 — Reference API / Service Layer
+PR17 — Reference API / Service Layer ✓
 
 You already have protocol + verifier + SDK.
 This PR would define a lightweight service facade, like:
@@ -810,6 +810,8 @@ This PR would define a lightweight service facade, like:
 Purpose:
 	•	make MPCP easy for backend teams to adopt
 	•	avoid everyone inventing their own wrapper layer
+
+Implemented: `src/service/`, `mpcp-service/service` export, `doc/architecture/REFERENCE_SERVICE_API.md`.
 
 ⸻
 
