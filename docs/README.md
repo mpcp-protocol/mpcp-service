@@ -6,6 +6,7 @@ This is the public documentation site for MPCP. The docs can be served as static
 
 ## Quick Links
 
+- [Quickstart (5 min)](quickstart.md) — Clone, build, run, see the artifact chain
 - [What is MPCP?](overview/what-is-mpcp.md) — Introduction
 - [The Problem](overview/problem.md) — Why machine payments need a different architecture
 - [Comparison with Agent Protocols](overview/comparison-with-agent-protocols.md) — How MPCP differs from x402, AP2, and others

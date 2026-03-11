@@ -17,6 +17,7 @@ Traditional payment systems assume a human approves every transaction. Machine e
 
 | I want to… | Go to |
 |------------|-------|
+| Run MPCP in 5 minutes | [Quickstart](quickstart.md) |
 | Understand MPCP | [What is MPCP?](overview/what-is-mpcp.md) |
 | See how it differs from x402, AP2 | [Comparison](overview/comparison-with-agent-protocols.md) |
 | Build a machine wallet | [Build a Machine Wallet](guides/build-a-machine-wallet.md) |
