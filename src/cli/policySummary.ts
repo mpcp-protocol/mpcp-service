@@ -18,6 +18,7 @@ interface FleetPolicyLike {
   expiresAt?: string;
 }
 
+// CLI-local for now; if profiles become more central, consider moving to src/profiles/ or a reusable utility.
 function loadProfile(profileName: string): FleetPolicyLike | null {
   const profilesDir = join(dirname(fileURLToPath(import.meta.url)), "..", "..", "profiles");
   const path = join(profilesDir, `${profileName}.json`);
