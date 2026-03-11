@@ -1,6 +1,6 @@
 # CLI Reference
 
-The `mpcp` command-line tool provides verification and policy summary.
+The CLI is included with the mpcp-service package. The `mpcp` command-line tool provides verification and policy summary.
 
 ## Install
 
