@@ -17,6 +17,8 @@ For the full protocol specification, see:
 
 This document defines the MPCP artifacts, verification rules, canonical hashing, replay protection, the authorization lifecycle, and the verification algorithm used by MPCP implementations.
 
+For compatibility and versioning policy (what is stable, how 1.0/1.1/2.0 evolve), see [Compatibility and Versioning](./doc/architecture/COMPATIBILITY_AND_VERSIONING.md).
+
 ---
 
 # Quick Start

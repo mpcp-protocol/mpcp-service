@@ -781,7 +781,7 @@ This is a big adoption unlock.
 
 ⸻
 
-PR16 — Compatibility / Versioning Policy
+PR16 — Compatibility / Versioning Policy ✓
 
 Add a formal compatibility policy for:
 	•	artifact versions
@@ -793,6 +793,8 @@ Purpose:
 	•	tell implementers what is stable
 	•	define how 1.0, 1.1, 2.0 evolve
 	•	make MPCP feel like a real protocol standard
+
+Implemented: `doc/architecture/COMPATIBILITY_AND_VERSIONING.md`.
 
 ⸻
 
