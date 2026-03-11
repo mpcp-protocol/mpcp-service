@@ -19,6 +19,7 @@ This is the public documentation site for MPCP. The docs can be served as static
 | [Guides](guides/) | Build a machine wallet, fleet payments, dispute resolution |
 | [Examples](examples/) | Parking, charging, and fleet payment scenarios |
 | [Reference](reference/) | SDK, service API, and CLI |
+| [Animation Pack](../doc/animation/MPCP_ANIMATION_PACK.md) | Narration script, storyboard, AI video prompts for MPCP explainer content |
 
 ## Getting Started
 
