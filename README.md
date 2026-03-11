@@ -11,6 +11,8 @@ For the rationale behind the protocol, see:
 
 [Why MPCP Exists](./doc/Why_MPCP.md)
 
+For the full documentation site (overview, guides, examples, reference), see **[docs/](./docs/)**.
+
 For the full protocol specification, see:
 
 [Machine Payment Control Protocol Specification](./doc/protocol/mpcp.md)

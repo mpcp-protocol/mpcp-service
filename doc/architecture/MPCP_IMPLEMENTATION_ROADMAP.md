@@ -815,7 +815,7 @@ Implemented: `src/service/`, `mpcp-service/service` export, `doc/architecture/RE
 
 ⸻
 
-PR18 — Public Protocol Site / Docs Portal
+PR18 — Public Protocol Site / Docs Portal ✓
 
 Turn the docs into something publishable.
 
@@ -831,6 +831,8 @@ Purpose:
 	•	external credibility
 	•	onboarding
 	•	partner friendliness
+
+Implemented: `docs/` with overview (what-is-mpcp, problem, comparison-with-agent-protocols), protocol (artifacts, hashing, verification, anchoring), guides (build-a-machine-wallet, fleet-payments, dispute-resolution), examples (parking, charging, fleet), reference (sdk, service-api, cli). Comparison doc explains how MPCP differs from x402, AP2.
 
 ⸻
 
