@@ -1,0 +1,11 @@
+{
+  "_profile": "charging",
+  "maxSessionSpend": 100,
+  "maxSessionSpendMinor": "10000",
+  "allowedRails": ["xrpl", "evm"],
+  "allowedAssets": [
+    { "kind": "IOU", "currency": "RLUSD", "issuer": "rIssuer" }
+  ],
+  "destinations": ["rCharging"],
+  "expiresAt": "2030-12-31T23:59:59Z"
+}

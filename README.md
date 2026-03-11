@@ -201,7 +201,7 @@ Optional support for publishing intent hashes to distributed ledgers (public aud
 ## Fleet Operator Tooling (optional)
 
 - **Settlement verification logs** — `mpcp verify <file> --append-log audit.jsonl` appends verification results to a JSONL audit trail
-- **Fleet policy summary** — `mpcp policy-summary <policy.json>` prints policy constraints. See [Fleet Operator Tooling](./doc/architecture/FLEET_OPERATOR_TOOLING.md).
+- **Fleet policy summary** — `mpcp policy-summary <policy.json>` prints policy constraints. Use `--profile <name>` to validate against a [reference profile](./doc/architecture/REFERENCE_PROFILES.md) (parking, charging, fleet-offline, hosted-rail). See [Fleet Operator Tooling](./doc/architecture/FLEET_OPERATOR_TOOLING.md).
 
 ---
 

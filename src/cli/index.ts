@@ -13,11 +13,11 @@ import { runPolicySummary } from "./policySummary.js";
 
 const HELP = `Usage:
   mpcp verify <settlement-file> [options]
-  mpcp policy-summary <policy-file>
+  mpcp policy-summary <policy-file> [--profile <name>]
 
 Commands:
   verify           Verify settlement bundle
-  policy-summary   Print fleet policy constraints (max spend, rails, destinations)
+  policy-summary   Print fleet policy constraints (max spend, rails, destinations); optional --profile validates against a reference profile
 
 Verify options:
   --explain      Step-by-step diagnostics (schema checks, expected/actual)
@@ -33,6 +33,7 @@ Examples:
   mpcp verify settlement.json --explain
   mpcp verify settlement.json --append-log audit.jsonl
   mpcp policy-summary examples/fleet-simulator/fleet-policy.json
+  mpcp policy-summary profiles/parking.json --profile parking
 `;
 
 function main(): number {
@@ -48,10 +49,12 @@ function main(): number {
     const filePath = args[1];
     if (!filePath) {
       process.stderr.write("Error: missing policy file path\n");
-      process.stderr.write("Usage: mpcp policy-summary <policy-file>\n");
+      process.stderr.write("Usage: mpcp policy-summary <policy-file> [--profile <name>]\n");
       return 1;
     }
-    return runPolicySummary(filePath);
+    const profileIdx = args.indexOf("--profile");
+    const profile = profileIdx >= 0 && args[profileIdx + 1] ? args[profileIdx + 1] : undefined;
+    return runPolicySummary(filePath, { profile });
   }
 
   if (cmd !== "verify") {

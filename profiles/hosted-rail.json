@@ -1,0 +1,11 @@
+{
+  "_profile": "hosted-rail",
+  "maxSessionSpend": 200,
+  "maxSessionSpendMinor": "20000",
+  "allowedRails": ["stripe", "hosted"],
+  "allowedAssets": [
+    { "kind": "fiat", "currency": "USD" }
+  ],
+  "destinations": [],
+  "expiresAt": "2030-12-31T23:59:59Z"
+}

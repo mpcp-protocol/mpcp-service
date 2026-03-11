@@ -1,0 +1,11 @@
+{
+  "_profile": "parking",
+  "maxSessionSpend": 30,
+  "maxSessionSpendMinor": "3000",
+  "allowedRails": ["xrpl"],
+  "allowedAssets": [
+    { "kind": "IOU", "currency": "RLUSD", "issuer": "rIssuer" }
+  ],
+  "destinations": ["rParking"],
+  "expiresAt": "2030-12-31T23:59:59Z"
+}

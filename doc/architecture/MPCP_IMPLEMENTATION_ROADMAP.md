@@ -762,9 +762,9 @@ Purpose:
 
 ⸻
 
-PR15 — Reference Profiles
+PR15 — Reference Profiles ✓
 
-Define named MPCP deployment profiles.
+Define named MPCP deployment profiles. Implemented: `doc/architecture/REFERENCE_PROFILES.md`, `profiles/` (fleet-offline, parking, charging, hosted-rail), `policy-summary --profile <name>` validation.
 
 Examples:
 	•	Fleet Offline Profile

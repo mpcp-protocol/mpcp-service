@@ -41,4 +41,53 @@ describe("runPolicySummary", () => {
       if (existsSync(tmpPath)) unlinkSync(tmpPath);
     }
   });
+
+  it("validates against profile when --profile given", () => {
+    const tmpPath = join(tmpdir(), `mpcp-policy-profile-${Date.now()}.json`);
+    writeFileSync(
+      tmpPath,
+      JSON.stringify({
+        _profile: "parking",
+        maxSessionSpend: 30,
+        allowedRails: ["xrpl"],
+        destinations: ["rParking"],
+        expiresAt: "2030-12-31T23:59:59Z",
+      }),
+    );
+    try {
+      const exitCode = runPolicySummary(tmpPath, { profile: "parking" });
+      expect(exitCode).toBe(0);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
+
+  it("fails profile validation when rails not allowed", () => {
+    const tmpPath = join(tmpdir(), `mpcp-policy-profile-fail-${Date.now()}.json`);
+    writeFileSync(
+      tmpPath,
+      JSON.stringify({
+        allowedRails: ["evm"],
+        destinations: ["rParking"],
+        expiresAt: "2030-12-31T23:59:59Z",
+      }),
+    );
+    try {
+      const exitCode = runPolicySummary(tmpPath, { profile: "parking" });
+      expect(exitCode).toBe(1);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
+
+  it("returns 1 for unknown profile", () => {
+    const tmpPath = join(tmpdir(), `mpcp-policy-unknown-profile-${Date.now()}.json`);
+    writeFileSync(tmpPath, JSON.stringify({ allowedRails: ["xrpl"], destinations: [] }));
+    try {
+      const exitCode = runPolicySummary(tmpPath, { profile: "nonexistent-profile" });
+      expect(exitCode).toBe(1);
+    } finally {
+      if (existsSync(tmpPath)) unlinkSync(tmpPath);
+    }
+  });
 });
