@@ -4,8 +4,10 @@
  * Lightweight facade for backend teams. Wraps protocol + verifier + anchor.
  */
 
-import type { PolicyGrantLike } from "../verify/types.js";
-import type { SettlementVerificationContext } from "../verify/types.js";
+import type {
+  PolicyGrantLike,
+  SettlementVerificationContext,
+} from "../verify/types.js";
 import type { DisputeVerificationInput, DisputeVerificationResult } from "../verify/verifyDisputedSettlement.js";
 import type { Asset, Rail } from "../policy-core/types.js";
 import type { SignedSessionBudgetAuthorization } from "../protocol/sba.js";
@@ -116,5 +118,7 @@ export async function anchorIntent(
   if (rail === "hedera-hcs") {
     return hederaHcsAnchorIntentHash(intentHash, { ...options, rail: "hedera-hcs" });
   }
-  throw new Error(`anchorIntent: unsupported rail "${String(rail)}". Use "mock" or "hedera-hcs".`);
+  throw new Error(
+    `Unsupported anchor rail "${String(rail)}". Supported rails: "mock", "hedera-hcs".`,
+  );
 }

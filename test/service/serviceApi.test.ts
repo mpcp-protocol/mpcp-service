@@ -111,7 +111,7 @@ describe("service API", () => {
 
     it("throws for unsupported rail", async () => {
       const intentHash = "c".repeat(64);
-      await expect(anchorIntent(intentHash, { rail: "xrpl" })).rejects.toThrow(/unsupported rail/);
+      await expect(anchorIntent(intentHash, { rail: "xrpl" })).rejects.toThrow(/Unsupported anchor rail/);
     });
   });
 });
