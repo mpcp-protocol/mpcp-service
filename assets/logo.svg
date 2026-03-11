@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 32">
+  <rect width="28" height="28" x="2" y="2" rx="4" fill="#334155"/>
+  <text x="16" y="20" font-family="system-ui,sans-serif" font-size="14" font-weight="600" fill="#f1f5f9" text-anchor="middle">M</text>
+  <text x="42" y="22" font-family="system-ui,sans-serif" font-size="16" font-weight="600" fill="#334155">MPCP</text>
+</svg>

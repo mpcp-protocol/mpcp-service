@@ -1,0 +1,2093 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Machine Payment Control Protocol">
+      
+      
+      
+        <link rel="canonical" href="https://naory.github.io/mpcp-service/doc/protocol/mpcp/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Machine Payment Control Protocol (MPCP) - MPCP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#machine-payment-control-protocol-mpcp" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../True" title="MPCP" class="md-header__button md-logo" aria-label="MPCP" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MPCP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Machine Payment Control Protocol (MPCP)
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/naory/mpcp-service" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mpcp-service
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../True" title="MPCP" class="md-nav__button md-logo" aria-label="MPCP" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    MPCP
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/naory/mpcp-service" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mpcp-service
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/what-is-mpcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is MPCP?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/comparison-with-agent-protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparison with Agent Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Protocol
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/artifacts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifacts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/anchoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anchoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/build-a-machine-wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build a Machine Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/fleet-payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet Payments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dispute-resolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dispute Resolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/parking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/charging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fleet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/service-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../animation/MPCP_ANIMATION_PACK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#overview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Overview
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/naory/mpcp-service/edit/main/docs/doc/protocol/mpcp.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="machine-payment-control-protocol-mpcp">Machine Payment Control Protocol (MPCP)</h1>
+<h2 id="overview">Overview</h2>
+<p>The <strong>Machine Payment Control Protocol (MPCP)</strong> defines a cryptographically enforced pipeline for autonomous or software-controlled payments.</p>
+<p>The protocol enables machines (vehicles, robots, services, AI agents, or IoT devices) to perform financial transactions while remaining constrained by deterministic policies.</p>
+<p>Unlike traditional payment systems that rely on trusted intermediaries, MPCP enforces spending constraints through a sequence of signed authorization artifacts that are verified before settlement.</p>
+<p>The protocol introduces a structured authorization flow:</p>
+<p>Policy → Grant → Budget Authorization → Payment Authorization → Settlement Verification → Optional Public Attestation</p>
+<p>This architecture ensures that machine-initiated payments remain bounded, auditable, and verifiable.</p>
+<hr />
+<h1 id="motivation">Motivation</h1>
+<p>Autonomous systems increasingly participate in economic activity.</p>
+<p>Examples include:</p>
+<ul>
+<li>autonomous vehicles paying for parking, tolls, or charging</li>
+<li>delivery robots purchasing access to infrastructure</li>
+<li>IoT devices paying for services or resources</li>
+<li>AI agents executing automated purchases</li>
+<li>fleet-operated vehicles performing operational payments</li>
+</ul>
+<p>Traditional payment systems are not designed for these environments because they assume a human actor approving each transaction.</p>
+<p>Machine payments require a different model where:</p>
+<ul>
+<li>policies are defined ahead of time</li>
+<li>spending is constrained cryptographically</li>
+<li>authorization artifacts can be verified independently</li>
+<li>settlement can be audited after execution</li>
+</ul>
+<p>MPCP provides this control layer.</p>
+<hr />
+<h1 id="core-design-principles">Core Design Principles</h1>
+<p>The protocol is built around the following principles:</p>
+<h3 id="policy-first">Policy First</h3>
+<p>All payments must derive from explicit policy rules.</p>
+<p>Policies may define:</p>
+<ul>
+<li>allowed operators</li>
+<li>allowed payment rails</li>
+<li>allowed assets</li>
+<li>geographic restrictions</li>
+<li>spending limits</li>
+<li>approval requirements</li>
+</ul>
+<h3 id="bounded-autonomy">Bounded Autonomy</h3>
+<p>Machines may execute payments autonomously but only within policy-defined limits.</p>
+<h3 id="cryptographic-authorization">Cryptographic Authorization</h3>
+<p>Each stage of the pipeline produces a signed artifact that constrains the next stage.</p>
+<h3 id="deterministic-verification">Deterministic Verification</h3>
+<p>Settlement transactions must be verifiable against the authorization artifacts.</p>
+<h3 id="optional-public-attestation">Optional Public Attestation</h3>
+<p>Intent commitments can optionally be anchored to a public ledger for additional audit guarantees.</p>
+<hr />
+<h1 id="protocol-versioning-compatibility">Protocol Versioning &amp; Compatibility</h1>
+<h2 id="version-field">Version Field</h2>
+<p>All MPCP artifacts SHOULD include a semantic version string in the <code>version</code> field.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decisionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dec_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="err">...</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The version identifies the protocol semantics used when producing the artifact.</p>
+<hr />
+<h2 id="versioning-model">Versioning Model</h2>
+<p>MPCP uses semantic versioning: <strong>MAJOR.MINOR</strong></p>
+<p>Example: <code>1.0</code>, <code>1.1</code>, <code>2.0</code></p>
+<h3 id="minor-versions">Minor Versions</h3>
+<p>Minor versions may:</p>
+<ul>
+<li>add optional fields</li>
+<li>extend artifact structures</li>
+<li>introduce new rails or assets</li>
+</ul>
+<p>Minor upgrades MUST remain backward compatible.</p>
+<p>Verifiers MUST ignore unknown optional fields.</p>
+<h3 id="major-versions">Major Versions</h3>
+<p>Major versions may:</p>
+<ul>
+<li>change artifact semantics</li>
+<li>modify verification rules</li>
+<li>alter canonicalization requirements</li>
+</ul>
+<p>Verifiers MUST reject artifacts whose major version they do not support.</p>
+<hr />
+<h2 id="forward-compatibility">Forward Compatibility</h2>
+<p>Implementations MUST:</p>
+<ul>
+<li>ignore unknown optional fields</li>
+<li>preserve unknown fields when forwarding artifacts</li>
+</ul>
+<p>This ensures MPCP artifacts remain interoperable between different implementations.</p>
+<hr />
+<h2 id="artifact-version-propagation">Artifact Version Propagation</h2>
+<p>Artifacts SHOULD propagate the version they were produced under.</p>
+<p>Example chain:</p>
+<div class="highlight"><pre><span></span><code>PolicyGrant.version
+    ↓
+SBA.version
+    ↓
+SPA.version
+</code></pre></div>
+<p>A verifier MAY reject chains containing mixed incompatible versions.</p>
+<hr />
+<h2 id="reference-version">Reference Version</h2>
+<p>The MPCP specification in this repository defines:</p>
+<p><strong>Protocol Version: 1.0</strong></p>
+<hr />
+<h1 id="protocol-pipeline">Protocol Pipeline</h1>
+<p>The protocol operates as a multi-stage authorization pipeline.</p>
+<div class="highlight"><pre><span></span><code>Policy Engine
+      ↓
+PolicyGrant
+      ↓
+SignedBudgetAuthorization (SBA)
+      ↓
+SignedPaymentAuthorization (SPA)
+      ↓
+Settlement Execution
+      ↓
+Settlement Verification
+      ↓
+Optional Intent Attestation
+</code></pre></div>
+<p>Each stage cryptographically binds the parameters for the following stage.
+In MPCP, every settlement must be authorized by a deterministic chain of artifacts that progressively constrain the transaction parameters.</p>
+<hr />
+<h2 id="implementer-checklist">Implementer Checklist</h2>
+<p>An implementation claiming MPCP compatibility MUST support the following capabilities.</p>
+<h3 id="artifact-handling">Artifact Handling</h3>
+<p>Implementations MUST be able to parse and validate the following artifacts:</p>
+<ul>
+<li>PolicyGrant</li>
+<li>SignedBudgetAuthorization (SBA)</li>
+<li>SignedPaymentAuthorization (SPA)</li>
+<li>SettlementIntent</li>
+<li>IntentCommitment (optional)</li>
+</ul>
+<h3 id="canonical-json">Canonical JSON</h3>
+<p>Implementations MUST produce identical hashes for the same artifact data.</p>
+<p>Requirements:</p>
+<ul>
+<li>lexicographically sorted keys</li>
+<li>no insignificant whitespace</li>
+<li>UTF-8 encoding</li>
+<li>omit <code>null</code> / <code>undefined</code> fields</li>
+<li>monetary values encoded as strings</li>
+</ul>
+<h3 id="hash-domain-separation">Hash Domain Separation</h3>
+<p>Hashes MUST include the MPCP domain prefix.</p>
+<p>Example (SettlementIntent uses a canonical payload — subset of fields, not the full artifact; see <a href="../SettlementIntentHash/">SettlementIntentHash.md</a>):</p>
+<div class="highlight"><pre><span></span><code>SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<hr />
+<h2 id="protocol-artifacts">Protocol Artifacts</h2>
+<p>The MPCP pipeline produces a series of structured artifacts. Each artifact constrains the next stage of the protocol and can be independently verified.</p>
+<h3 id="policygrant">PolicyGrant</h3>
+<p>The <strong>PolicyGrant</strong> represents the admission of a machine into a controlled payment context.</p>
+<p>Example structure:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;grantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grant_abc123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vehicleId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;veh_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operatorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;operator_42&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;lotId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lot_7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allowedRails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;xrpl&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;allowedAssets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;RLUSD&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;policyHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The PolicyGrant defines the operational scope in which further authorizations may be issued.</p>
+<hr />
+<h3 id="signedbudgetauthorization-sba">SignedBudgetAuthorization (SBA)</h3>
+<p>The <strong>SignedBudgetAuthorization (SBA)</strong> establishes the maximum spending envelope available to the machine.</p>
+<p>Example structure:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;budget_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;grantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grant_abc123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;scopeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetScope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SESSION&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;minorUnit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;maxAmountMinor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allowedRails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;xrpl&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;allowedAssets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;RLUSD&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The SBA ensures that spending remains within defined limits.</p>
+<hr />
+<h3 id="signedpaymentauthorization-spa">SignedPaymentAuthorization (SPA)</h3>
+<p>The <strong>SignedPaymentAuthorization (SPA)</strong> authorizes a specific settlement transaction.</p>
+<p>Example structure:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decisionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dec_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;budget_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;asset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IOU&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RLUSD&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;issuer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rIssuer...&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19440000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;intentHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>The SPA binds the authorized payment parameters and optionally includes an <code>intentHash</code> to bind the authorization to a canonical settlement intent.</p>
+<hr />
+<h3 id="settlementintent">SettlementIntent</h3>
+<p>A <strong>SettlementIntent</strong> describes the canonical form of the transaction that the machine wallet must execute.</p>
+<p>Example structure:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19440000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RLUSD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;issuer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rIssuer...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;memo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mpcp&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;decisionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dec_123&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>This structure is used to compute the <code>intentHash</code>.</p>
+<hr />
+<h3 id="intentcommitment">IntentCommitment</h3>
+<p>An <strong>IntentCommitment</strong> represents the hashed commitment of the settlement intent.</p>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>commitment = SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<p>IntentCommitment represents the canonical MPCP artifact used when publishing commitments to an external attestation system such as the Intent Attestation Layer (IAL).
+Commitments may optionally be published to the <strong>Intent Attestation Layer (IAL)</strong> to create a publicly verifiable record that the intent existed prior to settlement.</p>
+<hr />
+<h2 id="artifact-relationships">Artifact Relationships</h2>
+<p>The protocol artifacts form a dependency chain. Each artifact references the previous stage and constrains the next.</p>
+<div class="highlight"><pre><span></span><code>PolicyGrant
+   ↓
+SignedBudgetAuthorization (references grantId)
+   ↓
+SignedPaymentAuthorization (references budgetId)
+   ↓
+SettlementIntent (referenced by intentHash)
+   ↓
+IntentCommitment (hash of SettlementIntent)
+</code></pre></div>
+<h3 id="relationship-rules">Relationship Rules</h3>
+<p><strong>PolicyGrant → SBA</strong></p>
+<ul>
+<li><code>SBA.grantId</code> MUST reference a valid <code>PolicyGrant.grantId</code></li>
+<li>the SBA must respect the rail, asset, and policy constraints of the grant</li>
+</ul>
+<p><strong>SBA → SPA</strong></p>
+<ul>
+<li><code>SPA.budgetId</code> MUST reference the issuing SBA</li>
+<li><code>SPA.amount</code> MUST be ≤ <code>SBA.maxAmountMinor</code></li>
+<li><code>SPA.rail</code> MUST be included in <code>SBA.allowedRails</code></li>
+</ul>
+<p><strong>SPA → SettlementIntent</strong></p>
+<ul>
+<li>the settlement intent must match the payment parameters authorized in the SPA</li>
+<li>if present, <code>SPA.intentHash</code> MUST equal:</li>
+</ul>
+<div class="highlight"><pre><span></span><code>SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<p>(canonicalPayload = subset of intent fields defining settlement semantics; see <a href="../SettlementIntentHash/">SettlementIntentHash.md</a>)</p>
+<p><strong>SettlementIntent → IntentCommitment</strong></p>
+<ul>
+<li>the commitment is derived deterministically from the canonical intent</li>
+<li>commitments may be published to the Intent Attestation Layer (IAL)</li>
+</ul>
+<p>These relationships ensure that each stage of MPCP cryptographically and logically constrains the following stage, preventing unauthorized mutations or spending outside policy limits.</p>
+<hr />
+<h1 id="settlement-verification">Settlement Verification</h1>
+<p>Before accepting settlement, the system verifies:</p>
+<ul>
+<li>SPA signature validity</li>
+<li>policy hash consistency</li>
+<li>asset match</li>
+<li>destination match</li>
+<li>amount constraints</li>
+<li>authorization expiration</li>
+<li>settlement intent match</li>
+</ul>
+<hr />
+<h2 id="verification-algorithm">Verification Algorithm</h2>
+<p>An MPCP verifier MUST perform the following steps before accepting settlement.</p>
+<h3 id="step-1-verify-spa-signature">Step 1 — Verify SPA Signature</h3>
+<p>Verify the cryptographic signature on the <strong>SignedPaymentAuthorization (SPA)</strong>.</p>
+<div class="highlight"><pre><span></span><code>verify_signature(spa.signature, spa.payload, policyAuthorityPublicKey)
+</code></pre></div>
+<p>If signature verification fails → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-2-verify-grant-and-budget-lineage">Step 2 — Verify Grant and Budget Lineage</h3>
+<p>Ensure that the authorization chain is valid.</p>
+<div class="highlight"><pre><span></span><code>spa.budgetId → SignedBudgetAuthorization
+sba.grantId  → PolicyGrant
+</code></pre></div>
+<p>Verification rules:</p>
+<ul>
+<li><code>SPA.budgetId</code> MUST reference an existing SBA</li>
+<li><code>SBA.grantId</code> MUST reference an existing PolicyGrant</li>
+<li>artifacts MUST NOT be expired</li>
+</ul>
+<p>If lineage is invalid → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-3-verify-policy-constraints">Step 3 — Verify Policy Constraints</h3>
+<p>Confirm the settlement parameters match the authorized constraints.</p>
+<p>Checks include:</p>
+<ul>
+<li>rail match</li>
+<li>asset match</li>
+<li>destination match</li>
+<li>amount ≤ authorized limit</li>
+<li>policyHash consistency</li>
+</ul>
+<p>If any constraint fails → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-4-verify-intent-binding-optional">Step 4 — Verify Intent Binding (Optional)</h3>
+<p>If the SPA contains an <code>intentHash</code>, the verifier must reconstruct the canonical payload (subset of intent fields) and compare hashes.</p>
+<div class="highlight"><pre><span></span><code>computedHash = SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<p>Verification rule:</p>
+<div class="highlight"><pre><span></span><code>computedHash == SPA.intentHash
+</code></pre></div>
+<p>If mismatch → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-5-verify-expiration">Step 5 — Verify Expiration</h3>
+<p>Check expiration fields:</p>
+<ul>
+<li><code>PolicyGrant.expiresAt</code></li>
+<li><code>SBA.expiresAt</code></li>
+<li><code>SPA.expiresAt</code></li>
+</ul>
+<p>If any artifact is expired → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-6-verify-settlement-transaction">Step 6 — Verify Settlement Transaction</h3>
+<p>Extract parameters from the executed settlement transaction and confirm they match the SPA.</p>
+<p>Checks include:</p>
+<ul>
+<li>destination</li>
+<li>amount</li>
+<li>asset</li>
+<li>rail</li>
+</ul>
+<p>If settlement parameters differ from SPA → <strong>reject settlement</strong>.</p>
+<hr />
+<h3 id="step-7-accept-settlement">Step 7 — Accept Settlement</h3>
+<p>If all verification steps succeed:</p>
+<div class="highlight"><pre><span></span><code>accept settlement
+record session close
+emit settlement event
+</code></pre></div>
+<p>Optional:</p>
+<ul>
+<li>produce <code>IntentCommitment</code></li>
+<li>publish commitment to the <strong>Intent Attestation Layer (IAL)</strong>.</li>
+</ul>
+<hr />
+<h1 id="canonical-json-definition">Canonical JSON Definition</h1>
+<h2 id="protocol-identifier-domain-separation">Protocol Identifier &amp; Domain Separation</h2>
+<p>To prevent cross‑protocol hash collisions, MPCP implementations MUST apply <strong>domain separation</strong> when hashing protocol artifacts.</p>
+<p>Hash inputs MUST be prefixed with a protocol‑specific identifier before hashing.</p>
+<p>Recommended format:</p>
+<div class="highlight"><pre><span></span><code>MPCP:&lt;artifact-type&gt;:&lt;version&gt;:&lt;canonical-json&gt;
+</code></pre></div>
+<p>Example:</p>
+<div class="highlight"><pre><span></span><code>MPCP:SettlementIntent:1.0:{&quot;amount&quot;:&quot;19440000&quot;,&quot;destination&quot;:&quot;rDest...&quot;,&quot;rail&quot;:&quot;xrpl&quot;}
+</code></pre></div>
+<p>Hash computation therefore becomes (canonicalPayload = subset of intent fields; see <a href="../SettlementIntentHash/">SettlementIntentHash.md</a>):</p>
+<div class="highlight"><pre><span></span><code>intentHash = SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<p>This ensures:</p>
+<ul>
+<li>MPCP hashes cannot collide with hashes from other protocols</li>
+<li>different MPCP artifact types produce distinct hash domains</li>
+<li>future protocol versions remain cryptographically isolated</li>
+</ul>
+<p>Implementations MUST apply the same domain prefix rules when generating and verifying hashes.</p>
+<p>The version component in the domain prefix MUST use the same semantic version string carried in the artifact, for example <code>1.0</code>, <code>1.1</code>, or <code>2.0</code>. This keeps hashing behavior aligned with MPCP version negotiation and prevents ambiguity between artifact formats.</p>
+<p>To ensure deterministic hashing across systems, MPCP defines a <strong>canonical JSON encoding</strong> used when computing hashes such as <code>intentHash</code>.</p>
+<p>All implementations MUST apply the same canonicalization rules before hashing.</p>
+<p>Canonicalization rules:</p>
+<ol>
+<li>Object keys MUST be sorted lexicographically.</li>
+<li>No insignificant whitespace is allowed.</li>
+<li>Numbers MUST be encoded as strings when representing monetary values.</li>
+<li>Unicode strings MUST be UTF-8 encoded.</li>
+<li>Fields with <code>null</code> or <code>undefined</code> values MUST be omitted.</li>
+</ol>
+<p>Example:</p>
+<p>Input object:</p>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19440000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<p>Canonical form:</p>
+<div class="highlight"><pre><span></span><code>{&quot;amount&quot;:&quot;19440000&quot;,&quot;destination&quot;:&quot;rDest...&quot;,&quot;rail&quot;:&quot;xrpl&quot;}
+</code></pre></div>
+<p>Hash computation (canonicalPayload excludes metadata such as createdAt):</p>
+<div class="highlight"><pre><span></span><code>intentHash = SHA256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+</code></pre></div>
+<hr />
+<h1 id="signature-schemes">Signature Schemes</h1>
+<p>MPCP supports multiple cryptographic signature schemes depending on the environment in which the policy authority operates.</p>
+<p>Implementations SHOULD support at least one of the following:</p>
+<h3 id="ed25519">Ed25519</h3>
+<p>Recommended for most policy authorities.</p>
+<p>Advantages:</p>
+<ul>
+<li>fast verification</li>
+<li>small signatures</li>
+<li>widely supported</li>
+</ul>
+<h3 id="secp256k1">secp256k1</h3>
+<p>Common in blockchain systems including:</p>
+<ul>
+<li>Bitcoin</li>
+<li>Ethereum</li>
+<li>many EVM chains</li>
+</ul>
+<p>Useful when authorization artifacts must be verified by smart contracts.</p>
+<h3 id="xrpl-native-signatures">XRPL Native Signatures</h3>
+<p>For XRPL-integrated environments, SPA artifacts may be signed using XRPL-compatible keypairs.</p>
+<p>Implementations MAY also support XRPL multisign accounts for fleet-level authorization control.</p>
+<p>Signature verification MUST validate:</p>
+<ul>
+<li>payload integrity</li>
+<li>signer identity</li>
+<li>signature scheme compatibility</li>
+</ul>
+<hr />
+<h1 id="replay-protection">Replay Protection</h1>
+<p>MPCP must prevent the reuse of authorization artifacts across multiple settlements.</p>
+<p>The following replay protections MUST be implemented.</p>
+<h3 id="decision-id-uniqueness">Decision ID Uniqueness</h3>
+<p>Each <strong>SPA</strong> contains a <code>decisionId</code>.</p>
+<p>Rules:</p>
+<ul>
+<li><code>decisionId</code> MUST be globally unique</li>
+<li>verifiers MUST reject reuse of a previously consumed <code>decisionId</code></li>
+</ul>
+<h3 id="intent-hash-binding">Intent Hash Binding</h3>
+<p>When present, the <code>intentHash</code> binds the SPA to a specific settlement intent.</p>
+<p>This prevents mutation of:</p>
+<ul>
+<li>amount</li>
+<li>destination</li>
+<li>asset</li>
+<li>memo fields</li>
+</ul>
+<h3 id="transaction-binding">Transaction Binding</h3>
+<p>Implementations SHOULD record the settlement transaction identifier.</p>
+<p>Examples:</p>
+<ul>
+<li>XRPL <code>txHash</code></li>
+<li>Ethereum <code>transactionHash</code></li>
+<li>Lightning payment hash</li>
+</ul>
+<p>Once a transaction hash is associated with an SPA, the authorization MUST NOT be reused.</p>
+<hr />
+<h1 id="threat-model">Threat Model</h1>
+<p>The MPCP protocol is designed to mitigate the following threats.</p>
+<h3 id="unauthorized-machine-spending">Unauthorized Machine Spending</h3>
+<p>A compromised machine wallet cannot exceed authorized budgets because:</p>
+<ul>
+<li>payments require a valid SPA</li>
+<li>SPA amounts are bounded by the SBA</li>
+</ul>
+<h3 id="transaction-mutation">Transaction Mutation</h3>
+<p>An attacker modifying settlement parameters will invalidate:</p>
+<ul>
+<li>intent hashes</li>
+<li>asset checks</li>
+<li>destination checks</li>
+</ul>
+<h3 id="replay-attacks">Replay Attacks</h3>
+<p>Expired or previously used authorizations cannot be reused due to:</p>
+<ul>
+<li>expiration checks</li>
+<li>decisionId uniqueness</li>
+<li>transaction binding</li>
+</ul>
+<h3 id="policy-bypass">Policy Bypass</h3>
+<p>Machines cannot bypass policy constraints because every authorization chain must derive from:</p>
+<div class="highlight"><pre><span></span><code>PolicyGrant → SBA → SPA
+</code></pre></div>
+<h3 id="settlement-tampering">Settlement Tampering</h3>
+<p>Verification ensures that executed settlement transactions match authorized parameters before the session is finalized.</p>
+<hr />
+<p>These sections define the core interoperability rules required for MPCP implementations across different systems and settlement rails.</p>
+<hr />
+<h1 id="wire-formats">Wire Formats</h1>
+<p>This section defines the canonical wire-format expectations for MPCP artifacts.</p>
+<p>All artifacts SHOULD be represented as UTF-8 JSON documents using the canonical JSON rules defined above when used for hashing or signing.</p>
+<h2 id="policygrant-wire-format">PolicyGrant Wire Format</h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;grantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grant_abc123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;vehicleId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;veh_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;operatorId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;operator_42&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;lotId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;lot_7&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allowedRails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;xrpl&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;allowedAssets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;RLUSD&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;policyHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="signedbudgetauthorization-wire-format">SignedBudgetAuthorization Wire Format</h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;budget_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;grantId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;grant_abc123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;scopeId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetScope&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;SESSION&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;USD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;minorUnit&quot;</span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;maxAmountMinor&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;3000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;allowedRails&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;xrpl&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;allowedAssets&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="s2">&quot;RLUSD&quot;</span><span class="p">],</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="signedpaymentauthorization-wire-format">SignedPaymentAuthorization Wire Format</h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;decisionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dec_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;budgetId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;budget_123&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;sessionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sess_456&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;asset&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;kind&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;IOU&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RLUSD&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;issuer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rIssuer...&quot;</span>
+<span class="w">  </span><span class="p">},</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19440000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;intentHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;expiresAt&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:00Z&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;signature&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;...&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="settlementintent-wire-format">SettlementIntent Wire Format</h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;rail&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;destination&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;amount&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;19440000&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;currency&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;RLUSD&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;issuer&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;rIssuer...&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;memo&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="nt">&quot;type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;mpcp&quot;</span><span class="p">,</span>
+<span class="w">    </span><span class="nt">&quot;decisionId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;dec_123&quot;</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="intentcommitment-wire-format">IntentCommitment Wire Format</h2>
+<div class="highlight"><pre><span></span><code><span class="p">{</span>
+<span class="w">  </span><span class="nt">&quot;version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;intentHash&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;batchId&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;batch_001&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;merkleRoot&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;sha256(...)&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;anchorNetwork&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;hedera-hcs&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;anchorReference&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;topic:0.0.12345/sequence:678&quot;</span><span class="p">,</span>
+<span class="w">  </span><span class="nt">&quot;consensusTimestamp&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2026-03-08T14:00:05Z&quot;</span>
+<span class="p">}</span>
+</code></pre></div>
+<h2 id="artifact-bundle">Artifact Bundle</h2>
+<p>An <strong>artifact bundle</strong> packages complete payment verification data (policyGrant, sba, spa, settlement, optional settlementIntent and ledgerAnchor) into a single JSON object for exchange between systems. See <a href="../ArtifactBundle/">ArtifactBundle.md</a> for the canonical format and schema.</p>
+<hr />
+<h1 id="error-codes">Error Codes</h1>
+<p>MPCP implementations SHOULD expose stable machine-readable error codes during verification and settlement rejection.</p>
+<p>Recommended codes:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPA_SIGNATURE_INVALID</td>
+<td>SPA signature verification failed</td>
+</tr>
+<tr>
+<td>SBA_SIGNATURE_INVALID</td>
+<td>SBA signature verification failed</td>
+</tr>
+<tr>
+<td>POLICY_GRANT_NOT_FOUND</td>
+<td>Referenced PolicyGrant does not exist</td>
+</tr>
+<tr>
+<td>SBA_NOT_FOUND</td>
+<td>Referenced SBA does not exist</td>
+</tr>
+<tr>
+<td>SPA_NOT_FOUND</td>
+<td>Referenced SPA does not exist</td>
+</tr>
+<tr>
+<td>ARTIFACT_EXPIRED</td>
+<td>One or more artifacts expired</td>
+</tr>
+<tr>
+<td>POLICY_HASH_MISMATCH</td>
+<td>Policy hash does not match authorized policy</td>
+</tr>
+<tr>
+<td>RAIL_MISMATCH</td>
+<td>Settlement rail differs from authorization</td>
+</tr>
+<tr>
+<td>ASSET_MISMATCH</td>
+<td>Settlement asset differs from authorization</td>
+</tr>
+<tr>
+<td>DESTINATION_MISMATCH</td>
+<td>Settlement destination differs from authorization</td>
+</tr>
+<tr>
+<td>AMOUNT_EXCEEDED</td>
+<td>Settlement amount exceeds authorized limit</td>
+</tr>
+<tr>
+<td>INTENT_HASH_MISMATCH</td>
+<td>Canonical settlement intent hash does not match SPA</td>
+</tr>
+<tr>
+<td>DECISION_REPLAYED</td>
+<td>decisionId has already been consumed</td>
+</tr>
+<tr>
+<td>TX_REPLAYED</td>
+<td>settlement transaction identifier has already been consumed</td>
+</tr>
+<tr>
+<td>SCOPE_UNSUPPORTED</td>
+<td>Authorization scope is not supported by the verifier</td>
+</tr>
+</tbody>
+</table>
+<p>Error codes SHOULD remain stable across implementations whenever possible to preserve interoperability.</p>
+<hr />
+<h1 id="reference-verification-pseudocode">Reference Verification Pseudocode</h1>
+<p>The following pseudocode illustrates a minimal verifier implementation.</p>
+<div class="highlight"><pre><span></span><code>function verifySettlement(grant, sba, spa, settlementTx):
+    verifySignature(spa)
+    verifyLineage(grant, sba, spa)
+    verifyNotExpired(grant, sba, spa)
+    verifyPolicyHash(grant, spa)
+    verifyBudgetConstraints(sba, spa)
+    verifySettlementFields(spa, settlementTx)
+
+    if spa.intentHash is present:
+        canonicalPayload = extractCanonicalPayload(settlementTx)  # subset of fields, not full artifact
+        computedHash = sha256(&quot;MPCP:SettlementIntent:1.0:&quot; || canonical_json(canonicalPayload))
+        assert computedHash == spa.intentHash
+
+    assert decisionIdNotConsumed(spa.decisionId)
+    assert txIdNotConsumed(settlementTx.id)
+
+    markDecisionConsumed(spa.decisionId)
+    bindTransaction(spa.decisionId, settlementTx.id)
+    acceptSettlement()
+</code></pre></div>
+<p>This pseudocode is illustrative only. Production systems may split verification across multiple services.</p>
+<hr />
+<h1 id="state-machine">State Machine</h1>
+<p>MPCP authorization and settlement artifacts move through a small set of states.</p>
+<h2 id="policygrant_1">PolicyGrant</h2>
+<div class="highlight"><pre><span></span><code>ISSUED → EXPIRED
+</code></pre></div>
+<h2 id="signedbudgetauthorization">SignedBudgetAuthorization</h2>
+<div class="highlight"><pre><span></span><code>ISSUED → EXPIRED
+</code></pre></div>
+<h2 id="signedpaymentauthorization">SignedPaymentAuthorization</h2>
+<div class="highlight"><pre><span></span><code>ISSUED → CONSUMED
+ISSUED → EXPIRED
+ISSUED → REJECTED
+</code></pre></div>
+<h2 id="settlement">Settlement</h2>
+<div class="highlight"><pre><span></span><code>PENDING → VERIFIED
+PENDING → REJECTED
+</code></pre></div>
+<h2 id="state-machine-rules">State Machine Rules</h2>
+<ul>
+<li>A consumed SPA MUST NOT be reused.</li>
+<li>An expired grant, SBA, or SPA MUST NOT authorize settlement.</li>
+<li>A verified settlement MUST bind to exactly one <code>decisionId</code>.</li>
+<li>A rejected settlement MUST NOT advance the session to a closed state.</li>
+</ul>
+<p>This state model keeps MPCP deterministic and makes replay protection enforceable.</p>
+<hr />
+<h1 id="optional-intent-attestation">Optional Intent Attestation</h1>
+<p>To enhance auditability, MPCP can publish hashed commitments of payment intents to a public attestation layer.</p>
+<p>Example flow:</p>
+<div class="highlight"><pre><span></span><code>intent
+  ↓
+hash(intent)
+  ↓
+Merkle tree
+  ↓
+public ledger anchor
+</code></pre></div>
+<p>This provides:</p>
+<ul>
+<li>tamper-evident authorization history</li>
+<li>public timestamp proofs</li>
+<li>dispute resolution capabilities</li>
+</ul>
+<p>The <strong>Intent Attestation Layer (IAL)</strong> can provide this functionality.</p>
+<hr />
+<h1 id="security-properties">Security Properties</h1>
+<p>The protocol prevents:</p>
+<ul>
+<li>unauthorized machine spending</li>
+<li>transaction mutation attacks</li>
+<li>replay of expired authorizations</li>
+<li>exceeding policy budgets</li>
+<li>unauthorized settlement destinations</li>
+</ul>
+<p>Because each stage is cryptographically bound, a machine cannot bypass constraints without invalidating verification.</p>
+<hr />
+<h1 id="applications">Applications</h1>
+<p>MPCP can be applied across many autonomous payment scenarios:</p>
+<ul>
+<li>parking systems</li>
+<li>EV charging networks</li>
+<li>tolling infrastructure</li>
+<li>robotic logistics</li>
+<li>fleet management</li>
+<li>IoT service payments</li>
+<li>AI agent marketplaces</li>
+</ul>
+<hr />
+<h1 id="parker-as-reference-implementation">Parker as Reference Implementation</h1>
+<p>The Parker system implements MPCP for autonomous parking payments.</p>
+<p>Its architecture demonstrates how policy enforcement, authorization artifacts, and settlement verification can operate together.</p>
+<p>Parker therefore serves as a reference implementation for the Machine Payment Control Protocol.</p>
+<hr />
+<h1 id="protocol-extensions">Protocol Extensions</h1>
+<p>MPCP may be extended through additional authorization artifacts that introduce new policy authorities or control layers.</p>
+<p>Extensions MUST preserve the core MPCP lineage model and MUST NOT weaken the verification guarantees defined by the protocol.</p>
+<p>Current extensions include:</p>
+<h2 id="fleetpolicyauthorization-fpa">FleetPolicyAuthorization (FPA)</h2>
+<p>FleetPolicyAuthorization introduces <strong>fleet‑side policy authority</strong> into MPCP.</p>
+<p>In many real-world deployments, machines operate under the control of a <strong>fleet operator</strong> rather than directly under the service provider issuing the PolicyGrant.<br />
+Examples include:</p>
+<ul>
+<li>robotaxi fleets</li>
+<li>delivery fleets</li>
+<li>logistics robots</li>
+<li>autonomous trucking</li>
+</ul>
+<p>FleetPolicyAuthorization allows fleets to issue a signed policy artifact that constrains machine payments before operator authorization occurs.</p>
+<p>The effective payment policy therefore becomes the <strong>intersection of fleet policy and operator policy</strong>.</p>
+<div class="highlight"><pre><span></span><code>FleetPolicyAuthorization
+        ↓
+PolicyGrant
+        ↓
+SignedBudgetAuthorization
+        ↓
+SignedPaymentAuthorization
+        ↓
+SettlementIntent
+</code></pre></div>
+<p>The FleetPolicyAuthorization artifact defines constraints such as:</p>
+<ul>
+<li>fleet-level spending caps</li>
+<li>approved service operators</li>
+<li>permitted payment rails</li>
+<li>permitted assets</li>
+<li>geographic restrictions</li>
+</ul>
+<p>During settlement verification, implementations MUST ensure that all MPCP artifacts remain compliant with the constraints imposed by the FleetPolicyAuthorization artifact.</p>
+<p>The full extension specification is defined in:</p>
+<p><code>doc/Protocol/FleetPolicyAuthorization.md</code></p>
+<h1 id="future-extensions">Future Extensions</h1>
+<p>Possible extensions include:</p>
+<ul>
+<li>fleet-level authorization hierarchies</li>
+<li>delegated policy authorities</li>
+<li>programmable payment intents</li>
+<li>zero-knowledge compliance proofs</li>
+<li>multi-chain settlement verification</li>
+<li>cross-operator interoperability</li>
+</ul>
+<hr />
+<h1 id="conclusion">Conclusion</h1>
+<p>The Machine Payment Control Protocol provides a framework for secure, policy-bounded autonomous payments.</p>
+<p>By structuring payments as a chain of cryptographically constrained authorizations, MPCP allows machines to transact independently while maintaining strong guarantees around spending limits, policy compliance, and settlement integrity.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

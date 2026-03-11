@@ -1,0 +1,1899 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Machine Payment Control Protocol">
+      
+      
+      
+        <link rel="canonical" href="https://naory.github.io/mpcp-service/doc/architecture/MPCP_IMPLEMENTATION_ROADMAP/">
+      
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>MPCP Implementation Roadmap - MPCP</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#mpcp-implementation-roadmap" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../../True" title="MPCP" class="md-header__button md-logo" aria-label="MPCP" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            MPCP
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              MPCP Implementation Roadmap
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="slate" data-md-color-accent="indigo"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+          <a href="javascript:void(0)" class="md-search__icon md-icon" title="Share" aria-label="Share" data-clipboard data-clipboard-text="" data-md-component="search-share" tabindex="-1">
+            
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9a3 3 0 0 0-3 3 3 3 0 0 0 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.15c-.05.21-.08.43-.08.66 0 1.61 1.31 2.91 2.92 2.91s2.92-1.3 2.92-2.91A2.92 2.92 0 0 0 18 16.08"/></svg>
+          </a>
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/naory/mpcp-service" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mpcp-service
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../../True" title="MPCP" class="md-nav__button md-logo" aria-label="MPCP" data-md-component="logo">
+      
+  <img src="../../../assets/logo.svg" alt="logo">
+
+    </a>
+    MPCP
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/naory/mpcp-service" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    mpcp-service
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../quickstart/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Quickstart
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Overview
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/what-is-mpcp/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    What is MPCP?
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/problem/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    The Problem
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../overview/comparison-with-agent-protocols/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Comparison with Agent Protocols
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Protocol
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Protocol
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/artifacts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Artifacts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/hashing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hashing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Verification
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../protocol/anchoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Anchoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Guides
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Guides
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/build-a-machine-wallet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Build a Machine Wallet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/fleet-payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet Payments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../guides/dispute-resolution/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dispute Resolution
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Examples
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Examples
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/parking/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Parking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/charging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../examples/fleet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Reference
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/sdk/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    SDK
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/service-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Service API
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../reference/cli/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    CLI
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        
+          
+          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Diagrams
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../diagrams/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Diagrams
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../animation/MPCP_ANIMATION_PACK/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Animation Pack
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/naory/mpcp-service/edit/main/docs/doc/architecture/MPCP_IMPLEMENTATION_ROADMAP.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+<h1 id="mpcp-implementation-roadmap">MPCP Implementation Roadmap</h1>
+<p>This document defines the implementation plan for the <strong>Machine Payment Control Protocol (MPCP)</strong> reference implementation.</p>
+<p>The goal of this roadmap is to evolve MPCP from a <strong>specification and prototype</strong> into a <strong>deterministic, verifiable, production‑ready protocol stack</strong>.</p>
+<p>The roadmap is divided into phases. Each phase is intended to be implemented through <strong>small focused PRs</strong> to keep review scope manageable.</p>
+<hr />
+<h1 id="guiding-principles">Guiding Principles</h1>
+<p>The implementation roadmap follows several principles:</p>
+<p><strong>Protocol first</strong><br />
+The protocol specification remains the source of truth. Code must conform to the protocol definitions.</p>
+<p><strong>Determinism</strong><br />
+All MPCP artifacts must serialize and hash deterministically across implementations.</p>
+<p><strong>Rail agnostic</strong><br />
+MPCP must remain independent of any specific payment rail.</p>
+<p><strong>Verifiable</strong><br />
+Every payment decision and settlement must be independently verifiable.</p>
+<p><strong>Small PRs</strong><br />
+Each feature is implemented in isolated PRs to ensure safe review and easy rollback.</p>
+<hr />
+<h1 id="phase-1-protocol-determinism">Phase 1 — Protocol Determinism</h1>
+<p>Goal: Ensure MPCP artifacts produce <strong>deterministic hashes and serialization</strong>.</p>
+<p>This phase establishes the foundation required for:</p>
+<ul>
+<li>SettlementIntentHash</li>
+<li>cross‑implementation verification</li>
+<li>distributed anchoring</li>
+</ul>
+<hr />
+<h2 id="pr-1-canonical-serialization">PR 1 — Canonical Serialization</h2>
+<p>Create a deterministic JSON canonicalization implementation.</p>
+<p>Directory:</p>
+<p>src/canonical/</p>
+<p>Files:</p>
+<ul>
+<li>canonicalJson.ts</li>
+<li>hash.ts</li>
+</ul>
+<p>Responsibilities:</p>
+<ul>
+<li>stable key ordering</li>
+<li>UTF‑8 encoding</li>
+<li>whitespace removal</li>
+<li>deterministic serialization</li>
+</ul>
+<p>Example flow:</p>
+<p>SettlementIntent</p>
+<p>→ canonical JSON</p>
+<p>→ SHA256</p>
+<p>→ SettlementIntentHash</p>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>identical hash across multiple runs</li>
+<li>identical hash across Node versions</li>
+<li>deterministic ordering verified in tests</li>
+</ul>
+<p>Tests:</p>
+<ul>
+<li>canonical serialization snapshot tests</li>
+<li>hash stability tests</li>
+</ul>
+<hr />
+<h2 id="pr-2-artifact-schemas">PR 2 — Artifact Schemas</h2>
+<p>Define strict schemas for all MPCP artifacts.</p>
+<p>Directory:</p>
+<p>src/schema/</p>
+<p>Schemas:</p>
+<ul>
+<li>PolicyGrant</li>
+<li>BudgetAuthorization</li>
+<li>SignedBudgetAuthorization</li>
+<li>SignedPaymentAuthorization</li>
+<li>SettlementIntent</li>
+<li>FleetPolicyAuthorization</li>
+</ul>
+<p>Recommended tooling:</p>
+<ul>
+<li>zod</li>
+</ul>
+<p>Responsibilities:</p>
+<ul>
+<li>validate artifact structure</li>
+<li>enforce required fields</li>
+<li>prevent malformed artifacts</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>all artifacts validate through schema</li>
+<li>invalid artifacts rejected with clear errors</li>
+</ul>
+<hr />
+<h2 id="pr-3-settlementintenthash-implementation">PR 3 — SettlementIntentHash Implementation</h2>
+<p>Implement deterministic hashing of settlement intents.</p>
+<p>Directory:</p>
+<p>src/hash/</p>
+<p>Functions:</p>
+<p>computeSettlementIntentHash(intent)</p>
+<p>Responsibilities:</p>
+<ul>
+<li>canonicalize intent</li>
+<li>compute SHA256</li>
+<li>produce deterministic intentHash</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>identical hash across identical intents</li>
+<li>mismatch detected if any field changes</li>
+</ul>
+<p>Tests:</p>
+<ul>
+<li>intent mutation tests</li>
+<li>hash equality tests</li>
+</ul>
+<hr />
+<h1 id="phase-2-verification-engine">Phase 2 — Verification Engine</h1>
+<p>Goal: Implement a complete <strong>MPCP verification engine</strong>.</p>
+<p>The verifier confirms that a settlement is valid according to all prior protocol artifacts.</p>
+<hr />
+<h2 id="pr-4-core-verifier">PR 4 — Core Verifier</h2>
+<p>Directory:</p>
+<p>src/verify/</p>
+<p>Functions:</p>
+<ul>
+<li>verifyPolicyGrant()</li>
+<li>verifyBudgetAuthorization()</li>
+<li>verifyPaymentAuthorization()</li>
+<li>verifySettlementIntent()</li>
+<li>verifySettlement()</li>
+</ul>
+<p>Responsibilities:</p>
+<p>Verify that:</p>
+<ul>
+<li>artifacts form a valid chain</li>
+<li>spending limits are respected</li>
+<li>policies are satisfied</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>settlement verification returns deterministic result</li>
+<li>clear failure reasons provided</li>
+</ul>
+<hr />
+<h2 id="pr-5-mpcp-verifier-cli">PR 5 — MPCP Verifier CLI</h2>
+<p>Create a command line verifier tool.</p>
+<p>Directory:</p>
+<p>src/cli/</p>
+<p>Example usage:</p>
+<p>npx mpcp verify settlement.json</p>
+<p>Output example:</p>
+<p>✔ intent hash valid</p>
+<p>✔ SPA signature valid</p>
+<p>✔ budget within limits</p>
+<p>✔ policy grant valid</p>
+<p>MPCP verification PASSED</p>
+<p>Purpose:</p>
+<ul>
+<li>debugging</li>
+<li>dispute resolution</li>
+<li>protocol compliance checks</li>
+</ul>
+<h3 id="pr-5a-cli-explain-mode">PR 5A — CLI Explain Mode</h3>
+<p>Enhance the MPCP verifier CLI with an <strong>explain mode</strong> that provides step‑by‑step diagnostics for verification results.</p>
+<p>Example usage:</p>
+<p>npx mpcp verify settlement.json --explain</p>
+<p>Example output:</p>
+<p>MPCP Verification Report</p>
+<p>✔ PolicyGrant.schema
+✔ SignedBudgetAuthorization.schema
+✔ SignedPaymentAuthorization.schema
+✔ SettlementIntent.schema
+✔ SignedBudgetAuthorization.valid
+✘ SettlementIntent.intentHash mismatch
+  Expected: 5d9b3c...
+  Actual:   a1c82f...</p>
+<p>Verification FAILED</p>
+<p>Purpose:</p>
+<ul>
+<li>provide detailed debugging information</li>
+<li>help fleet operators diagnose payment failures</li>
+<li>support dispute investigation and audit workflows</li>
+</ul>
+<p>Implementation:</p>
+<p>Add a detailed verification report structure:</p>
+<div class="highlight"><pre><span></span><code>type VerificationCheck = {
+  name: string           // Artifact.check (e.g. SettlementIntent.intentHash)
+  phase: &quot;schema&quot; | &quot;linkage&quot; | &quot;hash&quot; | &quot;policy&quot;  // ordering: schema → linkage → hash → policy
+  valid: boolean
+  reason?: string
+  expected?: unknown
+  actual?: unknown
+}
+
+type DetailedVerificationReport = {
+  valid: boolean
+  checks: VerificationCheck[]  // sorted by phase
+}
+</code></pre></div>
+<p>Verification check ordering: schema → linkage → hash → policy</p>
+<p>Verification check naming: Artifact.check (e.g. PolicyGrant.schema, SignedBudgetAuthorization.schema, SettlementIntent.intentHash)</p>
+<p>JSON output (<code>--json</code>): <code>{ "valid": boolean, "checks": VerificationCheck[] }</code></p>
+<p>Add a new verifier function: verifySettlementDetailed()</p>
+<p>The CLI should render human‑readable output when <code>--explain</code> is used and machine‑readable JSON when <code>--json</code> is used.</p>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>CLI supports <code>--explain</code> flag</li>
+<li>CLI supports <code>--json</code> flag</li>
+<li>verification output clearly identifies the failing artifact</li>
+<li>verification checks are deterministically ordered by phase</li>
+<li>JSON output conforms to DetailedVerificationReport structure</li>
+</ul>
+<hr />
+<h2 id="pr-6-protocol-conformance-tests">PR 6 — Protocol Conformance Tests</h2>
+<p>Directory:</p>
+<p>test/protocol/</p>
+<p>Tests:</p>
+<ul>
+<li>intent hash correctness</li>
+<li>policy grant validation</li>
+<li>budget authorization limits</li>
+<li>SPA verification</li>
+<li>settlement verification</li>
+</ul>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>full protocol verification suite passes</li>
+</ul>
+<hr />
+<h1 id="phase-3-developer-adoption">Phase 3 — Developer Adoption</h1>
+<p>Goal: Make MPCP easy to integrate.</p>
+<hr />
+<h2 id="pr-7-sdk-improvements">PR 7 — SDK Improvements</h2>
+<p>Expand the SDK to support:</p>
+<ul>
+<li>artifact construction</li>
+<li>artifact signing</li>
+<li>verification helpers</li>
+</ul>
+<p>Directory:</p>
+<p>src/sdk/</p>
+<p>Add helpers:</p>
+<p>createPolicyGrant()</p>
+<p>createBudgetAuthorization()</p>
+<p>createSignedPaymentAuthorization()</p>
+<p>createSettlementIntent()</p>
+<p>computeIntentHash()</p>
+<hr />
+<h2 id="pr-8-endtoend-example">PR 8 — End‑to‑End Example</h2>
+<p>Create a full working example flow.</p>
+<p>Directory:</p>
+<p>examples/parking-session/</p>
+<p>Artifacts:</p>
+<ul>
+<li>fleet-policy.json</li>
+<li>policy-grant.json</li>
+<li>budget-auth.json</li>
+<li>signed-budget-auth.json</li>
+<li>spa.json</li>
+<li>settlement-intent.json</li>
+<li>settlement.json</li>
+</ul>
+<p>Purpose:</p>
+<p>Provide a full reference flow for developers.</p>
+<h3 id="pr-8a-autonomous-spend-guardrails-demo">PR 8A — Autonomous Spend Guardrails Demo</h3>
+<p>Introduce a reference demonstration that highlights MPCP's core capability for <strong>Machine Wallet Guardrails</strong> — the ability for autonomous systems to spend money safely within cryptographically enforced limits.</p>
+<p>Background:</p>
+<p>Autonomous machines (robotaxis, delivery robots, charging systems, parking meters) must often perform payments without human approval. The primary risk for fleet operators is <strong>unbounded or fraudulent machine spending</strong>.</p>
+<p>MPCP addresses this by enforcing a chain of authorization artifacts:</p>
+<p>FleetPolicy → PolicyGrant → BudgetAuthorization → SignedPaymentAuthorization → Settlement</p>
+<p>Each step progressively constrains the machine's spending ability through:</p>
+<ul>
+<li>maximum spend limits</li>
+<li>allowed payment rails</li>
+<li>allowed assets</li>
+<li>destination allowlists</li>
+<li>expiration times</li>
+<li>cryptographic signatures</li>
+</ul>
+<p>This forms a <strong>machine‑enforced spending sandbox</strong>.</p>
+<p>Example scenario:</p>
+<p>A robotaxi performs autonomous payments during a trip:</p>
+<p>vehicle arrives at parking</p>
+<p>→ parking meter issues payment request</p>
+<p>→ vehicle evaluates policy constraints</p>
+<p>→ vehicle signs SPA within its authorized budget</p>
+<p>→ parking meter verifies MPCP artifact chain</p>
+<p>→ gate opens</p>
+<p>No centralized payment API is required.</p>
+<p>Demo Architecture:</p>
+<p>Reference components may include:</p>
+<ul>
+<li>autonomous vehicle agent (wallet + MPCP SDK)</li>
+<li>parking / charging / toll service endpoint</li>
+<li>MPCP verifier</li>
+<li>settlement rail (XRPL, Stripe, etc.)</li>
+</ul>
+<p>The demo should illustrate:</p>
+<ul>
+<li>policy‑limited autonomous spending</li>
+<li>local verification of MPCP artifacts</li>
+<li>tamper‑resistant authorization chains</li>
+</ul>
+<p>Purpose:</p>
+<h3 id="pr-8b-automated-fleet-payment-demo">PR 8B — Automated Fleet Payment Demo</h3>
+<p>Create a runnable demonstration showing how an autonomous fleet vehicle performs a real MPCP‑controlled payment during operation.</p>
+<p>Goal:</p>
+<p>Demonstrate the complete <strong>machine‑to‑machine payment loop</strong> using MPCP artifacts and local verification.</p>
+<p>Example Flow:</p>
+<p>Robotaxi enters a parking facility</p>
+<p>→ parking meter or gate sends payment request</p>
+<p>→ vehicle evaluates its fleet policy and session budget</p>
+<p>→ vehicle generates SettlementIntent</p>
+<p>→ vehicle signs SignedPaymentAuthorization (SPA)</p>
+<p>→ payment is executed on the configured settlement rail</p>
+<p>→ parking system verifies MPCP artifact chain</p>
+<p>→ gate opens</p>
+<p>Components:</p>
+<p>The demo should include minimal reference services:</p>
+<ul>
+<li><strong>Vehicle Agent</strong></li>
+<li>MPCP SDK</li>
+<li>wallet / signing keys</li>
+<li>
+<p>policy + budget enforcement</p>
+</li>
+<li>
+<p><strong>Parking / Charging Service</strong></p>
+</li>
+<li>payment request endpoint</li>
+<li>
+<p>MPCP verification endpoint</p>
+</li>
+<li>
+<p><strong>Verifier</strong></p>
+</li>
+<li>
+<p>validates PolicyGrant → SBA → SPA → SettlementIntent chain</p>
+</li>
+<li>
+<p><strong>Settlement Rail Adapter</strong></p>
+</li>
+<li>mock rail or XRPL reference implementation</li>
+</ul>
+<p>Key Behaviors to Demonstrate:</p>
+<ul>
+<li>autonomous payment authorization within fleet limits</li>
+<li>enforcement of session budgets</li>
+<li>deterministic SettlementIntent hashing</li>
+<li>verification without centralized payment infrastructure</li>
+<li>tamper detection if artifacts are modified</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>runnable demo script</li>
+<li>architecture diagram</li>
+<li>example MPCP artifact bundle</li>
+<li>documentation describing the end‑to‑end flow</li>
+</ul>
+<p>Purpose:</p>
+<p>Provide a <strong>clear real‑world demonstration</strong> of MPCP enabling autonomous machine payments for fleet systems such as robotaxis, delivery robots, charging infrastructure, and logistics automation.</p>
+<p>This demo will serve as the primary reference for developers, partners, and mobility companies evaluating MPCP.</p>
+<h3 id="pr-8c-fleet-spend-policy-simulator">PR 8C — Fleet Spend Policy Simulator</h3>
+<p>Create a lightweight tool that allows developers and fleet operators to simulate MPCP spend policies before deploying them to real vehicles or robots.</p>
+<p>Goal:</p>
+<p>Make it easy to test <strong>machine wallet guardrails</strong> and spending policies in a safe environment.</p>
+<p>Background:</p>
+<p>Fleet operators need confidence that their policies will behave correctly before allowing autonomous machines to spend money in the real world. A simulation environment allows policies to be tested against many payment scenarios.</p>
+<p>Capabilities:</p>
+<p>The simulator should allow users to define a fleet policy and test it against simulated payment requests.</p>
+<p>Example policy:</p>
+<p>maxSessionSpend: $30<br />
+allowedRails: XRPL<br />
+allowedAssets: RLUSD<br />
+destinations: parking, charging, toll  </p>
+<p>Example simulated events:</p>
+<ul>
+<li>parking payment request ($2.50)</li>
+<li>toll payment request ($6.00)</li>
+<li>charging payment request ($18.00)</li>
+<li>unexpected vendor request ($50.00)</li>
+</ul>
+<p>The simulator evaluates the MPCP chain:</p>
+<p>FleetPolicy → PolicyGrant → BudgetAuthorization → SignedPaymentAuthorization</p>
+<p>and reports whether each payment would be allowed or rejected.</p>
+<p>Features:</p>
+<ul>
+<li>define fleet policies interactively</li>
+<li>simulate payment requests</li>
+<li>visualize policy enforcement</li>
+<li>show MPCP artifact chain produced for each decision</li>
+<li>demonstrate when and why payments are rejected</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>CLI or small web interface</li>
+<li>example fleet policies</li>
+<li>example payment scenarios</li>
+<li>documentation explaining policy behavior</li>
+</ul>
+<p>Purpose:</p>
+<p>Help fleet operators and developers <strong>understand and validate MPCP spending guardrails</strong> before deploying them to real autonomous systems. The simulator provides a safe environment to experiment with policies, visualize how MPCP artifact chains are produced, and verify that machines will only authorize payments that comply with fleet constraints. It also serves as an educational reference demonstrating how MPCP enforces policy-driven machine spending.</p>
+<h3 id="pr-8d-offline-payment-authorization">PR 8D — Offline Payment Authorization</h3>
+<p>Add documentation and example flows demonstrating how MPCP enables <strong>offline machine payments</strong> using pre-authorized spending envelopes.</p>
+<p>Goal:</p>
+<p>Allow autonomous systems (vehicles, robots, devices) to complete payments even when temporary network connectivity is unavailable.</p>
+<p>Background:</p>
+<p>Autonomous fleets frequently operate in environments where network connectivity may be intermittent or unavailable, such as:</p>
+<ul>
+<li>underground parking garages</li>
+<li>tunnels</li>
+<li>charging facilities</li>
+<li>dense urban environments</li>
+<li>rural infrastructure</li>
+</ul>
+<p>Traditional payment systems rely on centralized approval APIs, which prevents transactions from completing when connectivity is lost.</p>
+<p>MPCP solves this by allowing machines to hold <strong>pre-authorized spending budgets</strong> that can be used locally.</p>
+<p>Example Flow:</p>
+<p>Vehicle begins trip with a valid policy chain:</p>
+<p>FleetPolicy<br />
+→ PolicyGrant<br />
+→ BudgetAuthorization  </p>
+<p>Vehicle enters an underground parking garage where connectivity is unavailable.</p>
+<p>Parking meter issues a payment request.</p>
+<p>Vehicle evaluates the request locally:</p>
+<ul>
+<li>within authorized budget</li>
+<li>destination allowed</li>
+<li>asset and rail permitted</li>
+</ul>
+<p>Vehicle signs a SignedPaymentAuthorization (SPA) and executes the settlement.</p>
+<p>Parking system verifies the MPCP artifact chain and allows entry.</p>
+<p>Payment succeeds <strong>without contacting any centralized backend service</strong>.</p>
+<p>Key Behaviors to Demonstrate:</p>
+<ul>
+<li>local authorization decisions using BudgetAuthorization</li>
+<li>deterministic verification of MPCP artifacts</li>
+<li>successful payment execution during network outage</li>
+<li>later reconciliation once connectivity returns</li>
+</ul>
+<p>Deliverables:</p>
+<ul>
+<li>documentation describing offline MPCP payment flows</li>
+<li>extension of the parking demo to simulate offline mode</li>
+<li>example artifact bundle demonstrating offline authorization</li>
+</ul>
+<p>Purpose:</p>
+<p>Show that MPCP enables <strong>resilient autonomous payments</strong> for machines operating in real-world environments where connectivity cannot always be guaranteed.</p>
+<hr />
+<h2 id="pr-9-integration-tests">PR 9 — Integration Tests</h2>
+<p>Simulate a full MPCP lifecycle.</p>
+<p>Test flow:</p>
+<p>fleet policy</p>
+<p>→ policy grant</p>
+<p>→ budget authorization</p>
+<p>→ SPA</p>
+<p>→ settlement intent</p>
+<p>→ settlement verification</p>
+<p>Acceptance Criteria:</p>
+<ul>
+<li>full lifecycle passes verification</li>
+</ul>
+<hr />
+<h1 id="phase-4-protocol-network-effects">Phase 4 — Protocol Network Effects</h1>
+<p>Goal: Enable MPCP to operate in <strong>multi‑party environments</strong>.</p>
+<hr />
+<h2 id="pr-10-intent-anchoring">PR 10 — Intent Anchoring</h2>
+<p>Add optional support for publishing intent hashes to distributed ledgers.</p>
+<p>Possible rails:</p>
+<ul>
+<li>Hedera HCS</li>
+<li>XRPL</li>
+<li>EVM</li>
+</ul>
+<p>Purpose:</p>
+<p>Provide:</p>
+<ul>
+<li>public auditability</li>
+<li>dispute protection</li>
+<li>replay protection</li>
+</ul>
+<hr />
+<h2 id="pr-11-dispute-verification">PR 11 — Dispute Verification</h2>
+<p>Add tooling to verify disputed settlements.</p>
+<p>Functions:</p>
+<p>verifyDisputedSettlement()</p>
+<p>Inputs:</p>
+<ul>
+<li>settlement</li>
+<li>artifacts</li>
+<li>ledger anchor</li>
+</ul>
+<p>Output:</p>
+<p>verified / invalid</p>
+<hr />
+<h2 id="pr-12-fleet-operator-tooling">PR 12 — Fleet Operator Tooling</h2>
+<p>Add features for fleet operators.</p>
+<p>Examples:</p>
+<ul>
+<li>fleet policy dashboards</li>
+<li>payment audit trails</li>
+<li>settlement verification logs</li>
+</ul>
+<hr />
+<h1 id="phase-5-external-adoption-productionization">Phase 5 — External Adoption &amp; Productionization</h1>
+<p>Goal: Enable independent implementations, ecosystem adoption, and production deployment of the MPCP protocol.</p>
+<p>This phase focuses on turning the MPCP reference implementation into a protocol that can be safely implemented by third parties. It introduces interoperability artifacts, production integrations, deployment profiles, and documentation required for real‑world adoption.</p>
+<p>That’s where MPCP stops being “a strong reference implementation” and starts becoming something other teams can adopt safely.</p>
+<p>I’d structure it like this:</p>
+<p>⸻</p>
+<p>PR12A — Artifact Bundle Specification ✓</p>
+<p>Define a canonical MPCP <strong>artifact bundle format</strong> used to exchange complete payment verification data between systems. Implemented: <code>src/schema/artifactBundle.ts</code>, <code>doc/protocol/ArtifactBundle.md</code>.</p>
+<p>Example bundle contents:</p>
+<p>• policyGrant<br />
+• signedBudgetAuthorization<br />
+• signedPaymentAuthorization<br />
+• settlementIntent<br />
+• settlement<br />
+• optional ledgerAnchor  </p>
+<p>Purpose:
+• standardize how MPCP artifacts are packaged for verification<br />
+• support dispute resolution workflows<br />
+• enable deterministic protocol test vectors<br />
+• simplify developer tooling and debugging</p>
+<p>Deliverables:
+• bundle schema definition
+• example artifact bundles
+• verifier support for bundle inputs</p>
+<p>⸻</p>
+<p>PR13 — Golden Protocol Vectors</p>
+<p>Freeze a set of canonical MPCP test vectors.</p>
+<p>Examples:
+    •   valid settlement
+    •   valid settlement with intent
+    •   expired grant
+    •   budget exceeded
+    •   payment auth mismatch
+    •   intent hash mismatch</p>
+<p>Purpose:
+    •   let other implementations validate compatibility
+    •   prevent regressions
+    •   create a real interoperability target</p>
+<p>This is probably the highest-value next PR.</p>
+<p>⸻</p>
+<p>PR14 — Real Ledger Anchor Adapters ✓</p>
+<p>Move beyond the mock anchor and implement at least one real adapter. Implemented: Hedera HCS adapter (<code>hederaHcsAnchorIntentHash</code>, <code>verifyHederaHcsAnchor</code>), <code>verifyDisputedSettlementAsync</code>. Requires <code>npm install @hashgraph/sdk</code>.</p>
+<p>Best order:
+    •   Hedera HCS
+    •   XRPL
+    •   EVM later</p>
+<p>Purpose:
+    •   make anchoring real
+    •   support actual dispute/audit workflows
+    •   prove MPCP works off-repo</p>
+<p>⸻</p>
+<p>PR15 — Reference Profiles ✓</p>
+<p>Define named MPCP deployment profiles. Implemented: <code>doc/architecture/REFERENCE_PROFILES.md</code>, <code>profiles/</code> (fleet-offline, parking, charging, hosted-rail), <code>policy-summary --profile &lt;name&gt;</code> validation.</p>
+<p>Examples:
+    •   Fleet Offline Profile
+    •   Parking Profile
+    •   Charging Profile
+    •   Hosted Rail Profile</p>
+<p>Purpose:
+    •   reduce ambiguity
+    •   make integration easier
+    •   let adopters choose a profile instead of inventing their own rules</p>
+<p>This is a big adoption unlock.</p>
+<p>⸻</p>
+<p>PR16 — Compatibility / Versioning Policy ✓</p>
+<p>Add a formal compatibility policy for:
+    •   artifact versions
+    •   verifier behavior
+    •   profile evolution
+    •   future extensions</p>
+<p>Purpose:
+    •   tell implementers what is stable
+    •   define how 1.0, 1.1, 2.0 evolve
+    •   make MPCP feel like a real protocol standard</p>
+<p>Implemented: <code>doc/architecture/COMPATIBILITY_AND_VERSIONING.md</code>.</p>
+<p>⸻</p>
+<p>PR17 — Reference API / Service Layer ✓</p>
+<p>You already have protocol + verifier + SDK.
+This PR would define a lightweight service facade, like:
+    •   issue budget
+    •   verify settlement
+    •   verify dispute
+    •   anchor intent</p>
+<p>Purpose:
+    •   make MPCP easy for backend teams to adopt
+    •   avoid everyone inventing their own wrapper layer</p>
+<p>Implemented: <code>src/service/</code>, <code>mpcp-service/service</code> export, <code>doc/architecture/REFERENCE_SERVICE_API.md</code>.</p>
+<p>⸻</p>
+<p>PR18 — Public Protocol Site / Docs Portal ✓</p>
+<p>Turn the docs into something publishable.</p>
+<p>Could include:
+    •   protocol overview
+    •   artifact specs
+    •   examples
+    •   profiles
+    •   vectors
+    •   verifier usage</p>
+<p>Purpose:
+    •   external credibility
+    •   onboarding
+    •   partner friendliness</p>
+<p>Implemented: <code>docs/</code> with overview (what-is-mpcp, problem, comparison-with-agent-protocols), protocol (artifacts, hashing, verification, anchoring), guides (build-a-machine-wallet, fleet-payments, dispute-resolution), examples (parking, charging, fleet), reference (sdk, service-api, cli). Comparison doc explains how MPCP differs from x402, AP2.</p>
+<p>⸻</p>
+<p>PR19 — Documentation Site Deployment ✓</p>
+<p>Deploy the docs site so it is publicly accessible (e.g., GitHub Pages). Implemented: <code>mkdocs.yml</code>, <code>docs-requirements.txt</code>, <code>.github/workflows/deploy-docs.yml</code>. Enable GitHub Pages (Settings → Pages → Source: GitHub Actions) to publish.</p>
+<p>Purpose:
+    •   make docs discoverable
+    •   provide a canonical URL for the protocol site
+    •   complete the "publishable" goal of PR18</p>
+<p>⸻</p>
+<h1 id="expected-outcome">Expected Outcome</h1>
+<p>After completion of this roadmap MPCP will provide:</p>
+<ul>
+<li>a formal protocol specification</li>
+<li>deterministic artifact hashing</li>
+<li>a reference verifier</li>
+<li>an SDK</li>
+<li>integration examples</li>
+</ul>
+<p>This enables MPCP to serve as a <strong>machine‑to‑machine payment control protocol</strong> for autonomous systems.</p>
+<hr />
+<h1 id="long-term-vision">Long Term Vision</h1>
+<p>MPCP aims to become a <strong>standard protocol for autonomous machine payments</strong> including:</p>
+<ul>
+<li>autonomous vehicles</li>
+<li>delivery robots</li>
+<li>machine marketplaces</li>
+<li>energy infrastructure</li>
+</ul>
+<p>The reference implementation in this repository serves as the foundation for that ecosystem.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../../..", "features": ["navigation.sections", "navigation.expand", "navigation.top", "search.highlight", "search.share", "content.code.copy", "content.action.edit"], "search": "../../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
