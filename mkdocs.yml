@@ -1,0 +1,44 @@
+# MkDocs config for MPCP docs site (PR19)
+site_name: MPCP
+site_description: Machine Payment Control Protocol
+site_url: https://naory.github.io/mpcp-service/
+repo_url: https://github.com/naory/mpcp-service
+repo_name: mpcp-service
+
+theme:
+  name: material
+  palette:
+    - scheme: default
+      primary: slate
+      accent: indigo
+
+nav:
+  - Home: index.md
+  - Quickstart: quickstart.md
+  - Overview:
+    - What is MPCP?: overview/what-is-mpcp.md
+    - The Problem: overview/problem.md
+    - Comparison with Agent Protocols: overview/comparison-with-agent-protocols.md
+  - Protocol:
+    - Artifacts: protocol/artifacts.md
+    - Hashing: protocol/hashing.md
+    - Verification: protocol/verification.md
+    - Anchoring: protocol/anchoring.md
+  - Guides:
+    - Build a Machine Wallet: guides/build-a-machine-wallet.md
+    - Fleet Payments: guides/fleet-payments.md
+    - Dispute Resolution: guides/dispute-resolution.md
+  - Examples:
+    - Parking: examples/parking.md
+    - Charging: examples/charging.md
+    - Fleet: examples/fleet.md
+  - Reference:
+    - SDK: reference/sdk.md
+    - Service API: reference/service-api.md
+    - CLI: reference/cli.md
+  - Diagrams:
+    - Diagrams: diagrams/README.md
+  - Animation Pack: animation/MPCP_ANIMATION_PACK.md
+
+markdown_extensions:
+  - pymdownx.superfences

@@ -836,6 +836,17 @@ Implemented: `docs/` with overview (what-is-mpcp, problem, comparison-with-agent
 
 ⸻
 
+PR19 — Documentation Site Deployment ✓
+
+Deploy the docs site so it is publicly accessible (e.g., GitHub Pages). Implemented: `mkdocs.yml`, `docs-requirements.txt`, `.github/workflows/deploy-docs.yml`. Enable GitHub Pages (Settings → Pages → Source: GitHub Actions) to publish.
+
+Purpose:
+	•	make docs discoverable
+	•	provide a canonical URL for the protocol site
+	•	complete the "publishable" goal of PR18
+
+⸻
+
 
 # Expected Outcome
 

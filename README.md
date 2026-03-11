@@ -11,7 +11,7 @@ For the rationale behind the protocol, see:
 
 [Why MPCP Exists](./doc/Why_MPCP.md)
 
-For the full documentation site (overview, guides, examples, reference), see **[docs/](./docs/)**.
+For the full documentation site (overview, guides, examples, reference), see **[docs/](./docs/)**. When [GitHub Pages](https://docs.github.com/en/pages) is enabled, the site is published automatically from `main`.
 
 For the full protocol specification, see:
 
