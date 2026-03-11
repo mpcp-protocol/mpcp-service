@@ -17,6 +17,8 @@ When an intent hash is anchored:
 | mock | Stub for development/testing; no real ledger |
 | hedera-hcs | Hedera Hashgraph Consensus Service; publishes to a topic |
 
+Additional rails can be supported by implementations (XRPL memos, Ethereum calldata, etc.).
+
 ## Flow
 
 1. Compute `intentHash = computeSettlementIntentHash(settlementIntent)`
