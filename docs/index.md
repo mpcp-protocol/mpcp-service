@@ -2,7 +2,7 @@
 
 **MPCP** is a cryptographically enforced pipeline for autonomous and software-controlled payments. Machines—vehicles, robots, IoT devices, AI agents—can spend within policy-defined bounds, without per-transaction human approval.
 
-MPCP authorizes machine payments through a chain of signed artifacts: PolicyGrant → BudgetAuthorization → PaymentAuthorization → Settlement.
+MPCP authorizes machine payments through a chain of signed artifacts: PolicyGrant → Budget (SBA) → Payment (SPA) → Settlement.
 
 ## Why MPCP?
 

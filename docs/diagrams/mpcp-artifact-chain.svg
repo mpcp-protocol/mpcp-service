@@ -27,5 +27,5 @@
   <line class="arrow" x1="140" y1="196" x2="140" y2="218"/>
   <rect class="box" x="40" y="218" width="200" height="44"/>
   <text class="text" x="140" y="245" text-anchor="middle">Settlement</text>
-  <text class="label" x="140" y="256" text-anchor="middle">Execution ’ Verification</text>
+  <text class="label" x="140" y="256" text-anchor="middle">Execution + Verification</text>
 </svg>

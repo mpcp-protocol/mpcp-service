@@ -11,9 +11,9 @@ SignedBudgetAuthorization (SBA)
     ↓
 SignedPaymentAuthorization (SPA)
     ↓
-Settlement Execution
+Settlement
     ↓
-Settlement Verification
+Verification
 ```
 
 Each artifact is a subset of the constraints defined by the previous one.
