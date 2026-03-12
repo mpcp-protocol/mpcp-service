@@ -10,6 +10,7 @@ Named deployment profiles for MPCP. Adopters choose a profile instead of inventi
 | Parking | Meter/gate, short sessions | xrpl | yes | optional |
 | Charging | EV charging, variable session length | xrpl, evm | yes | optional |
 | Hosted Rail | Backend-hosted, online approval | stripe, hosted | no | n/a |
+| XRPL Stablecoin | RLUSD / issued-asset payments (PR21) | xrpl | yes | optional |
 
 ---
 
@@ -68,12 +69,30 @@ Named deployment profiles for MPCP. Adopters choose a profile instead of inventi
 
 ---
 
+## XRPL Stablecoin Profile (PR21)
+
+**Use case:** XRPL issued assets (IOUs / stablecoins such as RLUSD). Machine payments with explicit issuer and destination constraints.
+
+**Characteristics:**
+- Rail: `xrpl` only
+- Asset: `kind: IOU`, `currency`, `issuer` — issuer must be validated by wallet/verifier
+- Wallet and verifier expectations for stablecoin settlement documented
+
+**Example:** `profiles/xrpl-stablecoin.json`
+
+**Full profile doc:** [XRPL Stablecoin Profile](xrpl-stablecoin-profile.md)
+
+**Example bundle:** `examples/xrpl-stablecoin/xrpl-stablecoin-bundle.json`
+
+---
+
 ## Usage
 
 Profiles define expected policy shape. Use `mpcp policy-summary` with `--profile` to validate a policy against a reference profile.
 
 ```bash
 mpcp policy-summary profiles/parking.json --profile parking
+mpcp policy-summary profiles/xrpl-stablecoin.json --profile xrpl-stablecoin
 mpcp policy-summary examples/fleet-simulator/fleet-policy.json --profile parking
 ```
 
