@@ -40,6 +40,6 @@ Implementers should verify:
 
 ## See Also
 
-- [MPCP Reference Flow](../architecture/reference-flow.md) — Canonical flow for EV charging
+- [MPCP Reference Flow](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/architecture/reference-flow.md) — Canonical flow for EV charging
 - [Verifier](verifier.md) — Verification pipeline
-- [Protocol: mpcp](../protocol/mpcp.md) — Full specification
+- [Protocol: mpcp](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/protocol/mpcp.md) — Full specification

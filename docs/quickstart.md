@@ -73,6 +73,6 @@ npx mpcp policy-summary examples/machine-commerce/fleet-policy.json --profile pa
 
 ## Next Steps
 
-- [What is MPCP?](overview/what-is-mpcp.md) — Understand the protocol
-- [Build a Machine Wallet](guides/build-a-machine-wallet.md) — Integrate into your app
+- [What is MPCP?](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/overview/what-is-mpcp.md) — Understand the protocol
+- [Build a Machine Wallet](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/build-a-machine-wallet.md) — Integrate into your app
 - [Parking Example](examples/parking.md) — Deep dive on the example flow

@@ -37,7 +37,7 @@ Use with `--explain` or `--json`; the audit log receives the same `valid` result
 Print fleet policy constraints in a readable format.
 
 ```bash
-mpcp policy-summary examples/fleet-simulator/fleet-policy.json
+mpcp policy-summary examples/machine-commerce/fleet-policy.json
 ```
 
 Output:

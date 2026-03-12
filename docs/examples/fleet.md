@@ -78,6 +78,6 @@ Uses `examples/machine-commerce/fleet-policy.json` and `simulate.mjs`.
 
 ## See Also
 
-- [Fleet Payments](../guides/fleet-payments.md)
+- [Fleet Payments (spec)](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/fleet-payments.md)
 - [Parking Example](parking.md)
-- [Reference Profiles](../doc/architecture/REFERENCE_PROFILES.md)
+- [Reference Profiles](../implementation/reference-profiles.md)

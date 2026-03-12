@@ -61,10 +61,10 @@ Demonstrates offline machine payments: vehicle holds pre-authorized policy chain
 npm run example:offline
 ```
 
-See [Offline Payments](../doc/architecture/OFFLINE_PAYMENTS.md).
+See [Offline Payments](../implementation/offline-payments.md).
 
 ## See Also
 
-- [Build a Machine Wallet](../guides/build-a-machine-wallet.md)
-- [Fleet Payments](../guides/fleet-payments.md)
-- [Reference Profiles](../doc/architecture/REFERENCE_PROFILES.md) — Parking profile
+- [Build a Machine Wallet](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/build-a-machine-wallet.md)
+- [Fleet Payments](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/fleet-payments.md)
+- [Reference Profiles](../implementation/reference-profiles.md) — Parking profile

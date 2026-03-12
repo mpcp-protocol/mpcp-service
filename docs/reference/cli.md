@@ -87,6 +87,6 @@ Golden test vectors are in `test/vectors/` for interoperability and regression t
 
 ## See Also
 
-- [Fleet Operator Tooling](../doc/architecture/FLEET_OPERATOR_TOOLING.md)
-- [Reference Profiles](../doc/architecture/REFERENCE_PROFILES.md)
-- [Protocol: Verification](../protocol/verification.md)
+- [Fleet Operator Tooling](../implementation/fleet-operator-tooling.md)
+- [Reference Profiles](../implementation/reference-profiles.md)
+- [Protocol: Verification](https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/protocol/verification.md)
