@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/examples/parking/">
+        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/implementation/reference-profiles/">
       
       
-        <link rel="prev" href="../../reference/cli/">
+        <link rel="prev" href="../conformance/">
       
       
-        <link rel="next" href="../charging/">
+        <link rel="next" href="../offline-payments/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Parking - MPCP Reference</title>
+        <title>Reference Profiles - MPCP Reference</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#parking-example" class="md-skip">
+        <a href="#mpcp-reference-profiles-pr15" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Parking
+              Reference Profiles
             
           </span>
         </div>
@@ -300,8 +300,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -312,13 +314,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -339,7 +339,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -357,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/sdk/" class="md-nav__link">
+      <a href="../sdk/" class="md-nav__link">
         
   
   
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/verifier/" class="md-nav__link">
+      <a href="../verifier/" class="md-nav__link">
         
   
   
@@ -413,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/conformance/" class="md-nav__link">
+      <a href="../conformance/" class="md-nav__link">
         
   
   
@@ -438,10 +438,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../implementation/reference-profiles/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Reference Profiles
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -457,6 +484,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#profiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Profiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#fleet-offline-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Fleet Offline Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parking-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parking Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#charging-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Charging Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hosted-rail-profile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hosted Rail Profile
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -469,7 +582,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/offline-payments/" class="md-nav__link">
+      <a href="../offline-payments/" class="md-nav__link">
         
   
   
@@ -497,7 +610,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/fleet-operator-tooling/" class="md-nav__link">
+      <a href="../fleet-operator-tooling/" class="md-nav__link">
         
   
   
@@ -525,7 +638,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/intent-anchoring/" class="md-nav__link">
+      <a href="../intent-anchoring/" class="md-nav__link">
         
   
   
@@ -553,7 +666,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/dispute-verification/" class="md-nav__link">
+      <a href="../dispute-verification/" class="md-nav__link">
         
   
   
@@ -730,8 +843,6 @@
       
   
   
-    
-  
   
   
     
@@ -744,11 +855,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -769,7 +882,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -784,37 +897,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parking
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/parking/" class="md-nav__link">
         
   
   
@@ -830,120 +916,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Artifacts
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify Only
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Demos
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -956,7 +928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charging/" class="md-nav__link">
+      <a href="../../examples/charging/" class="md-nav__link">
         
   
   
@@ -984,7 +956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fleet/" class="md-nav__link">
+      <a href="../../examples/fleet/" class="md-nav__link">
         
   
   
@@ -1066,10 +1038,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
+  <a href="#profiles" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario
+        Profiles
       
     </span>
   </a>
@@ -1077,10 +1049,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
+  <a href="#fleet-offline-profile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Artifacts
+        Fleet Offline Profile
       
     </span>
   </a>
@@ -1088,10 +1060,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
+  <a href="#parking-profile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run
+        Parking Profile
       
     </span>
   </a>
@@ -1099,10 +1071,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
+  <a href="#charging-profile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify Only
+        Charging Profile
       
     </span>
   </a>
@@ -1110,49 +1082,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
+  <a href="#hosted-rail-profile" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demos
+        Hosted Rail Profile
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Usage
       
     </span>
   </a>
@@ -1176,7 +1120,7 @@
 
 
   
-    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/examples/parking.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/implementation/reference-profiles.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1184,78 +1128,91 @@
   
 
 
-<h1 id="parking-example">Parking Example</h1>
-<p>A full MPCP settlement flow for a parking payment scenario.</p>
-<h2 id="scenario">Scenario</h2>
-<p>Vehicle parks at a meter or garage gate. The parking system requests payment. The vehicle evaluates fleet policy and session budget, signs an SPA, and returns the authorization. The parking system verifies the MPCP chain locally and opens the gate.</p>
-<h2 id="artifacts">Artifacts</h2>
+<h1 id="mpcp-reference-profiles-pr15">MPCP Reference Profiles (PR15)</h1>
+<p>Named deployment profiles for MPCP. Adopters choose a profile instead of inventing their own rules — reducing ambiguity and making integration easier.</p>
+<h2 id="profiles">Profiles</h2>
 <table>
 <thead>
 <tr>
-<th>Artifact</th>
-<th>Description</th>
+<th>Profile</th>
+<th>Use Case</th>
+<th>Rails</th>
+<th>Offline</th>
+<th>Intent Anchor</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>policy-grant.json</td>
-<td>Grant derived from policy constraints</td>
+<td>Fleet Offline</td>
+<td>Pre-auth budgets, no network at payment</td>
+<td>xrpl, evm</td>
+<td>yes</td>
+<td>optional</td>
 </tr>
 <tr>
-<td>budget-auth.json</td>
-<td>Unsigned budget authorization</td>
+<td>Parking</td>
+<td>Meter/gate, short sessions</td>
+<td>xrpl</td>
+<td>yes</td>
+<td>optional</td>
 </tr>
 <tr>
-<td>signed-budget-auth.json</td>
-<td>Signed budget auth (SBA)</td>
+<td>Charging</td>
+<td>EV charging, variable session length</td>
+<td>xrpl, evm</td>
+<td>yes</td>
+<td>optional</td>
 </tr>
 <tr>
-<td>spa.json</td>
-<td>Signed payment authorization</td>
-</tr>
-<tr>
-<td>settlement-intent.json</td>
-<td>Settlement intent</td>
-</tr>
-<tr>
-<td>settlement.json</td>
-<td>Settlement result</td>
-</tr>
-<tr>
-<td>settlement-bundle.json</td>
-<td>Combined bundle for verification</td>
+<td>Hosted Rail</td>
+<td>Backend-hosted, online approval</td>
+<td>stripe, hosted</td>
+<td>no</td>
+<td>n/a</td>
 </tr>
 </tbody>
 </table>
-<h2 id="run">Run</h2>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
-npm<span class="w"> </span>run<span class="w"> </span>example:parking
+<hr />
+<h2 id="fleet-offline-profile">Fleet Offline Profile</h2>
+<p><strong>Use case:</strong> Fleet vehicles with pre-authorized spending envelopes. Payment can complete without network at payment time.</p>
+<p><strong>Characteristics:</strong>
+- PolicyGrant + SBA loaded before going offline
+- SPA signed locally by vehicle
+- Verifier (e.g. parking meter) validates chain locally
+- Settlement reconciled when connectivity returns</p>
+<p><strong>Policy shape:</strong> <code>maxSessionSpend</code>, <code>allowedRails</code>, <code>allowedAssets</code>, <code>destinations</code>, <code>expiresAt</code></p>
+<p><strong>Example:</strong> <code>profiles/fleet-offline.json</code></p>
+<hr />
+<h2 id="parking-profile">Parking Profile</h2>
+<p><strong>Use case:</strong> Parking meters, garage gates, short sessions.</p>
+<p><strong>Characteristics:</strong>
+- Same as Fleet Offline
+- Typical session: single parking event
+- Destinations: parking operators, garages</p>
+<p><strong>Example:</strong> <code>profiles/parking.json</code></p>
+<hr />
+<h2 id="charging-profile">Charging Profile</h2>
+<p><strong>Use case:</strong> EV charging stations, variable session length.</p>
+<p><strong>Characteristics:</strong>
+- Same as Fleet Offline
+- Session may span multiple kWh
+- Destinations: charging operators</p>
+<p><strong>Example:</strong> <code>profiles/charging.json</code></p>
+<hr />
+<h2 id="hosted-rail-profile">Hosted Rail Profile</h2>
+<p><strong>Use case:</strong> Backend-hosted payments (Stripe, hosted providers). Online approval required.</p>
+<p><strong>Characteristics:</strong>
+- No offline path
+- Central approval at payment time
+- Rails: stripe, hosted</p>
+<p><strong>Example:</strong> <code>profiles/hosted-rail.json</code></p>
+<hr />
+<h2 id="usage">Usage</h2>
+<p>Profiles define expected policy shape. Use <code>mpcp policy-summary</code> with <code>--profile</code> to validate a policy against a reference profile.</p>
+<div class="highlight"><pre><span></span><code>mpcp<span class="w"> </span>policy-summary<span class="w"> </span>profiles/parking.json<span class="w"> </span>--profile<span class="w"> </span>parking
+mpcp<span class="w"> </span>policy-summary<span class="w"> </span>examples/fleet-simulator/fleet-policy.json<span class="w"> </span>--profile<span class="w"> </span>parking
 </code></pre></div>
-<p>Or:</p>
-<div class="highlight"><pre><span></span><code>node<span class="w"> </span>examples/parking/generate.mjs
-</code></pre></div>
-<p>The script creates ephemeral signing keys, generates all artifacts, writes them to JSON files, runs <code>mpcp verify settlement-bundle.json --explain</code>, and exits 0 if verification passes.</p>
-<h2 id="verify-only">Verify Only</h2>
-<p>If you have already generated artifacts:</p>
-<div class="highlight"><pre><span></span><code>npx<span class="w"> </span>mpcp<span class="w"> </span>verify<span class="w"> </span>examples/parking/settlement-bundle.json<span class="w"> </span>--explain
-</code></pre></div>
-<p>The bundle is self-contained (includes public keys) and uses fixed timestamps so it remains verifiable indefinitely.</p>
-<h2 id="demos">Demos</h2>
-<h3 id="machine-wallet-guardrails">Machine Wallet Guardrails</h3>
-<p>Demonstrates autonomous spend guardrails: policy limits, cryptographic signatures, local verification, tamper detection.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:guardrails
-</code></pre></div>
-<h3 id="offline-payment">Offline Payment</h3>
-<p>Demonstrates offline machine payments: vehicle holds pre-authorized policy chain, completes payment when network is unavailable.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:offline
-</code></pre></div>
-<p>See <a href="../../implementation/offline-payments/">Offline Payments</a>.</p>
-<h2 id="see-also">See Also</h2>
-<ul>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/build-a-machine-wallet.md">Build a Machine Wallet</a></li>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/fleet-payments.md">Fleet Payments</a></li>
-<li><a href="../../implementation/reference-profiles/">Reference Profiles</a> — Parking profile</li>
-</ul>
+<p>Validation checks: <code>allowedRails</code> in the policy must be a subset of the profile’s allowed rails; if the policy declares <code>_profile</code>, it must match the profile name.</p>
 
 
 

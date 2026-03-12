@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/examples/parking/">
+        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/implementation/dispute-verification/">
       
       
-        <link rel="prev" href="../../reference/cli/">
+        <link rel="prev" href="../intent-anchoring/">
       
       
-        <link rel="next" href="../charging/">
+        <link rel="next" href="../../reference/sdk/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Parking - MPCP Reference</title>
+        <title>Dispute Verification - MPCP Reference</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#parking-example" class="md-skip">
+        <a href="#dispute-verification-pr11" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Parking
+              Dispute Verification
             
           </span>
         </div>
@@ -300,8 +300,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -312,13 +314,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -339,7 +339,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -357,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/sdk/" class="md-nav__link">
+      <a href="../sdk/" class="md-nav__link">
         
   
   
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/verifier/" class="md-nav__link">
+      <a href="../verifier/" class="md-nav__link">
         
   
   
@@ -413,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/conformance/" class="md-nav__link">
+      <a href="../conformance/" class="md-nav__link">
         
   
   
@@ -441,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/reference-profiles/" class="md-nav__link">
+      <a href="../reference-profiles/" class="md-nav__link">
         
   
   
@@ -469,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/offline-payments/" class="md-nav__link">
+      <a href="../offline-payments/" class="md-nav__link">
         
   
   
@@ -497,7 +497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/fleet-operator-tooling/" class="md-nav__link">
+      <a href="../fleet-operator-tooling/" class="md-nav__link">
         
   
   
@@ -525,7 +525,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/intent-anchoring/" class="md-nav__link">
+      <a href="../intent-anchoring/" class="md-nav__link">
         
   
   
@@ -550,10 +550,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../implementation/dispute-verification/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dispute Verification
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -569,6 +596,92 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#inputs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inputs
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-reasons" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Failure Reasons
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-anchor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock Anchor
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -730,8 +843,6 @@
       
   
   
-    
-  
   
   
     
@@ -744,11 +855,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -769,7 +882,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -784,37 +897,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parking
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/parking/" class="md-nav__link">
         
   
   
@@ -830,120 +916,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Artifacts
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify Only
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Demos
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -956,7 +928,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charging/" class="md-nav__link">
+      <a href="../../examples/charging/" class="md-nav__link">
         
   
   
@@ -984,7 +956,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fleet/" class="md-nav__link">
+      <a href="../../examples/fleet/" class="md-nav__link">
         
   
   
@@ -1066,10 +1038,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario
+        Purpose
       
     </span>
   </a>
@@ -1077,10 +1049,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Artifacts
+        Usage
       
     </span>
   </a>
@@ -1088,10 +1060,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
+  <a href="#inputs" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run
+        Inputs
       
     </span>
   </a>
@@ -1099,10 +1071,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
+  <a href="#output" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify Only
+        Output
       
     </span>
   </a>
@@ -1110,49 +1082,21 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
+  <a href="#failure-reasons" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demos
+        Failure Reasons
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#mock-anchor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Mock Anchor
       
     </span>
   </a>
@@ -1176,7 +1120,7 @@
 
 
   
-    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/examples/parking.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/implementation/dispute-verification.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1184,78 +1128,48 @@
   
 
 
-<h1 id="parking-example">Parking Example</h1>
-<p>A full MPCP settlement flow for a parking payment scenario.</p>
-<h2 id="scenario">Scenario</h2>
-<p>Vehicle parks at a meter or garage gate. The parking system requests payment. The vehicle evaluates fleet policy and session budget, signs an SPA, and returns the authorization. The parking system verifies the MPCP chain locally and opens the gate.</p>
-<h2 id="artifacts">Artifacts</h2>
-<table>
-<thead>
-<tr>
-<th>Artifact</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>policy-grant.json</td>
-<td>Grant derived from policy constraints</td>
-</tr>
-<tr>
-<td>budget-auth.json</td>
-<td>Unsigned budget authorization</td>
-</tr>
-<tr>
-<td>signed-budget-auth.json</td>
-<td>Signed budget auth (SBA)</td>
-</tr>
-<tr>
-<td>spa.json</td>
-<td>Signed payment authorization</td>
-</tr>
-<tr>
-<td>settlement-intent.json</td>
-<td>Settlement intent</td>
-</tr>
-<tr>
-<td>settlement.json</td>
-<td>Settlement result</td>
-</tr>
-<tr>
-<td>settlement-bundle.json</td>
-<td>Combined bundle for verification</td>
-</tr>
-</tbody>
-</table>
-<h2 id="run">Run</h2>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
-npm<span class="w"> </span>run<span class="w"> </span>example:parking
+<h1 id="dispute-verification-pr11">Dispute Verification (PR11)</h1>
+<p>Tooling to verify disputed settlements using the full MPCP chain plus optional ledger anchor.</p>
+<h2 id="purpose">Purpose</h2>
+<p>When a settlement is disputed, <code>verifyDisputedSettlement</code> validates:</p>
+<ol>
+<li><strong>MPCP chain</strong> — PolicyGrant → SignedBudgetAuthorization → SignedPaymentAuthorization → SettlementIntent</li>
+<li><strong>Ledger anchor</strong> (optional) — When provided, verifies the anchor is consistent with the settlement intent</li>
+</ol>
+<h2 id="usage">Usage</h2>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">verifyDisputedSettlement</span><span class="p">,</span><span class="w"> </span><span class="nx">mockAnchorIntentHash</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;mpcp-service&quot;</span><span class="p">;</span>
+<span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">computeSettlementIntentHash</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;mpcp-service&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">verifyDisputedSettlement</span><span class="p">({</span>
+<span class="w">  </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">settlementVerificationContext</span><span class="p">,</span>
+<span class="w">  </span><span class="nx">ledgerAnchor</span><span class="o">:</span><span class="w"> </span><span class="kt">await</span><span class="w"> </span><span class="nx">mockAnchorIntentHash</span><span class="p">(</span><span class="nx">computeSettlementIntentHash</span><span class="p">(</span><span class="nx">intent</span><span class="p">)),</span>
+<span class="p">});</span>
+
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">result</span><span class="p">.</span><span class="nx">verified</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Settlement and anchor are valid</span>
+<span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// result.reason describes the failure</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>Or:</p>
-<div class="highlight"><pre><span></span><code>node<span class="w"> </span>examples/parking/generate.mjs
-</code></pre></div>
-<p>The script creates ephemeral signing keys, generates all artifacts, writes them to JSON files, runs <code>mpcp verify settlement-bundle.json --explain</code>, and exits 0 if verification passes.</p>
-<h2 id="verify-only">Verify Only</h2>
-<p>If you have already generated artifacts:</p>
-<div class="highlight"><pre><span></span><code>npx<span class="w"> </span>mpcp<span class="w"> </span>verify<span class="w"> </span>examples/parking/settlement-bundle.json<span class="w"> </span>--explain
-</code></pre></div>
-<p>The bundle is self-contained (includes public keys) and uses fixed timestamps so it remains verifiable indefinitely.</p>
-<h2 id="demos">Demos</h2>
-<h3 id="machine-wallet-guardrails">Machine Wallet Guardrails</h3>
-<p>Demonstrates autonomous spend guardrails: policy limits, cryptographic signatures, local verification, tamper detection.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:guardrails
-</code></pre></div>
-<h3 id="offline-payment">Offline Payment</h3>
-<p>Demonstrates offline machine payments: vehicle holds pre-authorized policy chain, completes payment when network is unavailable.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:offline
-</code></pre></div>
-<p>See <a href="../../implementation/offline-payments/">Offline Payments</a>.</p>
-<h2 id="see-also">See Also</h2>
+<h2 id="inputs">Inputs</h2>
 <ul>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/build-a-machine-wallet.md">Build a Machine Wallet</a></li>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/fleet-payments.md">Fleet Payments</a></li>
-<li><a href="../../implementation/reference-profiles/">Reference Profiles</a> — Parking profile</li>
+<li><strong>context</strong> — Full <code>SettlementVerificationContext</code> (settlement, artifacts, policy grant, SBA, SPA, decision, settlement intent)</li>
+<li><strong>ledgerAnchor</strong> — Optional <code>AnchorResult</code> from intent anchoring (PR10)</li>
 </ul>
+<h2 id="output">Output</h2>
+<ul>
+<li><code>{ verified: true }</code> — Settlement chain valid; anchor (if provided) consistent</li>
+<li><code>{ verified: false, reason: string }</code> — Failure with reason</li>
+</ul>
+<h2 id="failure-reasons">Failure Reasons</h2>
+<ul>
+<li><code>settlement_verification_failed</code> — Standard MPCP chain verification failed</li>
+<li><code>anchor_provided_but_settlement_intent_missing</code> — Anchor provided but context has no settlement intent</li>
+<li><code>anchor_mismatch: ...</code> — Mock anchor txHash does not match intent hash</li>
+<li><code>anchor_rail_not_supported: ...</code> — Real ledger anchor verification not yet implemented</li>
+</ul>
+<h2 id="mock-anchor">Mock Anchor</h2>
+<p>Only mock anchors are supported. Real ledger verification (Hedera HCS, XRPL, EVM) is future work.</p>
 
 
 

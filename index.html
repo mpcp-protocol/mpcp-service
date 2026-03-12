@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Machine Payment Control Protocol">
+        <meta name="description" content="Reference implementation of the Machine Payment Control Protocol">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>MPCP</title>
+        <title>MPCP Reference</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#machine-payment-control-protocol-mpcp" class="md-skip">
+        <a href="#mpcp-reference-implementation" class="md-skip">
           Skip to content
         </a>
       
@@ -92,7 +92,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href="True" title="MPCP" class="md-header__button md-logo" aria-label="MPCP" data-md-component="logo">
+    <a href="." title="MPCP Reference" class="md-header__button md-logo" aria-label="MPCP Reference" data-md-component="logo">
       
   <img src="assets/logo.svg" alt="logo">
 
@@ -105,7 +105,7 @@
       <div class="md-header__ellipsis">
         <div class="md-header__topic">
           <span class="md-ellipsis">
-            MPCP
+            MPCP Reference
           </span>
         </div>
         <div class="md-header__topic" data-md-component="header-topic">
@@ -218,12 +218,12 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href="True" title="MPCP" class="md-nav__button md-logo" aria-label="MPCP" data-md-component="logo">
+    <a href="." title="MPCP Reference" class="md-nav__button md-logo" aria-label="MPCP Reference" data-md-component="logo">
       
   <img src="assets/logo.svg" alt="logo">
 
     </a>
-    MPCP
+    MPCP Reference
   </label>
   
     <div class="md-nav__source">
@@ -307,10 +307,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-mpcp-works" class="md-nav__link">
+  <a href="#what-this-repo-provides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How MPCP works
+        What This Repo Provides
       
     </span>
   </a>
@@ -318,10 +318,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-mpcp-authorization-chain" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The MPCP Authorization Chain
+        Quick Start
       
     </span>
   </a>
@@ -329,43 +329,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-mpcp-fits-in-the-agent-stack" class="md-nav__link">
+  <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Where MPCP Fits in the Agent Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-autonomous-parking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Autonomous Parking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-mpcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why MPCP?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#architecture-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture Overview
+        Documentation
       
     </span>
   </a>
@@ -377,17 +344,6 @@
     <span class="md-ellipsis">
       
         Specification
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#start-building" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Start Building
       
     </span>
   </a>
@@ -461,7 +417,7 @@
   <span class="md-ellipsis">
     
   
-    Overview
+    Implementation
   
 
     
@@ -477,7 +433,7 @@
             <span class="md-nav__icon md-icon"></span>
             
   
-    Overview
+    Implementation
   
 
           </label>
@@ -490,14 +446,14 @@
   
   
     <li class="md-nav__item">
-      <a href="overview/what-is-mpcp/" class="md-nav__link">
+      <a href="implementation/sdk/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    What is MPCP?
+    SDK
   
 
     
@@ -518,14 +474,14 @@
   
   
     <li class="md-nav__item">
-      <a href="overview/problem-statement/" class="md-nav__link">
+      <a href="implementation/verifier/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Problem Statement
+    Verifier
   
 
     
@@ -546,14 +502,14 @@
   
   
     <li class="md-nav__item">
-      <a href="overview/design-goals/" class="md-nav__link">
+      <a href="implementation/conformance/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Design Goals
+    Conformance
   
 
     
@@ -574,14 +530,126 @@
   
   
     <li class="md-nav__item">
-      <a href="overview/comparison-with-agent-protocols/" class="md-nav__link">
+      <a href="implementation/reference-profiles/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Comparison with Agent Protocols
+    Reference Profiles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implementation/offline-payments/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Offline Payments
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implementation/fleet-operator-tooling/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet Operator Tooling
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implementation/intent-anchoring/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Anchoring
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="implementation/dispute-verification/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Dispute Verification
   
 
     
@@ -634,7 +702,7 @@
   <span class="md-ellipsis">
     
   
-    Architecture
+    Reference
   
 
     
@@ -647,1212 +715,6 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Architecture
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/authorization-chain/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Authorization Chain
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/system-model/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    System Model
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/actors/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Actors
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/artifact-lifecycle/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Artifact Lifecycle
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="architecture/reference-flow/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reference Flow
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="doc/architecture/MPCP_IMPLEMENTATION_ROADMAP/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Implementation Roadmap
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Protocol
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Protocol
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/mpcp/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    MPCP Spec
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/artifacts/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Artifacts Overview
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/PolicyGrant/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    PolicyGrant
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/SignedBudgetAuthorization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SignedBudgetAuthorization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/SignedPaymentAuthorization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SignedPaymentAuthorization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/SettlementIntent/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SettlementIntent
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/SettlementIntentHash/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SettlementIntentHash
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/FleetPolicyAuthorization/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    FleetPolicyAuthorization
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/ArtifactBundle/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    ArtifactBundle
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/hashing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Hashing
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/verification/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Verification
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="protocol/anchoring/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Anchoring
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
-        
-          
-          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Scenarios
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Scenarios
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="scenarios/ev-charging/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    EV Charging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="scenarios/parking/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parking
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="scenarios/machine-commerce/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Machine Commerce
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
-        
-          
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Implementation
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Implementation
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="implementation/verifier/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Verifier
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="implementation/sdk/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    SDK
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="implementation/conformance/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Conformance
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
-        
-          
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Guides
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Guides
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="guides/build-a-machine-wallet/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Build a Machine Wallet
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="guides/fleet-payments/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fleet Payments
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="guides/dispute-resolution/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Dispute Resolution
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
-        
-          
-          <label class="md-nav__link" for="__nav_9" id="__nav_9_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Examples
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
-            <span class="md-nav__icon md-icon"></span>
-            
-  
-    Examples
-  
-
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="examples/parking/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parking
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="examples/charging/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Charging
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="examples/fleet/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Fleet
-  
-
-    
-  </span>
-  
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-  
-  
-    
-    
-    
-    
-      
-        
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
-        
-          
-          <label class="md-nav__link" for="__nav_10" id="__nav_10_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Reference
-  
-
-    
-  </span>
-  
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1975,17 +837,17 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
         
           
-          <label class="md-nav__link" for="__nav_11" id="__nav_11_label" tabindex="">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
     
   
-    Diagrams
+    Examples
   
 
     
@@ -1996,12 +858,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_11">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
   
-    Diagrams
+    Examples
   
 
           </label>
@@ -2014,14 +876,70 @@
   
   
     <li class="md-nav__item">
-      <a href="diagrams/" class="md-nav__link">
+      <a href="examples/parking/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     
   
-    Diagrams
+    Parking
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/charging/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Charging
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="examples/fleet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Fleet
   
 
     
@@ -2096,10 +1014,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#how-mpcp-works" class="md-nav__link">
+  <a href="#what-this-repo-provides" class="md-nav__link">
     <span class="md-ellipsis">
       
-        How MPCP works
+        What This Repo Provides
       
     </span>
   </a>
@@ -2107,10 +1025,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#the-mpcp-authorization-chain" class="md-nav__link">
+  <a href="#quick-start" class="md-nav__link">
     <span class="md-ellipsis">
       
-        The MPCP Authorization Chain
+        Quick Start
       
     </span>
   </a>
@@ -2118,43 +1036,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#where-mpcp-fits-in-the-agent-stack" class="md-nav__link">
+  <a href="#documentation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Where MPCP Fits in the Agent Stack
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#example-autonomous-parking" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Example: Autonomous Parking
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#why-mpcp" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Why MPCP?
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#architecture-overview" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Architecture Overview
+        Documentation
       
     </span>
   </a>
@@ -2166,17 +1051,6 @@
     <span class="md-ellipsis">
       
         Specification
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#start-building" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Start Building
       
     </span>
   </a>
@@ -2208,133 +1082,53 @@
   
 
 
-<h1 id="machine-payment-control-protocol-mpcp">Machine Payment Control Protocol (MPCP)</h1>
-<p><strong>Protocol Version: MPCP 1.0</strong></p>
-<p><strong>A protocol for verifiable machine-to-service payments.</strong></p>
-<p>Autonomous vehicles, AI agents, and machines increasingly pay for real-world services like parking, charging, and tolls.</p>
-<h2 id="how-mpcp-works">How MPCP works</h2>
-<p>A machine payment is accepted only if the recipient can verify a chain of signed artifacts:</p>
-<p><strong><a href="architecture/authorization-chain/">Fleet Policy</a> → <a href="protocol/PolicyGrant/">PolicyGrant</a> → <a href="protocol/SignedBudgetAuthorization/">SignedBudgetAuthorization</a> → <a href="protocol/SignedPaymentAuthorization/">SignedPaymentAuthorization</a> → <a href="protocol/SettlementIntent/">SettlementIntent</a> → Settlement</strong></p>
-<p>Each step narrows what the machine is allowed to do.</p>
-<p>→ <a href="architecture/reference-flow/">See the full reference flow</a></p>
-<p>MPCP is not a settlement rail — it is the authorization layer above settlement.</p>
-<div class="grid cards">
+<h1 id="mpcp-reference-implementation">MPCP Reference Implementation</h1>
+<p>This repository provides the <strong>reference implementation</strong> of the <a href="https://github.com/mpcp-protocol/mpcp-spec">Machine Payment Control Protocol (MPCP)</a>.</p>
+<p>For the <strong>canonical protocol specification</strong> — overview, architecture, protocol definitions, and conceptual guides — see <a href="https://github.com/mpcp-protocol/mpcp-spec">mpcp-spec</a>.</p>
+<h2 id="what-this-repo-provides">What This Repo Provides</h2>
 <ul>
-<li>
-<p><strong>Understand the Problem</strong><br />
-  Why existing payment APIs are not designed for autonomous machines.<br />
-  → <a href="overview/problem-statement/">Read the problem</a></p>
-</li>
-<li>
-<p><strong>Learn the Protocol</strong><br />
-  See the MPCP authorization chain and how it works.<br />
-  → <a href="protocol/artifacts/">Protocol overview</a></p>
-</li>
-<li>
-<p><strong>Build with MPCP</strong><br />
-  Implement a machine wallet or service provider.<br />
-  → <a href="quickstart/">Quickstart</a></p>
-</li>
-<li>
-<p><strong>Explore Examples</strong><br />
-  Autonomous parking, EV charging, and fleet payments.<br />
-  → <a href="examples/parking/">Examples</a></p>
-</li>
+<li><strong>SDK</strong> — Create and verify MPCP artifacts (PolicyGrant, SBA, SPA, SettlementIntent)</li>
+<li><strong>Verifier</strong> — Settlement verification pipeline</li>
+<li><strong>CLI</strong> — <code>mpcp verify</code> and <code>mpcp policy-summary</code></li>
+<li><strong>Service API</strong> — Backend facade for <code>issueBudget</code>, <code>verifySettlementService</code>, <code>anchorIntent</code></li>
+<li><strong>Examples</strong> — Parking, EV charging, machine commerce</li>
 </ul>
-</div>
-<h2 id="the-mpcp-authorization-chain">The MPCP Authorization Chain</h2>
-<p>MPCP defines a sequence of artifacts that authorize and verify a machine payment.</p>
-<div class="highlight"><pre><span></span><code>Fleet Policy
-↓
-PolicyGrant
-↓
-SignedBudgetAuthorization
-↓
-SignedPaymentAuthorization
-↓
-SettlementIntent
-↓
-Settlement
+<h2 id="quick-start">Quick Start</h2>
+<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>install<span class="w"> </span>mpcp-service
+npm<span class="w"> </span>run<span class="w"> </span>build
+npm<span class="w"> </span>run<span class="w"> </span>example:parking
+npx<span class="w"> </span>mpcp<span class="w"> </span>verify<span class="w"> </span>examples/parking/settlement-bundle.json<span class="w"> </span>--explain
 </code></pre></div>
-<ol>
-<li>
-<p><strong>Fleet Policy</strong> — Defines rules: where, when, how much a machine may spend.</p>
-</li>
-<li>
-<p><strong>PolicyGrant</strong> — Initial permission envelope derived from policy.</p>
-</li>
-<li>
-<p><strong>SignedBudgetAuthorization (SBA)</strong> — Session-level spending limits.</p>
-</li>
-<li>
-<p><strong>SignedPaymentAuthorization (SPA)</strong> — Binds a specific payment to the approved quote.</p>
-</li>
-<li>
-<p><strong>SettlementIntent</strong> — Canonical description of the payment to execute.</p>
-</li>
-<li>
-<p><strong>Settlement</strong> — Executed transaction verified against the chain.</p>
-</li>
-</ol>
-<p>→ <a href="architecture/authorization-chain/">Authorization Chain (visual reference)</a></p>
-<h2 id="where-mpcp-fits-in-the-agent-stack">Where MPCP Fits in the Agent Stack</h2>
+<p>→ <a href="quickstart/">Full quickstart</a></p>
+<h2 id="documentation">Documentation</h2>
 <table>
 <thead>
 <tr>
-<th>Layer</th>
-<th>Purpose</th>
+<th>Section</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>MCP</td>
-<td>Tool access</td>
+<td><a href="quickstart/">Quickstart</a></td>
+<td>Get running in 5 minutes</td>
 </tr>
 <tr>
-<td>A2A</td>
-<td>Agent communication</td>
+<td><a href="implementation/sdk/">Implementation</a></td>
+<td>SDK, verifier, conformance</td>
 </tr>
 <tr>
-<td>ACP</td>
-<td>Agent messaging</td>
+<td><a href="reference/sdk/">Reference</a></td>
+<td>API reference (SDK, Service, CLI)</td>
 </tr>
 <tr>
-<td><strong>MPCP</strong></td>
-<td><strong>Machine payments</strong></td>
+<td><a href="examples/parking/">Examples</a></td>
+<td>Parking, charging, fleet</td>
 </tr>
 </tbody>
 </table>
-<p>MPCP complements agent protocols by enabling <strong>verifiable payment authorization between machines and services</strong>.</p>
-<h2 id="example-autonomous-parking">Example: Autonomous Parking</h2>
-<ol>
-<li>A vehicle enters a parking garage.</li>
-<li>The garage verifies a <strong>PolicyGrant</strong>.</li>
-<li>The vehicle presents a <strong>SignedBudgetAuthorization (SBA)</strong> for the session.</li>
-<li>When exiting, a <strong>SignedPaymentAuthorization (SPA)</strong> is issued.</li>
-<li>The garage verifies settlement.</li>
-</ol>
-<p>This ensures the payment can be independently verified.</p>
-<p>→ <a href="examples/parking/">Full example</a></p>
-<h2 id="why-mpcp">Why MPCP?</h2>
-<p>Traditional payment systems assume a human approves every transaction. Machine economies need a different model:</p>
-<ul>
-<li><strong>Bounded authorization</strong> — Pre-authorized spending envelopes instead of wallet popups</li>
-<li><strong>Offline-capable</strong> — Payments complete when the network is unavailable</li>
-<li><strong>Verifiable</strong> — Every settlement can be independently verified against the authorization chain</li>
-<li><strong>Rail-agnostic</strong> — XRPL, EVM, Stripe, hosted—one authorization model, any settlement rail</li>
-</ul>
-<h2 id="architecture-overview">Architecture Overview</h2>
-<p>MPCP allows machines, service providers, and verification systems to independently validate payment authorization chains.</p>
-<p>→ <a href="diagrams/">See architecture diagrams</a></p>
 <h2 id="specification">Specification</h2>
-<p>The full protocol specification is in the <a href="protocol/mpcp/">MPCP specification</a>. The <a href="https://github.com/mpcp-protocol/mpcp-reference">reference implementation</a> is available on GitHub.</p>
-<h2 id="start-building">Start Building</h2>
-<ul>
-<li><a href="quickstart/">Quickstart</a></li>
-<li><a href="reference/sdk/">SDK Reference</a></li>
-<li><a href="reference/service-api/">Service API</a></li>
-<li><a href="reference/cli/">CLI</a></li>
-</ul>
+<p>The <a href="https://github.com/mpcp-protocol/mpcp-spec">MPCP specification</a> is maintained in the <code>mpcp-spec</code> repository.</p>
 
 
 

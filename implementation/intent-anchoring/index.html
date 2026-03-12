@@ -10,13 +10,13 @@
       
       
       
-        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/examples/parking/">
+        <link rel="canonical" href="https://mpcp-protocol.github.io/mpcp-reference/implementation/intent-anchoring/">
       
       
-        <link rel="prev" href="../../reference/cli/">
+        <link rel="prev" href="../fleet-operator-tooling/">
       
       
-        <link rel="next" href="../charging/">
+        <link rel="next" href="../dispute-verification/">
       
       
         
@@ -27,7 +27,7 @@
     
     
       
-        <title>Parking - MPCP Reference</title>
+        <title>Intent Anchoring - MPCP Reference</title>
       
     
     
@@ -78,7 +78,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#parking-example" class="md-skip">
+        <a href="#intent-anchoring-pr10" class="md-skip">
           Skip to content
         </a>
       
@@ -113,7 +113,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Parking
+              Intent Anchoring
             
           </span>
         </div>
@@ -300,8 +300,10 @@
       
   
   
+    
   
   
+  
     
     
     
@@ -312,13 +314,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -339,7 +339,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             
@@ -357,7 +357,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/sdk/" class="md-nav__link">
+      <a href="../sdk/" class="md-nav__link">
         
   
   
@@ -385,7 +385,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/verifier/" class="md-nav__link">
+      <a href="../verifier/" class="md-nav__link">
         
   
   
@@ -413,7 +413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/conformance/" class="md-nav__link">
+      <a href="../conformance/" class="md-nav__link">
         
   
   
@@ -441,7 +441,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/reference-profiles/" class="md-nav__link">
+      <a href="../reference-profiles/" class="md-nav__link">
         
   
   
@@ -469,7 +469,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/offline-payments/" class="md-nav__link">
+      <a href="../offline-payments/" class="md-nav__link">
         
   
   
@@ -497,7 +497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/fleet-operator-tooling/" class="md-nav__link">
+      <a href="../fleet-operator-tooling/" class="md-nav__link">
         
   
   
@@ -522,10 +522,37 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../implementation/intent-anchoring/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Intent Anchoring
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   
@@ -541,6 +568,103 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#purpose" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Purpose
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#supported-rails" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Supported Rails
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Usage
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anchor-result" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anchor Result
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Integration
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#mock-anchor" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mock Anchor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hedera-hcs-adapter-pr14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hedera HCS Adapter (PR14)
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -553,7 +677,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../implementation/dispute-verification/" class="md-nav__link">
+      <a href="../dispute-verification/" class="md-nav__link">
         
   
   
@@ -730,8 +854,6 @@
       
   
   
-    
-  
   
   
     
@@ -744,11 +866,13 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
         
           
           <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
@@ -769,7 +893,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -784,37 +908,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    
-  
-    Parking
-  
-
-    
-  </span>
-  
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../examples/parking/" class="md-nav__link">
         
   
   
@@ -830,120 +927,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Scenario
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Artifacts
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Run
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Verify Only
-      
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Demos
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        See Also
-      
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -956,7 +939,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../charging/" class="md-nav__link">
+      <a href="../../examples/charging/" class="md-nav__link">
         
   
   
@@ -984,7 +967,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fleet/" class="md-nav__link">
+      <a href="../../examples/fleet/" class="md-nav__link">
         
   
   
@@ -1066,10 +1049,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#scenario" class="md-nav__link">
+  <a href="#purpose" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scenario
+        Purpose
       
     </span>
   </a>
@@ -1077,10 +1060,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#artifacts" class="md-nav__link">
+  <a href="#supported-rails" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Artifacts
+        Supported Rails
       
     </span>
   </a>
@@ -1088,10 +1071,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#run" class="md-nav__link">
+  <a href="#usage" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Run
+        Usage
       
     </span>
   </a>
@@ -1099,10 +1082,10 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#verify-only" class="md-nav__link">
+  <a href="#anchor-result" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Verify Only
+        Anchor Result
       
     </span>
   </a>
@@ -1110,49 +1093,32 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#demos" class="md-nav__link">
+  <a href="#integration" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Demos
+        Integration
       
     </span>
   </a>
-  
-    <nav class="md-nav" aria-label="Demos">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#machine-wallet-guardrails" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Machine Wallet Guardrails
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#offline-payment" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Offline Payment
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#see-also" class="md-nav__link">
+  <a href="#mock-anchor" class="md-nav__link">
     <span class="md-ellipsis">
       
-        See Also
+        Mock Anchor
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hedera-hcs-adapter-pr14" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Hedera HCS Adapter (PR14)
       
     </span>
   </a>
@@ -1176,7 +1142,7 @@
 
 
   
-    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/examples/parking.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
+    <a href="https://github.com/mpcp-protocol/mpcp-reference/edit/main/docs/implementation/intent-anchoring.md" title="Edit this page" class="md-content__button md-icon" rel="edit">
       
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
     </a>
@@ -1184,78 +1150,92 @@
   
 
 
-<h1 id="parking-example">Parking Example</h1>
-<p>A full MPCP settlement flow for a parking payment scenario.</p>
-<h2 id="scenario">Scenario</h2>
-<p>Vehicle parks at a meter or garage gate. The parking system requests payment. The vehicle evaluates fleet policy and session budget, signs an SPA, and returns the authorization. The parking system verifies the MPCP chain locally and opens the gate.</p>
-<h2 id="artifacts">Artifacts</h2>
+<h1 id="intent-anchoring-pr10">Intent Anchoring (PR10)</h1>
+<p>Optional support for publishing intent hashes to distributed ledgers. Provides public auditability, dispute protection, and replay protection.</p>
+<p><strong>Mock anchor</strong> is included for development. <strong>Hedera HCS</strong> adapter is implemented (PR14). XRPL and EVM are future work.</p>
+<h2 id="purpose">Purpose</h2>
+<ul>
+<li><strong>Public auditability</strong> — Intent hashes can be verified against a public record</li>
+<li><strong>Dispute protection</strong> — Timestamped proof of intent before settlement</li>
+<li><strong>Replay protection</strong> — Ledger sequence provides ordering and uniqueness</li>
+</ul>
+<h2 id="supported-rails">Supported Rails</h2>
 <table>
 <thead>
 <tr>
-<th>Artifact</th>
+<th>Rail</th>
 <th>Description</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>policy-grant.json</td>
-<td>Grant derived from policy constraints</td>
+<td>Hedera HCS</td>
+<td>Hashgraph Consensus Service topic</td>
 </tr>
 <tr>
-<td>budget-auth.json</td>
-<td>Unsigned budget authorization</td>
+<td>XRPL</td>
+<td>XRP Ledger memo or dedicated table</td>
 </tr>
 <tr>
-<td>signed-budget-auth.json</td>
-<td>Signed budget auth (SBA)</td>
+<td>EVM</td>
+<td>Ethereum / EVM-compatible chain</td>
 </tr>
 <tr>
-<td>spa.json</td>
-<td>Signed payment authorization</td>
-</tr>
-<tr>
-<td>settlement-intent.json</td>
-<td>Settlement intent</td>
-</tr>
-<tr>
-<td>settlement.json</td>
-<td>Settlement result</td>
-</tr>
-<tr>
-<td>settlement-bundle.json</td>
-<td>Combined bundle for verification</td>
+<td>mock</td>
+<td>Development and testing (no ledger)</td>
 </tr>
 </tbody>
 </table>
-<h2 id="run">Run</h2>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>build
-npm<span class="w"> </span>run<span class="w"> </span>example:parking
+<h2 id="usage">Usage</h2>
+<div class="highlight"><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">computeSettlementIntentHash</span><span class="p">,</span><span class="w"> </span><span class="nx">mockAnchorIntentHash</span><span class="p">,</span><span class="w"> </span><span class="nx">hederaHcsAnchorIntentHash</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;mpcp-service&quot;</span><span class="p">;</span>
+
+<span class="kd">const</span><span class="w"> </span><span class="nx">intent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">version</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1.0&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">rail</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;xrpl&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">amount</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;1000&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">destination</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;rDest...&quot;</span><span class="w"> </span><span class="p">};</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">intentHash</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">computeSettlementIntentHash</span><span class="p">(</span><span class="nx">intent</span><span class="p">);</span>
+
+<span class="c1">// Mock anchor (development)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">mockResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">mockAnchorIntentHash</span><span class="p">(</span><span class="nx">intentHash</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">rail</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;mock&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="c1">// { rail: &quot;mock&quot;, txHash: &quot;mock-...&quot;, anchoredAt: &quot;...&quot; }</span>
+
+<span class="c1">// Hedera HCS (requires @hashgraph/sdk, HEDERA_OPERATOR_*, HEDERA_TOPIC_ID)</span>
+<span class="kd">const</span><span class="w"> </span><span class="nx">hederaResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">await</span><span class="w"> </span><span class="nx">hederaHcsAnchorIntentHash</span><span class="p">(</span><span class="nx">intentHash</span><span class="p">,</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">rail</span><span class="o">:</span><span class="w"> </span><span class="s2">&quot;hedera-hcs&quot;</span><span class="w"> </span><span class="p">});</span>
+<span class="c1">// { rail: &quot;hedera-hcs&quot;, topicId, sequenceNumber, intentHash, anchoredAt }</span>
 </code></pre></div>
-<p>Or:</p>
-<div class="highlight"><pre><span></span><code>node<span class="w"> </span>examples/parking/generate.mjs
+<h2 id="anchor-result">Anchor Result</h2>
+<div class="highlight"><pre><span></span><code><span class="kd">interface</span><span class="w"> </span><span class="nx">AnchorResult</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nx">rail</span><span class="o">:</span><span class="w"> </span><span class="kt">AnchorRail</span><span class="p">;</span>
+<span class="w">  </span><span class="nx">txHash?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">           </span><span class="c1">// XRPL, EVM transaction hash</span>
+<span class="w">  </span><span class="nx">reference?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">        </span><span class="c1">// Rail-neutral reference (e.g. topicId:sequenceNumber)</span>
+<span class="w">  </span><span class="nx">consensusTimestamp?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w"> </span><span class="c1">// Hedera HCS (ISO 8601)</span>
+<span class="w">  </span><span class="nx">topicId?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">          </span><span class="c1">// Hedera HCS</span>
+<span class="w">  </span><span class="nx">sequenceNumber?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">   </span><span class="c1">// Hedera HCS</span>
+<span class="w">  </span><span class="nx">intentHash?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">        </span><span class="c1">// For verification</span>
+<span class="w">  </span><span class="nx">anchoredAt?</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">;</span><span class="w">       </span><span class="c1">// ISO 8601</span>
+<span class="p">}</span>
 </code></pre></div>
-<p>The script creates ephemeral signing keys, generates all artifacts, writes them to JSON files, runs <code>mpcp verify settlement-bundle.json --explain</code>, and exits 0 if verification passes.</p>
-<h2 id="verify-only">Verify Only</h2>
-<p>If you have already generated artifacts:</p>
-<div class="highlight"><pre><span></span><code>npx<span class="w"> </span>mpcp<span class="w"> </span>verify<span class="w"> </span>examples/parking/settlement-bundle.json<span class="w"> </span>--explain
-</code></pre></div>
-<p>The bundle is self-contained (includes public keys) and uses fixed timestamps so it remains verifiable indefinitely.</p>
-<h2 id="demos">Demos</h2>
-<h3 id="machine-wallet-guardrails">Machine Wallet Guardrails</h3>
-<p>Demonstrates autonomous spend guardrails: policy limits, cryptographic signatures, local verification, tamper detection.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:guardrails
-</code></pre></div>
-<h3 id="offline-payment">Offline Payment</h3>
-<p>Demonstrates offline machine payments: vehicle holds pre-authorized policy chain, completes payment when network is unavailable.</p>
-<div class="highlight"><pre><span></span><code>npm<span class="w"> </span>run<span class="w"> </span>example:offline
-</code></pre></div>
-<p>See <a href="../../implementation/offline-payments/">Offline Payments</a>.</p>
-<h2 id="see-also">See Also</h2>
+<h2 id="integration">Integration</h2>
+<p>Anchoring is <strong>optional</strong>. MPCP verification does not require an anchor. Anchors are used for:</p>
 <ul>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/build-a-machine-wallet.md">Build a Machine Wallet</a></li>
-<li><a href="https://github.com/mpcp-protocol/mpcp-spec/blob/main/docs/guides/fleet-payments.md">Fleet Payments</a></li>
-<li><a href="../../implementation/reference-profiles/">Reference Profiles</a> — Parking profile</li>
+<li>Dispute resolution (PR11)</li>
+<li>Audit trails</li>
+<li>Compliance and attestation</li>
 </ul>
+<h2 id="mock-anchor">Mock Anchor</h2>
+<p>The <code>mockAnchorIntentHash</code> function simulates anchoring without contacting a ledger. Use for:</p>
+<ul>
+<li>Development</li>
+<li>Testing</li>
+<li>Demos</li>
+</ul>
+<p><strong>Validation:</strong> Requires 64-char hex intentHash. Throws on invalid input. Only accepts <code>rail: "mock"</code> — passing other rails throws to avoid confusion with real ledger behavior.</p>
+<h2 id="hedera-hcs-adapter-pr14">Hedera HCS Adapter (PR14)</h2>
+<p>The Hedera HCS adapter publishes intent hashes to a Hedera Consensus Service topic.</p>
+<p><strong>Requirements:</strong>
+- <code>npm install @hashgraph/sdk</code> (optional peer dependency; install when using Hedera HCS)
+- <code>HEDERA_OPERATOR_ACCOUNT_ID</code> — Operator account ID
+- <code>HEDERA_OPERATOR_PRIVATE_KEY</code> — Operator private key (DER or hex)
+- <code>HEDERA_TOPIC_ID</code> — HCS topic ID
+- <code>HEDERA_NETWORK</code> (optional) — <code>testnet</code> or <code>mainnet</code>, default <code>testnet</code></p>
+<p><strong>Verification:</strong> Use <code>verifyDisputedSettlementAsync</code> for full verification against the Hedera mirror node. The sync <code>verifyDisputedSettlement</code> accepts hedera-hcs anchors when <code>intentHash</code> is present in the anchor result.</p>
 
 
 
