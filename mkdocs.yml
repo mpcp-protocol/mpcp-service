@@ -1,9 +1,9 @@
 # MkDocs config for MPCP docs site (PR19)
 site_name: MPCP
 site_description: Machine Payment Control Protocol
-site_url: https://naory.github.io/mpcp-service/
-repo_url: https://github.com/naory/mpcp-service
-repo_name: mpcp-service
+site_url: https://mpcp-protocol.github.io/mpcp-reference/
+repo_url: https://github.com/mpcp-protocol/mpcp-reference
+repo_name: mpcp-reference
 edit_uri: edit/main/docs/
 
 plugins:

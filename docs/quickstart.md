@@ -10,7 +10,7 @@ Get the full MPCP artifact chain running locally in under 5 minutes.
 ## 1. Clone and Install
 
 ```bash
-git clone https://github.com/naory/mpcp-service.git
+git clone https://github.com/mpcp-protocol/mpcp-reference.git
 cd mpcp-service
 npm install
 ```
