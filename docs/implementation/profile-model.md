@@ -1,5 +1,7 @@
 # Profile Model
 
+Profiles make MPCP concrete for specific rails and asset systems without changing the core protocol.
+
 ## What a profile is
 
 A deployment profile is a named constraint set that makes MPCP concrete for a specific payment environment without changing the base protocol.
