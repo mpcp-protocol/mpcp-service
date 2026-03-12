@@ -3,6 +3,20 @@
 The **authorization chain** is the core visual model for MPCP. Each step produces a verifiable artifact that constrains the next. Machines spend within bounds established upstream—no per-transaction approval required.
 
 ```
+PolicyGrant
+↓
+SignedBudgetAuthorization
+↓
+SignedPaymentAuthorization
+↓
+SettlementIntent
+↓
+Settlement
+```
+
+In fleet deployments, an optional FleetPolicyAuthorization (FPA) layer may sit above PolicyGrant.
+
+```
 Fleet Policy
 ↓
 PolicyGrant
