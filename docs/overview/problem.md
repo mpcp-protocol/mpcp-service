@@ -1,3 +1,5 @@
 # The Problem
 
-This page has been renamed. See [Problem Statement](problem-statement.md).
+This page has moved.
+
+See → [Problem Statement](problem-statement.md)

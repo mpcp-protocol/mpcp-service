@@ -33,26 +33,37 @@ MPCP provides a **cryptographically verifiable authorization chain** for these p
 MPCP defines a sequence of artifacts that authorize and verify a machine payment.
 
 ```
+Fleet Policy
+     │
+     ▼
 PolicyGrant
-      ↓
-BudgetAuthorization
-      ↓
-PaymentAuthorization
-      ↓
+     │
+     ▼
+SignedBudgetAuthorization
+     │
+     ▼
+SignedPaymentAuthorization
+     │
+     ▼
+SettlementIntent
+     │
+     ▼
 Settlement
 ```
 
-1. **PolicyGrant**  
-   Defines where a machine is allowed to pay.
+1. **Fleet Policy** — Defines rules: where, when, how much a machine may spend.
 
-2. **BudgetAuthorization**  
-   Defines spending limits for a session.
+2. **PolicyGrant** — Initial permission envelope derived from policy.
 
-3. **PaymentAuthorization**  
-   Authorizes a specific payment.
+3. **SignedBudgetAuthorization (SBA)** — Session-level spending limits.
 
-4. **Settlement**  
-   Final transaction verification.
+4. **SignedPaymentAuthorization (SPA)** — Binds a specific payment to the approved quote.
+
+5. **SettlementIntent** — Canonical description of the payment to execute.
+
+6. **Settlement** — Executed transaction verified against the chain.
+
+→ [Authorization Chain (visual reference)](architecture/authorization-chain.md)
 
 ## Where MPCP Fits in the Agent Stack
 

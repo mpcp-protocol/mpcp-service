@@ -14,6 +14,10 @@ The system model has three layers:
 
 MPCP operates in the **authorization** layer. It does not replace or implement the settlement layer—it constrains what may be settled.
 
+The canonical flow is: **Fleet Policy → PolicyGrant → SBA → SPA → SettlementIntent → Settlement**.
+
+→ [Authorization Chain (visual diagram)](authorization-chain.md)
+
 ## Trust Model
 
 - **Policy issuer** — Authority that defines rules (fleet operator, service operator)
@@ -32,6 +36,7 @@ Each step produces verifiable artifacts. The verifier can independently validate
 
 ## See Also
 
+- [Authorization Chain](authorization-chain.md) — The canonical visual diagram
 - [Actors](actors.md)
 - [Artifact Lifecycle](artifact-lifecycle.md)
 - [Reference Flow](reference-flow.md)

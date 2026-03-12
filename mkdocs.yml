@@ -39,10 +39,12 @@ nav:
     - Design Goals: overview/design-goals.md
     - Comparison with Agent Protocols: overview/comparison-with-agent-protocols.md
   - Architecture:
+    - Authorization Chain: architecture/authorization-chain.md
     - System Model: architecture/system-model.md
     - Actors: architecture/actors.md
     - Artifact Lifecycle: architecture/artifact-lifecycle.md
     - Reference Flow: architecture/reference-flow.md
+    - Implementation Roadmap: doc/architecture/MPCP_IMPLEMENTATION_ROADMAP.md
   - Protocol:
     - MPCP Spec: protocol/mpcp.md
     - Artifacts Overview: protocol/artifacts.md

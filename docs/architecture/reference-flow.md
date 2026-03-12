@@ -2,6 +2,8 @@
 
 This document describes a **complete end‑to‑end reference scenario** for using the Machine Payment Control Protocol (MPCP) in an autonomous EV fleet charging environment.
 
+**Chain overview:** [Authorization Chain](authorization-chain.md) — the canonical visual diagram.
+
 The goal is to illustrate:
 
 - who the actors are
@@ -16,6 +18,8 @@ This scenario is intended as a **reference implementation narrative** for develo
 ---
 
 # Actors
+
+See: [Actors](actors.md) for a standalone overview.
 
 ## Fleet Operator
 
