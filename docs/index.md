@@ -86,8 +86,8 @@ MPCP complements agent protocols by enabling **verifiable payment authorization 
 
 1. A vehicle enters a parking garage.
 2. The garage verifies a **PolicyGrant**.
-3. The vehicle presents a **BudgetAuthorization** for the session.
-4. When exiting, a **PaymentAuthorization** is issued.
+3. The vehicle presents a **SignedBudgetAuthorization (SBA)** for the session.
+4. When exiting, a **SignedPaymentAuthorization (SPA)** is issued.
 5. The garage verifies settlement.
 
 This ensures the payment can be independently verified.

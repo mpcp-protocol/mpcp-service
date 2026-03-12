@@ -76,8 +76,8 @@ Each EV contains a **machine wallet** responsible for:
 
 The wallet is the MPCP actor that signs:
 
-- BudgetAuthorization
-- SignedPaymentAuthorization
+- SignedBudgetAuthorization (SBA)
+- SignedPaymentAuthorization (SPA)
 
 ---
 
