@@ -26,7 +26,7 @@ Resides in each machine (EV, robot, IoT device) and enforces MPCP constraints.
 - Issues SignedBudgetAuthorization and SignedPaymentAuthorization
 - Executes settlement transactions
 
-The wallet is the MPCP actor that signs BudgetAuthorization and SignedPaymentAuthorization.
+The wallet is the MPCP actor that signs SignedBudgetAuthorization and SignedPaymentAuthorization.
 
 ## Service Provider
 

@@ -2,4 +2,6 @@
 
 This page has moved.
 
-See → [Problem Statement](problem-statement.md)
+The MPCP problem description now lives here:
+
+→ [Problem Statement](problem-statement.md)

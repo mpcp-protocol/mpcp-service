@@ -5,15 +5,17 @@ MPCP artifacts flow through a defined lifecycle from policy evaluation to settle
 ## Pipeline
 
 ```
+Fleet Policy
+    ↓
 PolicyGrant
     ↓
 SignedBudgetAuthorization (SBA)
     ↓
 SignedPaymentAuthorization (SPA)
     ↓
-Settlement Execution
+SettlementIntent
     ↓
-Settlement Verification
+Settlement
 ```
 
 Each artifact constrains the next. Downstream artifacts must be subsets of upstream constraints.

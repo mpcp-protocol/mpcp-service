@@ -63,7 +63,7 @@ DIDs and VCs provide:
 - portable trust metadata
 - credential verification across organizations
 
-They do **not** replace MPCP artifacts such as `BudgetAuthorization`, `SignedPaymentAuthorization`, or `SettlementIntent`.
+They do **not** replace MPCP artifacts such as `SignedBudgetAuthorization`, `SignedPaymentAuthorization`, or `SettlementIntent`.
 
 ## Vehicle Wallet
 
@@ -243,7 +243,7 @@ Charging Station / Operator Backend
         │
         │   - resolve issuer DID
         │   - verify PolicyGrant
-        │   - verify BudgetAuthorization
+        │   - verify SignedBudgetAuthorization
         │   - verify SPA
         │
         ▼
@@ -876,6 +876,9 @@ This bundle allows full replay of the authorization chain.
 The following example shows the kind of **self-contained authorization bundle** a charging operator could receive and store for verification, audit, or dispute replay.
 
 This example is intentionally simplified, but it illustrates how the full MPCP chain may be packaged.
+
+> Note: The example below uses display-friendly amounts (e.g., "7.80") for readability.  
+> Real MPCP artifacts typically encode amounts in atomic units.
 
 ```json
 {
