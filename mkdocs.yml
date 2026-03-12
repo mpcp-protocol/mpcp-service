@@ -37,6 +37,7 @@ nav:
     - SDK: implementation/sdk.md
     - Verifier: implementation/verifier.md
     - Conformance: implementation/conformance.md
+    - Profile Model: implementation/profile-model.md
     - Reference Profiles: implementation/reference-profiles.md
     - XRPL Stablecoin Profile: implementation/xrpl-stablecoin-profile.md
     - Offline Payments: implementation/offline-payments.md
