@@ -54,6 +54,7 @@ nav:
     - SettlementIntent: protocol/SettlementIntent.md
     - SettlementIntentHash: protocol/SettlementIntentHash.md
     - FleetPolicyAuthorization: protocol/FleetPolicyAuthorization.md
+    - ArtifactBundle: protocol/ArtifactBundle.md
     - Hashing: protocol/hashing.md
     - Verification: protocol/verification.md
     - Anchoring: protocol/anchoring.md
