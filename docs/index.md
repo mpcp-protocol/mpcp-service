@@ -18,6 +18,8 @@ Each step narrows what the machine is allowed to do.
 
 Each step narrows what the machine is allowed to do.
 
+MPCP is not a settlement rail — it is the authorization layer above settlement.
+
 <div class="grid cards" markdown>
 
 - **Understand the Problem**  
