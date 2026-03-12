@@ -6,13 +6,15 @@
 
 Autonomous vehicles, AI agents, and machines increasingly pay for real-world services like parking, charging, and tolls.
 
-MPCP provides a **cryptographically verifiable authorization chain** for these payments.
-
 ## How MPCP works
 
 A machine payment is accepted only if the recipient can verify a chain of signed artifacts:
 
-**PolicyGrant → SignedBudgetAuthorization → SignedPaymentAuthorization → SettlementIntent → Settlement**
+**[PolicyGrant](protocol/PolicyGrant.md) → [SignedBudgetAuthorization](protocol/SignedBudgetAuthorization.md) → [SignedPaymentAuthorization](protocol/SignedPaymentAuthorization.md) → [SettlementIntent](protocol/SettlementIntent.md) → Settlement**
+
+Each step narrows what the machine is allowed to do.
+
+→ [See the full reference flow](architecture/reference-flow.md)
 
 Each step narrows what the machine is allowed to do.
 
