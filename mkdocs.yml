@@ -38,6 +38,7 @@ nav:
     - Verifier: implementation/verifier.md
     - Conformance: implementation/conformance.md
     - Reference Profiles: implementation/reference-profiles.md
+    - XRPL Stablecoin Profile: implementation/xrpl-stablecoin-profile.md
     - Offline Payments: implementation/offline-payments.md
     - Fleet Operator Tooling: implementation/fleet-operator-tooling.md
     - Intent Anchoring: implementation/intent-anchoring.md

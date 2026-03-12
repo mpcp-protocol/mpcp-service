@@ -1,0 +1,13 @@
+{
+  "_profile": "xrpl-stablecoin",
+  "maxSessionSpend": 100,
+  "maxSessionSpendMinor": "10000",
+  "allowedRails": ["xrpl"],
+  "allowedAssets": [
+    { "kind": "IOU", "currency": "RLUSD", "issuer": "rIssuer" }
+  ],
+  "destinations": ["rParking", "rCharging", "rMerchant", "rDestination"],
+  "expiresAt": "2030-12-31T23:59:59Z",
+  "_assetDecimals": 6,
+  "_notes": "XRPL issued-asset (IOU) profile. RLUSD example; issuer must be validated by wallet/verifier."
+}
