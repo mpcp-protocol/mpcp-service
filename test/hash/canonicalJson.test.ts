@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { canonicalJson } from "../../src/canonical/canonicalJson.js";
+import { canonicalJson } from "../../src/hash/canonicalJson.js";
 
 describe("canonicalJson", () => {
   it("uses deterministic key ordering (sorted lexicographically)", () => {

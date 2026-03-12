@@ -1,4 +1,4 @@
-import { canonicalJson } from "../canonical/canonicalJson.js";
+import { canonicalJson } from "../hash/index.js";
 import { computeSettlementIntentHash } from "../hash/computeSettlementIntentHash.js";
 import type { SettlementResult } from "../policy-core/types.js";
 import type { PaymentPolicyDecision } from "../policy-core/types.js";
@@ -6,10 +6,10 @@ import type { SignedPaymentAuthorization } from "../protocol/spa.js";
 import {
   verifySignedPaymentAuthorizationForSettlement,
 } from "../protocol/spa.js";
-import { signedPaymentAuthorizationSchema } from "../schema/paymentAuthorization.js";
-import { signedBudgetAuthorizationSchema } from "../schema/signedBudgetAuthorization.js";
-import { policyGrantForVerificationSchema } from "../schema/verifySchemas.js";
-import { settlementIntentForVerificationSchema } from "../schema/verifySchemas.js";
+import { signedPaymentAuthorizationSchema } from "../protocol/schema/paymentAuthorization.js";
+import { signedBudgetAuthorizationSchema } from "../protocol/schema/signedBudgetAuthorization.js";
+import { policyGrantForVerificationSchema } from "../protocol/schema/verifySchemas.js";
+import { settlementIntentForVerificationSchema } from "../protocol/schema/verifySchemas.js";
 import type { VerificationResult } from "./types.js";
 import { verifyBudgetAuthorization } from "./verifyBudgetAuthorization.js";
 

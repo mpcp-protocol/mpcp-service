@@ -13,10 +13,10 @@
  */
 
 import { computeSettlementIntentHash } from "../hash/computeSettlementIntentHash.js";
-import { signedBudgetAuthorizationSchema } from "../schema/signedBudgetAuthorization.js";
-import { signedPaymentAuthorizationSchema } from "../schema/paymentAuthorization.js";
-import { policyGrantForVerificationSchema } from "../schema/verifySchemas.js";
-import { settlementIntentForVerificationSchema } from "../schema/verifySchemas.js";
+import { signedBudgetAuthorizationSchema } from "../protocol/schema/signedBudgetAuthorization.js";
+import { signedPaymentAuthorizationSchema } from "../protocol/schema/paymentAuthorization.js";
+import { policyGrantForVerificationSchema } from "../protocol/schema/verifySchemas.js";
+import { settlementIntentForVerificationSchema } from "../protocol/schema/verifySchemas.js";
 import { verifyBudgetAuthorization } from "./verifyBudgetAuthorization.js";
 import { verifyPaymentAuthorization } from "./verifyPaymentAuthorization.js";
 import { verifyPolicyGrant } from "./verifyPolicyGrant.js";

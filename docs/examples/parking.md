@@ -28,7 +28,7 @@ npm run example:parking
 Or:
 
 ```bash
-node examples/parking-session/generate.mjs
+node examples/parking/generate.mjs
 ```
 
 The script creates ephemeral signing keys, generates all artifacts, writes them to JSON files, runs `mpcp verify settlement-bundle.json --explain`, and exits 0 if verification passes.
@@ -38,7 +38,7 @@ The script creates ephemeral signing keys, generates all artifacts, writes them 
 If you have already generated artifacts:
 
 ```bash
-npx mpcp verify examples/parking-session/settlement-bundle.json --explain
+npx mpcp verify examples/parking/settlement-bundle.json --explain
 ```
 
 The bundle is self-contained (includes public keys) and uses fixed timestamps so it remains verifiable indefinitely.

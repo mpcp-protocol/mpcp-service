@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 /**
- * PR8 — Parking Session Example
+ * PR8 — EV Charging Session Example
  *
- * Generates a full MPCP settlement flow: policy grant → budget auth → SBA → SPA → settlement.
- * Writes artifact files and runs verification.
+ * Generates a full MPCP settlement flow for an EV charging session:
+ * policy grant → budget auth → SBA → SPA → settlement.
  *
- * Run: npm run build && node examples/parking-session/generate.mjs
- * Or:  npm run example:parking
+ * Run: npm run build && node examples/ev-charging/generate.mjs
+ * Or:  npm run example:ev-charging
  */
 import crypto from "node:crypto";
 import { writeFileSync } from "node:fs";
@@ -16,7 +16,6 @@ import { fileURLToPath } from "node:url";
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const EXAMPLE_DIR = __dirname;
 
-// Set up ephemeral keys BEFORE importing protocol
 const sbaKeys = crypto.generateKeyPairSync("ed25519");
 const spaKeys = crypto.generateKeyPairSync("ed25519");
 process.env.MPCP_SBA_SIGNING_PRIVATE_KEY_PEM = sbaKeys.privateKey
@@ -43,10 +42,12 @@ const {
 } = await import("../../dist/sdk/index.js");
 const { runVerify } = await import("../../dist/cli/verify.js");
 
-// Fixed timestamps so committed artifacts remain verifiable (no time-sensitive expiry)
 const EXPIRY = "2030-12-31T23:59:59Z";
 const SETTLEMENT_NOW = "2026-01-15T12:00:00Z";
-const policyHash = "a1b2c3d4e5f6";
+const policyHash = "ev-charging-policy-v1";
+
+// Charging station as destination
+const DESTINATION = "rChargingStation";
 
 const policyGrant = createPolicyGrant({
   policyHash,
@@ -56,14 +57,14 @@ const policyGrant = createPolicyGrant({
 });
 
 const budgetAuth = createBudgetAuthorization({
-  sessionId: "11111111-1111-4111-8111-111111111111",
-  vehicleId: "1234567",
+  sessionId: "22222222-2222-4222-8222-222222222222",
+  vehicleId: "ev-7890",
   policyHash,
   currency: "USD",
-  maxAmountMinor: "3000",
+  maxAmountMinor: "5000",
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
-  destinationAllowlist: ["rDestination"],
+  destinationAllowlist: [DESTINATION],
   expiresAt: EXPIRY,
 });
 
@@ -83,13 +84,13 @@ if (!signedBudgetAuth) throw new Error("Failed to create SBA");
 
 const intent = createSettlementIntent({
   rail: "xrpl",
-  amount: "19440000",
-  destination: "rDestination",
+  amount: "25000000",
+  destination: DESTINATION,
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
 });
 
 const paymentPolicyDecision = {
-  decisionId: "dec-1",
+  decisionId: "dec-ev-1",
   policyHash,
   action: "ALLOW",
   reasons: ["OK"],
@@ -102,8 +103,8 @@ const paymentPolicyDecision = {
     {
       quoteId: "q1",
       rail: "xrpl",
-      amount: { amount: "19440000", decimals: 6 },
-      destination: "rDestination",
+      amount: { amount: "25000000", decimals: 6 },
+      destination: DESTINATION,
       expiresAt: EXPIRY,
       asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
     },
@@ -119,14 +120,13 @@ const signedPaymentAuth = createSignedPaymentAuthorization(
 if (!signedPaymentAuth) throw new Error("Failed to create SPA");
 
 const settlement = {
-  amount: "19440000",
+  amount: "25000000",
   rail: "xrpl",
   asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
-  destination: "rDestination",
+  destination: DESTINATION,
   nowISO: SETTLEMENT_NOW,
 };
 
-// Write individual artifacts
 writeFileSync(join(EXAMPLE_DIR, "policy-grant.json"), JSON.stringify(policyGrant, null, 2));
 writeFileSync(join(EXAMPLE_DIR, "budget-auth.json"), JSON.stringify(budgetAuth, null, 2));
 writeFileSync(join(EXAMPLE_DIR, "signed-budget-auth.json"), JSON.stringify(signedBudgetAuth, null, 2));
@@ -135,7 +135,6 @@ writeFileSync(join(EXAMPLE_DIR, "settlement-intent.json"), JSON.stringify(intent
 writeFileSync(join(EXAMPLE_DIR, "settlement.json"), JSON.stringify(settlement, null, 2));
 writeFileSync(join(EXAMPLE_DIR, "payment-policy-decision.json"), JSON.stringify(paymentPolicyDecision, null, 2));
 
-// Write bundle for verification (include public keys for self-contained verify)
 const bundle = {
   settlement,
   settlementIntent: intent,
@@ -148,7 +147,7 @@ const bundle = {
 };
 writeFileSync(join(EXAMPLE_DIR, "settlement-bundle.json"), JSON.stringify(bundle, null, 2));
 
-console.log("Generated MPCP parking-session artifacts:\n");
+console.log("Generated MPCP EV charging artifacts:\n");
 console.log("  policy-grant.json");
 console.log("  budget-auth.json");
 console.log("  signed-budget-auth.json");
@@ -158,7 +157,6 @@ console.log("  settlement.json");
 console.log("  payment-policy-decision.json");
 console.log("  settlement-bundle.json\n");
 
-// Verify
 const bundlePath = join(EXAMPLE_DIR, "settlement-bundle.json");
 console.log("Verifying settlement-bundle.json...\n");
 const { ok, output } = runVerify(bundlePath, { explain: true });

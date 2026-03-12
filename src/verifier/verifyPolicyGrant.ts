@@ -1,5 +1,5 @@
 import type { PolicyGrantLike, VerificationResult } from "./types.js";
-import { policyGrantForVerificationSchema } from "../schema/verifySchemas.js";
+import { policyGrantForVerificationSchema } from "../protocol/schema/verifySchemas.js";
 
 /**
  * Verify a policy grant is valid (not expired).

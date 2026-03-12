@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
-import { canonicalJson } from "../../src/canonical/canonicalJson.js";
-import { sha256Hex } from "../../src/canonical/hash.js";
+import { canonicalJson } from "../../src/hash/canonicalJson.js";
+import { sha256Hex } from "../../src/hash/sha256.js";
 
 describe("sha256Hex", () => {
   it("produces identical hash across multiple runs", () => {

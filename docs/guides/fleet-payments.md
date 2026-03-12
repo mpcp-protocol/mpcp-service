@@ -105,7 +105,7 @@ npm run example:fleet
 Produces `fleet-demo-bundle.json`. Verify:
 
 ```bash
-npx mpcp verify examples/fleet-payment/fleet-demo-bundle.json --explain
+npx mpcp verify examples/machine-commerce/fleet-demo-bundle.json --explain
 ```
 
 ## See Also

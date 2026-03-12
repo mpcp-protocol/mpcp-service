@@ -1,8 +1,8 @@
 import type { PaymentPolicyDecision } from "../policy-core/types.js";
 import { verifySignedSessionBudgetAuthorizationForDecision } from "../protocol/sba.js";
 import type { SignedSessionBudgetAuthorization } from "../protocol/sba.js";
-import { signedBudgetAuthorizationSchema } from "../schema/signedBudgetAuthorization.js";
-import { policyGrantForVerificationSchema } from "../schema/verifySchemas.js";
+import { signedBudgetAuthorizationSchema } from "../protocol/schema/signedBudgetAuthorization.js";
+import { policyGrantForVerificationSchema } from "../protocol/schema/verifySchemas.js";
 import type { VerificationResult } from "./types.js";
 import { verifyPolicyGrant } from "./verifyPolicyGrant.js";
 

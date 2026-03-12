@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { computeIntentHash } from "../../src/crypto/intentHash.js";
+import { computeIntentHash } from "../../src/hash/index.js";
 
 describe("computeIntentHash", () => {
   it("produces stable hash for same intent", () => {

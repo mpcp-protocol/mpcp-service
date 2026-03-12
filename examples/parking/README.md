@@ -28,7 +28,7 @@ npm run example:parking
 Or:
 
 ```bash
-node examples/parking-session/generate.mjs
+node examples/parking/generate.mjs
 ```
 
 The script:
