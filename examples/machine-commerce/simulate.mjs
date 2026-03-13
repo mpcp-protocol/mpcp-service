@@ -62,7 +62,7 @@ const defaultAsset = { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" };
 const asset = (policy.allowedAssets ?? [defaultAsset])[0];
 
 log("");
-log("MPCP Fleet Spend Policy Simulator (PR8C)");
+log("MPCP Fleet Spend Policy Simulator");
 log("=========================================");
 log("");
 log("Policy:");

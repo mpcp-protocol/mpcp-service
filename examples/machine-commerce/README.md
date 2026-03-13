@@ -1,4 +1,4 @@
-# Fleet Spend Policy Simulator (PR8C)
+# Fleet Spend Policy Simulator
 
 A lightweight SBA (SignedBudgetAuthorization) policy simulator. Tests fleet spending constraints against payment scenarios before deploying to real vehicles or robots.
 

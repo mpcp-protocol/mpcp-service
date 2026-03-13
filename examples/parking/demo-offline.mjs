@@ -51,7 +51,7 @@ function log(msg) {
 }
 
 log("");
-log("MPCP Offline Payment Authorization Demo (PR8D)");
+log("MPCP Offline Payment Authorization Demo");
 log("=================================================");
 log("");
 log("Scenario: Vehicle enters underground garage — NO NETWORK");

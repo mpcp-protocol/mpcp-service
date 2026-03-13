@@ -1,4 +1,4 @@
-# Dispute Verification (PR11)
+# Dispute Verification
 
 Tooling to verify disputed settlements using the full MPCP chain plus optional ledger anchor.
 
@@ -30,7 +30,7 @@ if (result.verified) {
 ## Inputs
 
 - **context** — Full `SettlementVerificationContext` (settlement, artifacts, policy grant, SBA, SPA, decision, settlement intent)
-- **ledgerAnchor** — Optional `AnchorResult` from intent anchoring (PR10)
+- **ledgerAnchor** — Optional `AnchorResult` from intent anchoring
 
 ## Output
 

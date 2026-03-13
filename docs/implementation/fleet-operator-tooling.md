@@ -1,4 +1,4 @@
-# Fleet Operator Tooling (PR12)
+# Fleet Operator Tooling
 
 CLI features for fleet operators: settlement verification logs and fleet policy summary.
 

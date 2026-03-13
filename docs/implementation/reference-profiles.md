@@ -1,4 +1,4 @@
-# MPCP Reference Profiles (PR15)
+# MPCP Reference Profiles
 
 Named deployment profiles for MPCP. Adopters choose a profile instead of inventing their own rules — reducing ambiguity and making integration easier.
 
