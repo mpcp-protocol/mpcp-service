@@ -7,7 +7,7 @@ import type { SignedPaymentAuthorization } from "../protocol/spa.js";
 
 /** Minimal grant shape for verification */
 export interface PolicyGrantLike {
-  grantId?: string;
+  grantId: string;
   policyHash: string;
   expiresAt?: string;
   expiresAtISO?: string;

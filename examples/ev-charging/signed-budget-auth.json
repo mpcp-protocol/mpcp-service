@@ -1,15 +1,15 @@
 {
   "authorization": {
     "version": "1.0",
-    "budgetId": "92145bd9-b08d-4723-8048-ae7b0eabee31",
-    "grantId": "0f9576ad-eefe-460d-ab25-9f5dc3785a4a",
-    "sessionId": "11111111-1111-4111-8111-111111111111",
-    "vehicleId": "1234567",
-    "policyHash": "a1b2c3d4e5f6",
+    "budgetId": "a3dc0432-5a64-4d64-89ea-de61a3eede3e",
+    "grantId": "5ad06052-234c-49e8-8719-3a6ca6b3965a",
+    "sessionId": "22222222-2222-4222-8222-222222222222",
+    "vehicleId": "ev-7890",
+    "policyHash": "a1b2c3d4e5f7",
     "currency": "USD",
     "minorUnit": 2,
     "budgetScope": "SESSION",
-    "maxAmountMinor": "3000",
+    "maxAmountMinor": "5000",
     "allowedRails": [
       "xrpl"
     ],
@@ -21,10 +21,10 @@
       }
     ],
     "destinationAllowlist": [
-      "rDestination"
+      "rChargingStation"
     ],
     "expiresAt": "2030-12-31T23:59:59Z"
   },
-  "signature": "6X8LV6FJfT7huuaxE+H1AM/PlB+/7xUq5zBjsDGuw4zkdEqgi22TFAW3zT1RByJaqOyrMHj6Oou4ItlLtvWUAA==",
+  "signature": "WT0EExkYrd9KmjNtxR92YKfLOdpdLbgVAPuwZoP7+f+uioGz+N30kQICJAnIAB8mo8dacQz1otJZz17EfSCPCg==",
   "keyId": "mpcp-sba-signing-key-1"
 }

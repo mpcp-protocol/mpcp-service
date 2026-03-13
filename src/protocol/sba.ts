@@ -7,6 +7,7 @@ export type BudgetScope = "SESSION" | "DAY" | "VEHICLE" | "FLEET";
 export interface SessionBudgetAuthorization {
   version: "1.0";
   budgetId: string;
+  grantId: string;
   sessionId: string;
   vehicleId: string;
   scopeId?: string;
@@ -28,7 +29,7 @@ export interface SignedSessionBudgetAuthorization {
 }
 
 function hashAuthorization(authorization: SessionBudgetAuthorization): Buffer {
-  return createHash("sha256").update(canonicalJson(authorization)).digest();
+  return createHash("sha256").update("MPCP:SBA:1.0:" + canonicalJson(authorization)).digest();
 }
 
 function getExpectedKeyId(): string {
@@ -63,6 +64,7 @@ export function createSignedSessionBudgetAuthorization(input: {
   sessionId: string;
   vehicleId: string;
   scopeId?: string;
+  grantId: string;
   policyHash: string;
   currency: string;
   minorUnit?: number;
@@ -79,6 +81,7 @@ export function createSignedSessionBudgetAuthorization(input: {
   const authorization: SessionBudgetAuthorization = {
     version: "1.0",
     budgetId: randomUUID(),
+    grantId: input.grantId,
     sessionId: input.sessionId,
     vehicleId: input.vehicleId,
     ...(input.scopeId ? { scopeId: input.scopeId } : {}),

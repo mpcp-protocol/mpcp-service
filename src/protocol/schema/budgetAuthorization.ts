@@ -14,6 +14,7 @@ const budgetScopeSchema = z.enum(["SESSION", "DAY", "VEHICLE", "FLEET"]);
 export const budgetAuthorizationSchema = z.strictObject({
   version: mpcpVersionSchema,
   budgetId: z.string(),
+  grantId: z.string(),
   sessionId: z.string(),
   vehicleId: z.string(),
   scopeId: z.string().optional(),

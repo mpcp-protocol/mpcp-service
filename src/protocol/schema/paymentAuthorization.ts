@@ -13,6 +13,7 @@ export const paymentAuthorizationSchema = z.strictObject({
   decisionId: z.string(),
   sessionId: z.string(),
   policyHash: policyHashSchema,
+  budgetId: z.string(),
   quoteId: z.string(),
   rail: railSchema,
   asset: assetSchema.optional(),

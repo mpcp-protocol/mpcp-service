@@ -138,7 +138,7 @@ async function handlePaymentRequest(policyGrant, sba, paymentRequest, sessionSpe
   const spa = createSignedPaymentAuthorization(
     sba.authorization.sessionId,
     paymentPolicyDecision,
-    { settlementIntent: intent }
+    { settlementIntent: intent, budgetId: sba.authorization.budgetId }
   );
 
   return { ok: true, signed: { spa, intent } };

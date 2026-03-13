@@ -89,6 +89,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -100,6 +101,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
+      { budgetId: sba!.authorization.budgetId },
     );
     const ctx = {
       policyGrant: baseGrant,
@@ -134,6 +136,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -145,7 +148,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
-      { settlementIntent: intent },
+      { settlementIntent: intent, budgetId: sba!.authorization.budgetId },
     );
     const ctx = {
       policyGrant: baseGrant,
@@ -202,6 +205,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -213,7 +217,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
-      { settlementIntent: intent },
+      { settlementIntent: intent, budgetId: sba!.authorization.budgetId },
     );
     const bundle = {
       settlement: baseSettlement,
@@ -242,6 +246,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -253,6 +258,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
+      { budgetId: sba!.authorization.budgetId },
     );
     const ctx = {
       policyGrant: baseGrant,
@@ -280,6 +286,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -291,6 +298,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
+      { budgetId: sba!.authorization.budgetId },
     );
     const ctx = {
       policyGrant: baseGrant,
@@ -319,6 +327,7 @@ describe("runVerify", () => {
     const sba = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -330,6 +339,7 @@ describe("runVerify", () => {
     const spa = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       baseDecision,
+      { budgetId: sba!.authorization.budgetId },
     );
     const ctx = {
       policyGrant: baseGrant,

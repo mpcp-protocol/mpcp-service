@@ -44,7 +44,7 @@ const { runVerify } = await import("../../dist/cli/verify.js");
 
 const EXPIRY = "2030-12-31T23:59:59Z";
 const SETTLEMENT_NOW = "2026-01-15T12:00:00Z";
-const policyHash = "ev-charging-policy-v1";
+const policyHash = "a1b2c3d4e5f7";
 
 // Charging station as destination
 const DESTINATION = "rChargingStation";
@@ -59,6 +59,7 @@ const policyGrant = createPolicyGrant({
 const budgetAuth = createBudgetAuthorization({
   sessionId: "22222222-2222-4222-8222-222222222222",
   vehicleId: "ev-7890",
+  grantId: policyGrant.grantId,
   policyHash,
   currency: "USD",
   maxAmountMinor: "5000",
@@ -71,6 +72,7 @@ const budgetAuth = createBudgetAuthorization({
 const signedBudgetAuth = createSignedBudgetAuthorization({
   sessionId: budgetAuth.sessionId,
   vehicleId: budgetAuth.vehicleId,
+  grantId: policyGrant.grantId,
   policyHash: budgetAuth.policyHash,
   currency: budgetAuth.currency,
   maxAmountMinor: budgetAuth.maxAmountMinor,
@@ -115,7 +117,7 @@ const paymentPolicyDecision = {
 const signedPaymentAuth = createSignedPaymentAuthorization(
   budgetAuth.sessionId,
   paymentPolicyDecision,
-  { settlementIntent: intent },
+  { settlementIntent: intent, budgetId: signedBudgetAuth.authorization.budgetId },
 );
 
 if (!signedPaymentAuth) throw new Error("Failed to create SPA");

@@ -7,6 +7,7 @@ export interface PaymentAuthorization {
   decisionId: string;
   sessionId: string;
   policyHash: string;
+  budgetId: string;
   quoteId: string;
   rail: Rail;
   asset: Asset;
@@ -45,7 +46,7 @@ function resolveVerificationNowMs(
 }
 
 function hashAuthorization(authorization: PaymentAuthorization): Buffer {
-  return createHash("sha256").update(canonicalJson(authorization)).digest();
+  return createHash("sha256").update("MPCP:SPA:1.0:" + canonicalJson(authorization)).digest();
 }
 
 function parseSigningPrivateKey(): crypto.KeyObject | null {
@@ -71,7 +72,7 @@ function parseVerificationPublicKey(): crypto.KeyObject | null {
 function buildAuthorization(
   sessionId: string,
   decision: PaymentPolicyDecision,
-  options?: { settlementIntent?: unknown },
+  options?: { settlementIntent?: unknown; budgetId?: string },
 ): PaymentAuthorization | null {
   if (decision.rail !== "xrpl" && decision.rail !== "evm") return null;
 
@@ -80,12 +81,14 @@ function buildAuthorization(
     ? decision.settlementQuotes?.find((q) => q.quoteId === quoteId)
     : decision.settlementQuotes?.find((q) => q.rail === decision.rail);
   if (!quoteId || !quote || !decision.rail || !decision.asset || !quote.destination) return null;
+  if (!options?.budgetId) return null;
 
   return {
     version: "1.0",
     decisionId: decision.decisionId,
     sessionId,
     policyHash: decision.policyHash,
+    budgetId: options.budgetId,
     quoteId,
     rail: decision.rail,
     asset: decision.asset,
@@ -103,7 +106,7 @@ function assetMatches(a: Asset, b: Asset): boolean {
 export function createSignedPaymentAuthorization(
   sessionId: string,
   decision: PaymentPolicyDecision,
-  options?: { settlementIntent?: unknown },
+  options?: { settlementIntent?: unknown; budgetId?: string },
 ): SignedPaymentAuthorization | null {
   const authorization = buildAuthorization(sessionId, decision, options);
   const privateKey = parseSigningPrivateKey();

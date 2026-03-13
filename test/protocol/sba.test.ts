@@ -31,6 +31,7 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     const envelope = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-ph-1",
       policyHash: "ph-1",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -72,6 +73,7 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     const envelope = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-ph-1",
       policyHash: "ph-1",
       currency: "USD",
       maxAmountMinor: "5000",
@@ -110,6 +112,7 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     const envelope = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-ph-1",
       policyHash: "ph-1",
       currency: "USD",
       maxAmountMinor: "1000",
@@ -149,6 +152,7 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     const envelope = createSignedSessionBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: "grant-ph-1",
       policyHash: "ph-1",
       currency: "USD",
       budgetScope: "DAY",

@@ -68,10 +68,11 @@ function makeGrant() {
   });
 }
 
-function makeBudgetAuth() {
+function makeBudgetAuth(grantId: string) {
   return createBudgetAuthorization({
     sessionId: "11111111-1111-4111-8111-111111111111",
     vehicleId: "1234567",
+    grantId,
     policyHash: POLICY_HASH,
     currency: "USD",
     maxAmountMinor: "3000",
@@ -119,10 +120,11 @@ function makeSettlement(overrides?: Partial<SettlementResult>): SettlementResult
 
 function buildLifecycle() {
   const policyGrant = makeGrant();
-  const budgetAuth = makeBudgetAuth();
+  const budgetAuth = makeBudgetAuth(policyGrant.grantId);
   const signedBudgetAuth = createSignedBudgetAuthorization({
     sessionId: budgetAuth.sessionId,
     vehicleId: budgetAuth.vehicleId,
+    grantId: budgetAuth.grantId,
     policyHash: budgetAuth.policyHash,
     currency: budgetAuth.currency,
     maxAmountMinor: budgetAuth.maxAmountMinor,
@@ -141,7 +143,7 @@ function buildLifecycle() {
   const signedPaymentAuth = createSignedPaymentAuthorization(
     budgetAuth.sessionId,
     paymentPolicyDecision,
-    { settlementIntent: intent },
+    { settlementIntent: intent, budgetId: signedBudgetAuth!.authorization.budgetId },
   );
   return {
     policyGrant,

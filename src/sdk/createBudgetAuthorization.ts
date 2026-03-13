@@ -5,6 +5,7 @@ import type { BudgetScope } from "../protocol/sba.js";
 export interface BudgetAuthorization {
   version: "1.0";
   budgetId: string;
+  grantId: string;
   sessionId: string;
   vehicleId: string;
   scopeId?: string;
@@ -22,6 +23,7 @@ export interface BudgetAuthorization {
 export interface CreateBudgetAuthorizationInput {
   sessionId: string;
   vehicleId: string;
+  grantId: string;
   policyHash: string;
   currency: string;
   maxAmountMinor: string;
@@ -46,6 +48,7 @@ export function createBudgetAuthorization(input: CreateBudgetAuthorizationInput)
   return {
     version: "1.0",
     budgetId: input.budgetId ?? randomUUID(),
+    grantId: input.grantId,
     sessionId: input.sessionId,
     vehicleId: input.vehicleId,
     ...(input.scopeId ? { scopeId: input.scopeId } : {}),

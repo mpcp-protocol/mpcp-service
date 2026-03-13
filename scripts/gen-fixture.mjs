@@ -78,6 +78,7 @@ const intent = {
 const sba = createSignedSessionBudgetAuthorization({
   sessionId: "11111111-1111-4111-8111-111111111111",
   vehicleId: "1234567",
+  grantId: baseGrant.grantId,
   policyHash: "a1b2c3",
   currency: "USD",
   maxAmountMinor: "3000",
@@ -89,7 +90,7 @@ const sba = createSignedSessionBudgetAuthorization({
 const spa = createSignedPaymentAuthorization(
   "11111111-1111-4111-8111-111111111111",
   baseDecision,
-  { settlementIntent: intent },
+  { settlementIntent: intent, budgetId: sba.authorization.budgetId },
 );
 
 const ctx = {
