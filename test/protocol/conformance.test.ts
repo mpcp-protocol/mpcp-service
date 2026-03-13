@@ -111,6 +111,7 @@ const baseSettlement: SettlementResult = {
 const defaultSbaConfig = {
   sessionId: "11111111-1111-4111-8111-111111111111",
   vehicleId: "1234567",
+  grantId: "grant-1",
   policyHash: "a1b2c3",
   currency: "USD",
   maxAmountMinor: "3000",
@@ -126,12 +127,15 @@ function makeSba(overrides?: Partial<typeof defaultSbaConfig>) {
   return sba!;
 }
 
-function makeSpa(opts?: { sessionId?: string; settlementIntent?: unknown }) {
+function makeSpa(opts?: { sessionId?: string; settlementIntent?: unknown; budgetId?: string }) {
   const sessionId = opts?.sessionId ?? defaultSbaConfig.sessionId;
+  const budgetId = opts?.budgetId ?? "00000000-0000-4000-8000-000000000000";
   const spa = createSignedPaymentAuthorization(
     sessionId,
     baseDecision,
-    opts?.settlementIntent ? { settlementIntent: opts.settlementIntent } : undefined,
+    opts?.settlementIntent
+      ? { settlementIntent: opts.settlementIntent, budgetId }
+      : { budgetId },
   );
   expect(spa).not.toBeNull();
   return spa!;
@@ -237,14 +241,14 @@ describe("Reference Implementation Conformance", () => {
     it("passes when full chain valid and settlement matches", () => {
       setupBothKeys();
       const sba = makeSba();
-      const spa = makeSpa();
+      const spa = makeSpa({ budgetId: sba.authorization.budgetId });
       expect(verifyPaymentAuthorization(spa, sba, baseGrant, baseDecision, baseSettlement)).toEqual({ valid: true });
     });
 
     it("fails when session mismatch between SPA and SBA", () => {
       setupBothKeys();
       const sba = makeSba({ allowedAssets: [], destinationAllowlist: [] });
-      const spa = makeSpa({ sessionId: "22222222-2222-4222-8222-222222222222" });
+      const spa = makeSpa({ sessionId: "22222222-2222-4222-8222-222222222222", budgetId: sba.authorization.budgetId });
       expect(verifyPaymentAuthorization(spa, sba, baseGrant, baseDecision, baseSettlement)).toMatchObject({
         valid: false,
         reason: "payment_auth_session_mismatch",
@@ -270,7 +274,7 @@ describe("Reference Implementation Conformance", () => {
     it("passes full chain without intentHash", () => {
       setupBothKeys();
       const sba = makeSba();
-      const spa = makeSpa();
+      const spa = makeSpa({ budgetId: sba.authorization.budgetId });
       const result = verifySettlement({
         policyGrant: baseGrant,
         signedBudgetAuthorization: sba,
@@ -286,7 +290,7 @@ describe("Reference Implementation Conformance", () => {
       setupBothKeys();
       const intent = makeIntent();
       const sba = makeSba();
-      const spa = makeSpa({ settlementIntent: intent });
+      const spa = makeSpa({ settlementIntent: intent, budgetId: sba.authorization.budgetId });
       const result = verifySettlement({
         policyGrant: baseGrant,
         signedBudgetAuthorization: sba,

@@ -88,6 +88,7 @@ const policyGrant = createPolicyGrant({
 const budgetAuth = createBudgetAuthorization({
   sessionId: "22222222-2222-4222-8222-222222222222",
   vehicleId: "veh-robotaxi-001",
+  grantId: policyGrant.grantId,
   policyHash,
   currency: "USD",
   maxAmountMinor: "3000",
@@ -104,6 +105,7 @@ log("[Vehicle Agent] Generating SettlementIntent and SPA");
 const signedBudgetAuth = createSignedBudgetAuthorization({
   sessionId: budgetAuth.sessionId,
   vehicleId: budgetAuth.vehicleId,
+  grantId: policyGrant.grantId,
   policyHash: budgetAuth.policyHash,
   currency: budgetAuth.currency,
   maxAmountMinor: budgetAuth.maxAmountMinor,
@@ -145,7 +147,7 @@ const paymentPolicyDecision = {
 const signedPaymentAuth = createSignedPaymentAuthorization(
   budgetAuth.sessionId,
   paymentPolicyDecision,
-  { settlementIntent: intent },
+  { settlementIntent: intent, budgetId: signedBudgetAuth.authorization.budgetId },
 );
 if (!signedPaymentAuth) throw new Error("Failed to create SPA");
 log(`  ✓ SPA signed: amount=${intent.amount}, destination=${intent.destination}`);

@@ -63,6 +63,7 @@ export function issueBudget(input: IssueBudgetInput): SignedSessionBudgetAuthori
     sessionId,
     vehicleId,
     scopeId,
+    grantId: policyGrant.grantId,
     policyHash,
     currency,
     minorUnit,

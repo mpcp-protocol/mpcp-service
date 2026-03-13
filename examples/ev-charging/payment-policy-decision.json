@@ -1,0 +1,40 @@
+{
+  "decisionId": "dec-ev-1",
+  "policyHash": "a1b2c3d4e5f7",
+  "action": "ALLOW",
+  "reasons": [
+    "OK"
+  ],
+  "expiresAtISO": "2030-12-31T23:59:59Z",
+  "rail": "xrpl",
+  "asset": {
+    "kind": "IOU",
+    "currency": "RLUSD",
+    "issuer": "rIssuer"
+  },
+  "priceFiat": {
+    "amountMinor": "2500",
+    "currency": "USD"
+  },
+  "chosen": {
+    "rail": "xrpl",
+    "quoteId": "q1"
+  },
+  "settlementQuotes": [
+    {
+      "quoteId": "q1",
+      "rail": "xrpl",
+      "amount": {
+        "amount": "25000000",
+        "decimals": 6
+      },
+      "destination": "rChargingStation",
+      "expiresAt": "2030-12-31T23:59:59Z",
+      "asset": {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      }
+    }
+  ]
+}

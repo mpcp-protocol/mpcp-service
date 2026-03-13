@@ -41,6 +41,9 @@ export function verifyBudgetAuthorization(
   const grantParsed = grantResult.data;
 
   // 3. Artifact linkage (SBA → grant)
+  if (envelopeParsed.authorization.grantId !== grantParsed.grantId) {
+    return { valid: false, reason: "budget_grant_id_mismatch", artifact: "signedBudgetAuthorization" };
+  }
   if (envelopeParsed.authorization.policyHash !== grantParsed.policyHash) {
     return { valid: false, reason: "budget_policy_hash_mismatch", artifact: "signedBudgetAuthorization" };
   }

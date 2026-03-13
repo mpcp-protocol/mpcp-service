@@ -58,6 +58,7 @@ const policyGrant = createPolicyGrant({
 const budgetAuth = createBudgetAuthorization({
   sessionId: "11111111-1111-4111-8111-111111111111",
   vehicleId: "1234567",
+  grantId: policyGrant.grantId,
   policyHash,
   currency: "USD",
   maxAmountMinor: "3000",
@@ -70,6 +71,7 @@ const budgetAuth = createBudgetAuthorization({
 const signedBudgetAuth = createSignedBudgetAuthorization({
   sessionId: budgetAuth.sessionId,
   vehicleId: budgetAuth.vehicleId,
+  grantId: policyGrant.grantId,
   policyHash: budgetAuth.policyHash,
   currency: budgetAuth.currency,
   maxAmountMinor: budgetAuth.maxAmountMinor,
@@ -114,7 +116,7 @@ const paymentPolicyDecision = {
 const signedPaymentAuth = createSignedPaymentAuthorization(
   budgetAuth.sessionId,
   paymentPolicyDecision,
-  { settlementIntent: intent },
+  { settlementIntent: intent, budgetId: signedBudgetAuth.authorization.budgetId },
 );
 
 if (!signedPaymentAuth) throw new Error("Failed to create SPA");

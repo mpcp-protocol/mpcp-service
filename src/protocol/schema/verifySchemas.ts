@@ -13,7 +13,7 @@ import {
  */
 export const policyGrantForVerificationSchema = z
   .object({
-    grantId: z.string().optional(),
+    grantId: z.string(),
     policyHash: policyHashSchema,
     expiresAt: iso8601DatetimeSchema.optional(),
     expiresAtISO: iso8601DatetimeSchema.optional(),

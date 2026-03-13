@@ -60,6 +60,7 @@ describe("SPA intentHash strict verification", () => {
     const intent = { rail: "xrpl", destination: "rDest", amount: "1000", currency: "RLUSD", issuer: "rIss" };
     const envelope = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision, {
       settlementIntent: intent,
+      budgetId: "test-budget-id",
     });
     expect(envelope).not.toBeNull();
     expect(envelope!.authorization.intentHash).toBeDefined();
@@ -73,6 +74,7 @@ describe("SPA intentHash strict verification", () => {
     const intent = { rail: "xrpl", destination: "rDest", amount: "1000", currency: "RLUSD", issuer: "rIss" };
     const envelope = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision, {
       settlementIntent: intent,
+      budgetId: "test-budget-id",
     });
     expect(envelope).not.toBeNull();
 
@@ -88,6 +90,7 @@ describe("SPA intentHash strict verification", () => {
     const intent = { rail: "xrpl", destination: "rDest", amount: "1000", currency: "RLUSD", issuer: "rIss" };
     const envelope = createSignedPaymentAuthorization("11111111-1111-4111-8111-111111111111", baseDecision, {
       settlementIntent: intent,
+      budgetId: "test-budget-id",
     });
     expect(envelope).not.toBeNull();
 

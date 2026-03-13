@@ -79,6 +79,9 @@ export function verifyPaymentAuthorization(
   }
 
   // 3. Artifact linkage (SPA → SBA)
+  if (envelopeParsed.authorization.budgetId !== sbaParsed.authorization.budgetId) {
+    return { valid: false, reason: "payment_auth_budget_id_mismatch", artifact: "signedPaymentAuthorization" };
+  }
   if (envelopeParsed.authorization.sessionId !== sbaParsed.authorization.sessionId) {
     return { valid: false, reason: "payment_auth_session_mismatch", artifact: "signedPaymentAuthorization" };
   }

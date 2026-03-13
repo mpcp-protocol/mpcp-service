@@ -56,6 +56,7 @@ describe("createBudgetAuthorization", () => {
     const auth = createBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "v1",
+      grantId: "grant-1",
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -78,6 +79,7 @@ describe("createBudgetAuthorization", () => {
     const auth = createBudgetAuthorization({
       sessionId: "s1",
       vehicleId: "v1",
+      grantId: "grant-1",
       policyHash: "ph",
       currency: "USD",
       maxAmountMinor: "1000",
@@ -169,6 +171,7 @@ describe("SDK artifact integration", () => {
     const signedBudgetAuth = createSignedBudgetAuthorization({
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
+      grantId: policyGrant.grantId,
       policyHash: "a1b2c3",
       currency: "USD",
       maxAmountMinor: "3000",
@@ -204,6 +207,7 @@ describe("SDK artifact integration", () => {
     const signedPaymentAuth = createSignedPaymentAuthorization(
       "11111111-1111-4111-8111-111111111111",
       paymentPolicyDecision,
+      { budgetId: signedBudgetAuth!.authorization.budgetId },
     );
     expect(signedPaymentAuth).not.toBeNull();
 

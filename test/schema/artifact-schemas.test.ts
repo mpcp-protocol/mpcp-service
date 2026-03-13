@@ -25,6 +25,7 @@ const validPolicyGrant = {
 const validBudgetAuthorization = {
   version: "1.0",
   budgetId: "550e8400-e29b-41d4-a716-446655440000",
+  grantId: "grant-1",
   sessionId: "sess_456",
   vehicleId: "veh_001",
   policyHash: "a1b2c3",
@@ -43,6 +44,7 @@ const validPaymentAuthorization = {
   decisionId: "dec_123",
   sessionId: "sess_456",
   policyHash: "a1b2c3",
+  budgetId: "550e8400-e29b-41d4-a716-446655440000",
   quoteId: "quote_789",
   rail: "xrpl",
   asset: { kind: "IOU", currency: "USDC", issuer: "rIssuer" },

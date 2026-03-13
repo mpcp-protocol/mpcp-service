@@ -28,6 +28,7 @@
       "decisionId": "dec-fleet-1",
       "sessionId": "22222222-2222-4222-8222-222222222222",
       "policyHash": "a1b2c3d4e5f6",
+      "budgetId": "f36321d4-b5e2-449f-b0ad-e7a7917fa28c",
       "quoteId": "q-fleet-1",
       "rail": "xrpl",
       "asset": {
@@ -40,13 +41,14 @@
       "intentHash": "8113a95f897563a4a17c8973fcad629ce7f10efbf8d358d3bc30294d0a40c841",
       "expiresAt": "2030-12-31T23:59:59Z"
     },
-    "signature": "AAezNa5OJPOSXRmTShRQbw0DqMRoGrcxgKHqSLQARRAEEfw+UgnelsEtKcs+CUtCRqjjZ8FNQH8TB+mcekNSDA==",
+    "signature": "+UOifTtjdYclt1KUNWJZinTHcE7hwcoqy6XmLNznCPoqKyjoqZhLqdm4fY8DNz0HSwXr6FGXxZbNxfYE2eLECw==",
     "keyId": "mpcp-spa-signing-key-1"
   },
   "sba": {
     "authorization": {
       "version": "1.0",
-      "budgetId": "bace7c36-560b-4f89-969a-f4ec0e37a89e",
+      "budgetId": "f36321d4-b5e2-449f-b0ad-e7a7917fa28c",
+      "grantId": "902c3c94-22a6-485e-af72-c9623c285482",
       "sessionId": "22222222-2222-4222-8222-222222222222",
       "vehicleId": "veh-robotaxi-001",
       "policyHash": "a1b2c3d4e5f6",
@@ -70,11 +72,11 @@
       ],
       "expiresAt": "2030-12-31T23:59:59Z"
     },
-    "signature": "nJ9rTMYQZvIwVOsz3ClDWv29rWmBBh/eB98P4I2EdufrAHJvWbViX6Qtc48JWM7U1SPgSQKQaPE65C6ANezaAg==",
+    "signature": "BlAUBUG3Ys0E/fXMdk97imKSu+wnjCK5m1BLuG5JQV4fv7WnNnpv9WEf5ecyttW53vP40XGFu95GUWfOvnxLDw==",
     "keyId": "mpcp-sba-signing-key-1"
   },
   "policyGrant": {
-    "grantId": "e2a72709-b191-40c7-bd52-a7b682e43ceb",
+    "grantId": "902c3c94-22a6-485e-af72-c9623c285482",
     "policyHash": "a1b2c3d4e5f6",
     "expiresAt": "2030-12-31T23:59:59Z",
     "allowedRails": [
@@ -129,6 +131,6 @@
       }
     ]
   },
-  "sbaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAtNIzQ/SmKxo97VM/45PEjhG5HjR0AqFdAXmduhqLzHE=\n-----END PUBLIC KEY-----\n",
-  "spaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAPcpFGkUoVm1szBf2doYraIXSh0ldWSmjKC4hhoJlc0M=\n-----END PUBLIC KEY-----\n"
+  "sbaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAbjUHo0PjFidDz3QXxb1BdWEuNu+gd6HDpJ0gsgi/1Ao=\n-----END PUBLIC KEY-----\n",
+  "spaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAq5EBppLPt82NfqsTf/j/2n17fodRIufgAdnRwFve5zE=\n-----END PUBLIC KEY-----\n"
 }
