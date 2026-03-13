@@ -1523,22 +1523,22 @@
 <ul>
 <li><strong>Amount binding</strong> — SPA commits to a specific amount and destination</li>
 <li><strong>Intent hash</strong> — SPA binds to a canonical SettlementIntent</li>
-<li><strong>Tamper resistance</strong> — Settlement must match the signed authorization</li>
+<li><strong>Tamper resistance</strong> — SettlementIntent and final settlement must match the signed authorization</li>
 </ul>
 <h2 id="wallet-integration">Wallet Integration</h2>
 <p>A machine wallet integrates MPCP by performing checks <em>before</em> signing an SPA.</p>
 <h3 id="decision-flow">Decision Flow</h3>
 <div class="highlight"><pre><span></span><code>Payment request received
     ↓
-Check PolicyGrant (rail, asset, expiry)
+PolicyGrant validation (rail, asset, expiry)
     ↓ PASS
-Check SBA (amount ≤ remaining, destination in allowlist, expiry)
+SignedBudgetAuthorization validation (amount ≤ remaining, destination in allowlist, expiry)
     ↓ PASS
-Create SettlementIntent + SPA
+Create SettlementIntent + SignedPaymentAuthorization
     ↓
-Sign SPA
+SignedPaymentAuthorization creation (or reject)
     ↓
-Return SPA (and optional SettlementIntent) to payee
+Return SignedPaymentAuthorization (and optional SettlementIntent) to payee
 </code></pre></div>
 <h3 id="integration-checklist">Integration Checklist</h3>
 <p>Before signing an SPA, the wallet <strong>must</strong>:</p>
@@ -1549,7 +1549,7 @@ Return SPA (and optional SettlementIntent) to payee
 <li>Use <code>createSignedPaymentAuthorization</code> with the policy decision and intent</li>
 <li>Never sign if any check fails</li>
 </ol>
-<p>See the <a href="../../examples/machine-wallet-guardrails/">wallet integration example</a> for a runnable implementation.</p>
+<p>See the <a href="../../examples/machine-wallet-guardrails/">wallet integration example</a> for a runnable implementation. That example focuses on wallet-side guardrail logic and uses a preloaded SBA-shaped authorization object rather than demonstrating full SBA issuance and signature verification.</p>
 <h2 id="bounded-authorization">Bounded Authorization</h2>
 <p>MPCP emphasizes <strong>bounded authorization</strong>: the machine is given a spending envelope, not open-ended access.</p>
 <ul>
