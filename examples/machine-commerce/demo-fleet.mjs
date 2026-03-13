@@ -57,7 +57,7 @@ function log(msg) {
 }
 
 log("");
-log("MPCP Automated Fleet Payment Demo (PR8B)");
+log("MPCP Automated Fleet Payment Demo");
 log("=========================================");
 log("");
 log("Machine-to-machine payment loop:");

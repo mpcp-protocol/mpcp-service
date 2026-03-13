@@ -53,7 +53,7 @@ Committed artifacts use fixed timestamps (`expiresAt: 2030-12-31`, `nowISO: 2026
 
 ---
 
-## Machine Wallet Guardrails Demo (PR8A)
+## Machine Wallet Guardrails Demo
 
 A narrative demo that illustrates **autonomous spend guardrails**: machine wallets spending within cryptographically enforced limits, with local verification and tamper detection.
 
@@ -83,7 +83,7 @@ The script runs the full MPCP flow, prints a step-by-step narrative, writes `gua
 
 ---
 
-## Offline Payment Demo (PR8D)
+## Offline Payment Demo
 
 Demonstrates **offline machine payments**: vehicle holds pre-authorized policy chain, completes payment when network is unavailable.
 

@@ -1,4 +1,4 @@
-# Offline Payment Authorization (PR8D)
+# Offline Payment Authorization
 
 MPCP enables **offline machine payments** using pre-authorized spending envelopes. Autonomous systems can complete payments when network connectivity is unavailable.
 

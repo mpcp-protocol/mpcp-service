@@ -1,8 +1,8 @@
-# Intent Anchoring (PR10)
+# Intent Anchoring
 
 Optional support for publishing intent hashes to distributed ledgers. Provides public auditability, dispute protection, and replay protection.
 
-**Mock anchor** is included for development. **Hedera HCS** adapter is implemented (PR14). XRPL and EVM are future work.
+**Mock anchor** is included for development. **Hedera HCS** adapter is implemented. XRPL and EVM are future work.
 
 ## Purpose
 
@@ -55,7 +55,7 @@ interface AnchorResult {
 
 Anchoring is **optional**. MPCP verification does not require an anchor. Anchors are used for:
 
-- Dispute resolution (PR11)
+- Dispute resolution
 - Audit trails
 - Compliance and attestation
 
@@ -69,7 +69,7 @@ The `mockAnchorIntentHash` function simulates anchoring without contacting a led
 
 **Validation:** Requires 64-char hex intentHash. Throws on invalid input. Only accepts `rail: "mock"` — passing other rails throws to avoid confusion with real ledger behavior.
 
-## Hedera HCS Adapter (PR14)
+## Hedera HCS Adapter
 
 The Hedera HCS adapter publishes intent hashes to a Hedera Consensus Service topic.
 
