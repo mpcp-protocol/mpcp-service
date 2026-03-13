@@ -33,7 +33,7 @@ MPCP provides three layers of enforcement before a machine can pay:
 
 - **Amount binding** — SPA commits to a specific amount and destination
 - **Intent hash** — SPA binds to a canonical SettlementIntent
-- **Tamper resistance** — Settlement must match the signed authorization
+- **Tamper resistance** — SettlementIntent and final settlement must match the signed authorization
 
 ## Wallet Integration
 
@@ -44,15 +44,15 @@ A machine wallet integrates MPCP by performing checks *before* signing an SPA.
 ```
 Payment request received
     ↓
-Check PolicyGrant (rail, asset, expiry)
+PolicyGrant validation (rail, asset, expiry)
     ↓ PASS
-Check SBA (amount ≤ remaining, destination in allowlist, expiry)
+SignedBudgetAuthorization validation (amount ≤ remaining, destination in allowlist, expiry)
     ↓ PASS
-Create SettlementIntent + SPA
+Create SettlementIntent + SignedPaymentAuthorization
     ↓
-Sign SPA
+SignedPaymentAuthorization creation (or reject)
     ↓
-Return SPA (and optional SettlementIntent) to payee
+Return SignedPaymentAuthorization (and optional SettlementIntent) to payee
 ```
 
 ### Integration Checklist
@@ -65,7 +65,7 @@ Before signing an SPA, the wallet **must**:
 4. Use `createSignedPaymentAuthorization` with the policy decision and intent
 5. Never sign if any check fails
 
-See the [wallet integration example](../examples/machine-wallet-guardrails.md) for a runnable implementation.
+See the [wallet integration example](../examples/machine-wallet-guardrails.md) for a runnable implementation. That example focuses on wallet-side guardrail logic and uses a preloaded SBA-shaped authorization object rather than demonstrating full SBA issuance and signature verification.
 
 ## Bounded Authorization
 
