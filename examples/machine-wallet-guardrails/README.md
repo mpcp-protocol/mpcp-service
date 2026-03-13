@@ -4,6 +4,8 @@ Runnable example showing how a machine wallet integrates MPCP guardrails before 
 
 ## Concept
 
+This example focuses on wallet-side guardrail logic and uses a preloaded SBA-shaped authorization object rather than demonstrating full SBA issuance and signature verification.
+
 A machine wallet should **not** send funds unless the payment request satisfies:
 
 1. **PolicyGrant** — Rail, asset, expiration
@@ -26,7 +28,7 @@ npm run build
 node examples/machine-wallet-guardrails/wallet-integration.mjs
 ```
 
-## Full Flow Demo
+## Full Guardrail Flow Demo
 
 For a complete narrative demo (policy → budget → SPA → verification → tamper detection), see:
 

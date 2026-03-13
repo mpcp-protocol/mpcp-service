@@ -56,7 +56,22 @@ function checkGuardrails(policyGrant, sba, paymentRequest) {
     return { ok: false, reason: "policy expired" };
   }
 
-  // Layer 2: SBA
+  // Layer 2: SBA (rail, asset, amount, destination, expiry)
+  const sbaAllowedRails = new Set(sba.authorization.allowedRails ?? []);
+  if (!sbaAllowedRails.has(rail)) {
+    return { ok: false, reason: "rail not in budget authorization" };
+  }
+  const sbaAllowedAssets = sba.authorization.allowedAssets ?? [];
+  const sbaAssetMatch = sbaAllowedAssets.some(
+    (a) =>
+      a.kind === asset?.kind &&
+      a.currency === asset?.currency &&
+      a.issuer === asset?.issuer
+  );
+  if (!sbaAssetMatch) {
+    return { ok: false, reason: "asset not in budget authorization" };
+  }
+
   const maxMinor = BigInt(sba.authorization.maxAmountMinor ?? "0");
   const reqMinor = BigInt(amount);
   if (reqMinor > maxMinor) {
@@ -95,7 +110,7 @@ async function handlePaymentRequest(policyGrant, sba, paymentRequest, sessionSpe
     amount: paymentRequest.amount,
     destination: paymentRequest.destination,
     asset: paymentRequest.asset,
-    createdAt: new Date().toISOString().replace(/\.\d{3}Z$/, "Z"),
+    createdAt: "2030-01-01T00:00:00Z",
   });
 
   const paymentPolicyDecision = {
