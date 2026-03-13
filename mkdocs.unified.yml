@@ -15,6 +15,9 @@ extra:
   protocol_version: "MPCP 1.0"
   spec_repo: "https://github.com/mpcp-protocol/mpcp-spec"
 
+extra_css:
+  - stylesheets/extra.css
+
 theme:
   name: material
   logo: assets/logo.svg
