@@ -46,7 +46,7 @@ const grant = createPolicyGrant({
 const sba = createSignedBudgetAuthorization({
   grantId: grant.grantId,
   sessionId: "sess-123",
-  vehicleId: "veh-456",
+  actorId: "veh-456",
   policyHash: "a1b2c3",
   currency: "USD",
   maxAmountMinor: "3000",

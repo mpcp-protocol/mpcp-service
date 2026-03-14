@@ -81,7 +81,7 @@ const intent = {
 
 const sba = createSignedSessionBudgetAuthorization({
   sessionId: "11111111-1111-4111-8111-111111111111",
-  vehicleId: "1234567",
+  actorId: "1234567",
   policyHash: "a1b2c3",
   currency: "USD",
   maxAmountMinor: "3000",
