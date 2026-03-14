@@ -50,7 +50,7 @@ export function isSettlementBundle(obj: unknown): obj is SettlementBundle {
  * Build a minimal PaymentPolicyDecision from SPA authorization.
  * Used when bundle omits paymentPolicyDecision.
  */
-function decisionFromSpa(spa: SignedPaymentAuthorization): PaymentPolicyDecision {
+function decisionFromSpa(spa: SignedPaymentAuthorization): PaymentPolicyDecision & { _synthesized: true } {
   const a = spa.authorization;
   const quote = {
     quoteId: a.quoteId,
@@ -70,6 +70,7 @@ function decisionFromSpa(spa: SignedPaymentAuthorization): PaymentPolicyDecision
     asset: a.asset,
     chosen: { rail: a.rail, quoteId: a.quoteId },
     settlementQuotes: [quote],
+    _synthesized: true,
   };
 }
 
@@ -79,6 +80,9 @@ function decisionFromSpa(spa: SignedPaymentAuthorization): PaymentPolicyDecision
 export function bundleToContext(bundle: SettlementBundle): SettlementVerificationContext {
   const decision =
     bundle.paymentPolicyDecision ?? decisionFromSpa(bundle.spa);
+  if (!bundle.paymentPolicyDecision) {
+    console.warn("[mpcp] Warning: paymentPolicyDecision absent — synthesized from SPA. Policy evaluation not verified.");
+  }
   return {
     policyGrant: bundle.policyGrant,
     signedBudgetAuthorization: bundle.sba,

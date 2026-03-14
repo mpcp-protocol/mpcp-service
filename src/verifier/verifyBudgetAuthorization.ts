@@ -22,7 +22,7 @@ export function verifyBudgetAuthorization(
   envelope: unknown,
   grant: unknown,
   decision: PaymentPolicyDecision,
-  options?: { nowMs?: number },
+  options?: { nowMs?: number; cumulativeSpentMinor?: string },
 ): VerificationResult {
   // 1. Schema validation
   const sbaResult = signedBudgetAuthorizationSchema.safeParse(envelope);
@@ -63,6 +63,7 @@ export function verifyBudgetAuthorization(
     sessionId: envelopeParsed.authorization.sessionId,
     decision,
     nowMs: options?.nowMs,
+    cumulativeSpentMinor: options?.cumulativeSpentMinor,
   });
   if (!result.ok) return { valid: false, reason: result.reason, artifact: "signedBudgetAuthorization" };
   return { valid: true };

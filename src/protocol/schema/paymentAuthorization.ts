@@ -20,6 +20,7 @@ export const paymentAuthorizationSchema = z.strictObject({
   amount: z.string(),
   destination: z.string().optional(),
   intentHash: intentHashSchema.optional(),
+  nonce: z.string().optional(),
   expiresAt: iso8601DatetimeSchema,
 });
 

@@ -28,8 +28,8 @@ export function verifySettlement(
 export function verifySettlementWithReport(
   ctx: SettlementVerificationContext,
 ): VerificationReport {
-  const { result, steps } = runVerificationPipeline(ctx);
-  return { result, steps };
+  const { result, steps, hashBindingChecked } = runVerificationPipeline(ctx);
+  return { result, steps, hashBindingChecked };
 }
 
 /**
@@ -72,6 +72,7 @@ export function verifySettlementWithReportSafe(
     return {
       result: { valid: false, reason: `verification_error: ${message}` },
       steps: [{ name: "Verification.error", ok: false, reason: message }],
+      hashBindingChecked: false,
     };
   }
 }

@@ -1,4 +1,4 @@
-import crypto, { createHash } from "node:crypto";
+import crypto, { createHash, randomUUID } from "node:crypto";
 import type { Asset, PaymentPolicyDecision, Rail, SettlementResult } from "../policy-core/types.js";
 import { canonicalJson, computeIntentHash } from "../hash/index.js";
 
@@ -14,6 +14,7 @@ export interface PaymentAuthorization {
   amount: string;
   destination: string;
   intentHash?: string;
+  nonce?: string;
   expiresAt: string;
 }
 
@@ -107,12 +108,13 @@ function assetMatches(a: Asset, b: Asset): boolean {
 export function createSignedPaymentAuthorization(
   sessionId: string,
   decision: PaymentPolicyDecision,
-  options?: { settlementIntent?: unknown; budgetId?: string },
+  options?: { settlementIntent?: unknown; budgetId?: string; nonce?: string },
 ): SignedPaymentAuthorization | null {
   const authorization = buildAuthorization(sessionId, decision, options);
   const privateKey = parseSigningPrivateKey();
   if (!authorization || !privateKey) return null;
 
+  authorization.nonce = options?.nonce ?? randomUUID();
   const signature = crypto.sign(null, hashAuthorization(authorization), privateKey).toString("base64");
   return { authorization, issuerKeyId: getExpectedSigningKeyId(), signature };
 }

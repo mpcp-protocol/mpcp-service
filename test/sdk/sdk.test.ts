@@ -16,11 +16,11 @@ describe("createPolicyGrant", () => {
 
   it("creates valid grant with required fields", () => {
     const grant = createPolicyGrant({
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       allowedRails: ["xrpl"],
       expiresAt,
     });
-    expect(grant.policyHash).toBe("a1b2c3");
+    expect(grant.policyHash).toBe("a1b2c3d4e5f6");
     expect(grant.allowedRails).toEqual(["xrpl"]);
     expect(grant.expiresAt).toBe(expiresAt);
     expect(grant.grantId).toBeDefined();
@@ -30,7 +30,7 @@ describe("createPolicyGrant", () => {
 
   it("uses provided grantId when given", () => {
     const grant = createPolicyGrant({
-      policyHash: "deadbeef",
+      policyHash: "deadbeefcafe",
       allowedRails: ["evm"],
       expiresAt,
       grantId: "my-grant-123",
@@ -40,7 +40,7 @@ describe("createPolicyGrant", () => {
 
   it("includes allowedAssets when provided", () => {
     const grant = createPolicyGrant({
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       allowedRails: ["xrpl"],
       expiresAt,
       allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
@@ -57,7 +57,7 @@ describe("createBudgetAuthorization", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "v1",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -68,7 +68,7 @@ describe("createBudgetAuthorization", () => {
     expect(auth.version).toBe("1.0");
     expect(auth.sessionId).toBe("11111111-1111-4111-8111-111111111111");
     expect(auth.vehicleId).toBe("v1");
-    expect(auth.policyHash).toBe("a1b2c3");
+    expect(auth.policyHash).toBe("a1b2c3d4e5f6");
     expect(auth.maxAmountMinor).toBe("3000");
     expect(auth.budgetScope).toBe("SESSION");
     expect(auth.minorUnit).toBe(2);
@@ -162,7 +162,7 @@ describe("SDK artifact integration", () => {
     const nowISO = new Date(Date.now() - 1000).toISOString();
 
     const policyGrant = createPolicyGrant({
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       allowedRails: ["xrpl"],
       allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
       expiresAt,
@@ -172,7 +172,7 @@ describe("SDK artifact integration", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: policyGrant.grantId,
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -184,7 +184,7 @@ describe("SDK artifact integration", () => {
 
     const paymentPolicyDecision = {
       decisionId: "dec-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       action: "ALLOW" as const,
       reasons: ["OK"],
       expiresAtISO: expiresAt,

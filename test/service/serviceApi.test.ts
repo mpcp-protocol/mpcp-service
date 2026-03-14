@@ -13,7 +13,7 @@ describe("service API", () => {
   describe("issueBudget", () => {
     it("returns null when signing key not configured", () => {
       const policyGrant = createPolicyGrant({
-        policyHash: "abc",
+        policyHash: "abcabcabcabc",
         allowedRails: ["xrpl"],
         expiresAt: "2030-12-31T23:59:59Z",
       });
@@ -44,7 +44,7 @@ describe("service API", () => {
 
       try {
         const policyGrant = createPolicyGrant({
-          policyHash: "abc",
+          policyHash: "abcabcabcabc",
           allowedRails: ["xrpl"],
           expiresAt: "2030-12-31T23:59:59Z",
         });

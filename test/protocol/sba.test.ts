@@ -147,6 +147,51 @@ describe("SBA createSignedSessionBudgetAuthorization + verifySignedSessionBudget
     expect(verification).toEqual({ ok: false, reason: "budget_exceeded" });
   });
 
+  it("fails on cumulative budget overflow even when single payment fits", () => {
+    setupKeys();
+    const envelope = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      grantId: "grant-ph-1",
+      policyHash: "a1b2c3d4e5f6",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["stripe"],
+      allowedAssets: [],
+      destinationAllowlist: [],
+      expiresAt: new Date(Date.now() + 60_000).toISOString(),
+    });
+    expect(envelope).not.toBeNull();
+
+    const decision: PaymentPolicyDecision = {
+      decisionId: "dec-1",
+      policyHash: "a1b2c3d4e5f6",
+      action: "ALLOW",
+      reasons: ["OK"],
+      expiresAtISO: new Date(Date.now() + 60_000).toISOString(),
+      rail: "stripe",
+      priceFiat: { amountMinor: "1500", currency: "USD" }, // fits alone but not with prior spending
+      chosen: { rail: "stripe", quoteId: "q1" },
+      settlementQuotes: [
+        {
+          quoteId: "q1",
+          rail: "stripe",
+          amount: { amount: "1500", decimals: 2 },
+          destination: "",
+          expiresAt: new Date(Date.now() + 60_000).toISOString(),
+        },
+      ],
+    };
+
+    // Without cumulative context — passes (1500 <= 3000)
+    const noCtx = verifySignedSessionBudgetAuthorizationForDecision(envelope!, { sessionId: envelope!.authorization.sessionId, decision });
+    expect(noCtx).toEqual({ ok: true });
+
+    // With prior spending that pushes total over budget — fails
+    const withCtx = verifySignedSessionBudgetAuthorizationForDecision(envelope!, { sessionId: envelope!.authorization.sessionId, decision, cumulativeSpentMinor: "2000" });
+    expect(withCtx).toEqual({ ok: false, reason: "budget_exceeded" });
+  });
+
   it("fails on unsupported scope (DAY not SESSION)", () => {
     setupKeys();
     const envelope = createSignedSessionBudgetAuthorization({

@@ -36,6 +36,7 @@ export interface VerificationPipelineOutput {
   result: VerificationResult;
   steps: VerificationStep[];
   checks: VerificationCheck[];
+  hashBindingChecked?: boolean; // true if intentHash was present and verified
 }
 
 function parseArtifact(
@@ -95,16 +96,19 @@ export function runVerificationPipeline(
 ): VerificationPipelineOutput {
   const steps: VerificationStep[] = [];
   const checks: VerificationCheck[] = [];
+  let hashBindingChecked = false;
 
   const out = (): VerificationPipelineOutput => ({
     result: { valid: true },
     steps,
     checks: sortChecksByPhase(checks),
+    hashBindingChecked,
   });
   const fail = (result: VerificationResult): VerificationPipelineOutput => ({
     result,
     steps,
     checks: sortChecksByPhase(checks),
+    hashBindingChecked,
   });
 
   // --- Schema validation ---
@@ -162,7 +166,7 @@ export function runVerificationPipeline(
     ctx.signedBudgetAuthorization,
     ctx.policyGrant,
     ctx.paymentPolicyDecision,
-    { nowMs: ctx.nowMs },
+    { nowMs: ctx.nowMs, cumulativeSpentMinor: ctx.cumulativeSpentMinor },
   );
   if (!pushStep(steps, "SignedBudgetAuthorization.valid", budgetResult)) {
     pushCheck(checks, "SignedBudgetAuthorization", "valid", "linkage", false, {
@@ -174,6 +178,7 @@ export function runVerificationPipeline(
 
   // --- Intent hash ---
   if (ctx.settlementIntent && ctx.signedPaymentAuthorization.authorization.intentHash) {
+    hashBindingChecked = true;
     const intentParsed = settlementIntentForVerificationSchema.safeParse(ctx.settlementIntent);
     if (intentParsed.success) {
       const auth = ctx.signedPaymentAuthorization.authorization;

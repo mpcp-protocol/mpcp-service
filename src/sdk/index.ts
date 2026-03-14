@@ -8,8 +8,8 @@ export {
   enforcePayment,
 } from "../policy-core/evaluate.js";
 
-export { createPolicyGrant } from "./createPolicyGrant.js";
-export type { CreatePolicyGrantInput } from "./createPolicyGrant.js";
+export { createPolicyGrant, createSignedPolicyGrant } from "./createPolicyGrant.js";
+export type { CreatePolicyGrantInput, SignedPolicyGrant } from "./createPolicyGrant.js";
 
 export { createBudgetAuthorization } from "./createBudgetAuthorization.js";
 export type {

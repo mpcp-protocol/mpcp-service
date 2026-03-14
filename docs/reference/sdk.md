@@ -32,14 +32,17 @@ import {
 ## Policy Grant
 
 ```typescript
-import { createPolicyGrant } from "mpcp-service/sdk";
+import { createPolicyGrant, createSignedPolicyGrant } from "mpcp-service/sdk";
 
 const grant = createPolicyGrant({
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   allowedRails: ["xrpl", "evm"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
   expiresAt: "2030-12-31T23:59:59Z",
 });
+
+// Signed (requires MPCP_POLICY_GRANT_SIGNING_PRIVATE_KEY_PEM — returns null if not set)
+const signedGrant = createSignedPolicyGrant(grant);
 ```
 
 ## Budget Authorization
@@ -129,6 +132,19 @@ const { result, steps } = verifySettlementWithReport(context);
 const { valid, checks } = verifySettlementDetailed(context);
 ```
 
+## Cumulative Budget Enforcement
+
+When performing multiple payments in a session, pass `cumulativeSpentMinor` to the verification context so the budget check accounts for all prior spending:
+
+```typescript
+const result = verifySettlement({
+  ...context,
+  cumulativeSpentMinor: "5000", // total minor-unit amount spent before this payment
+});
+```
+
+The session authority MUST maintain this counter. The verifier is stateless and will not track prior payments on its own.
+
 ## Environment Variables
 
 | Variable | Purpose |
@@ -139,6 +155,9 @@ const { valid, checks } = verifySettlementDetailed(context);
 | MPCP_SPA_SIGNING_PRIVATE_KEY_PEM | Private key for signing SPAs |
 | MPCP_SPA_SIGNING_PUBLIC_KEY_PEM | Public key for verifying SPAs |
 | MPCP_SPA_SIGNING_KEY_ID | Key identifier (default: mpcp-spa-signing-key-1) |
+| MPCP_POLICY_GRANT_SIGNING_PRIVATE_KEY_PEM | Private key for signing PolicyGrants |
+| MPCP_POLICY_GRANT_SIGNING_PUBLIC_KEY_PEM | Public key for verifying PolicyGrant signatures (when set, unsigned grants are rejected) |
+| MPCP_POLICY_GRANT_SIGNING_KEY_ID | Key identifier (default: mpcp-policy-grant-signing-key-1) |
 
 ## See Also
 
