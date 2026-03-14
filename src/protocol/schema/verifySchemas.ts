@@ -19,6 +19,9 @@ export const policyGrantForVerificationSchema = z
     expiresAtISO: iso8601DatetimeSchema.optional(),
     allowedRails: z.array(railSchema),
     allowedAssets: z.array(assetSchema).optional(),
+    issuer: z.string().optional(),
+    issuerKeyId: z.string().optional(),
+    signature: z.string().optional(),
   })
   .refine((g) => g.expiresAt != null || g.expiresAtISO != null, {
     message: "policy_grant_missing_expiry",

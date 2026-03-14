@@ -107,7 +107,7 @@ export function createSignedSessionBudgetAuthorization(input: {
 
 export function verifySignedSessionBudgetAuthorizationForDecision(
   envelope: SignedSessionBudgetAuthorization,
-  input: { sessionId: string; decision: PaymentPolicyDecision; nowMs?: number },
+  input: { sessionId: string; decision: PaymentPolicyDecision; nowMs?: number; cumulativeSpentMinor?: string },
 ): { ok: true } | { ok: false; reason: "invalid_signature" | "expired" | "budget_exceeded" | "mismatch" } {
   if (envelope.issuerKeyId !== getExpectedKeyId()) return { ok: false, reason: "invalid_signature" };
   const publicKey = parseVerificationPublicKey();
@@ -143,7 +143,8 @@ export function verifySignedSessionBudgetAuthorizationForDecision(
   if (decision.priceFiat?.amountMinor) {
     const budgetMinor = BigInt(authorization.maxAmountMinor);
     const decisionMinor = BigInt(decision.priceFiat.amountMinor);
-    if (decisionMinor > budgetMinor) return { ok: false, reason: "budget_exceeded" };
+    const alreadySpent = BigInt(input.cumulativeSpentMinor ?? "0");
+    if (alreadySpent + decisionMinor > budgetMinor) return { ok: false, reason: "budget_exceeded" };
   }
 
   const quoteId = decision.chosen?.quoteId;

@@ -14,8 +14,8 @@ export const minorUnitSchema = z.number().int().min(0);
 /** ISO 4217 currency code (3 uppercase letters) */
 export const currencySchema = z.string().length(3).regex(/^[A-Z]{3}$/);
 
-/** Policy hash (hex, 6–64 chars; allows truncated hashes) */
-export const policyHashSchema = z.string().regex(/^[a-f0-9]{6,64}$/);
+/** Policy hash (hex, 12–64 chars; Full Profile SHOULD use SHA-256 (64 chars)) */
+export const policyHashSchema = z.string().regex(/^[a-f0-9]{12,64}$/);
 
 /** SHA256 hex hash (64 chars) */
 export const intentHashSchema = z.string().length(64).regex(/^[a-f0-9]{64}$/);

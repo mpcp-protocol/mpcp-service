@@ -31,6 +31,8 @@ export interface VerificationStep {
 export interface VerificationReport {
   result: VerificationResult;
   steps: VerificationStep[];
+  /** Whether intentHash binding was verified. False when SPA has no intentHash (Lite Profile). */
+  hashBindingChecked?: boolean;
 }
 
 /** Check phase for ordering: schema → linkage → hash → policy */
@@ -73,4 +75,8 @@ export interface SettlementVerificationContext {
   settlementIntent?: unknown;
   decisionId: string;
   nowMs?: number;
+  /** Running total of minor-unit amounts spent in this session before this payment.
+   *  When provided, budget check becomes: cumulativeSpentMinor + currentAmount <= maxAmountMinor.
+   *  Session authority MUST maintain this counter for correct cumulative enforcement. */
+  cumulativeSpentMinor?: string;
 }

@@ -14,7 +14,7 @@ import {
 const validPolicyGrant = {
   version: "1.0",
   grantId: "grant_7ab3",
-  policyHash: "9f3a0d",
+  policyHash: "9f3a0d1e2b4c",
   subjectId: "vehicle_1284",
   scope: "SESSION",
   allowedRails: ["xrpl", "stripe"],
@@ -28,7 +28,7 @@ const validBudgetAuthorization = {
   grantId: "grant-1",
   sessionId: "sess_456",
   vehicleId: "veh_001",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   currency: "USD",
   minorUnit: 2,
   budgetScope: "SESSION",
@@ -43,7 +43,7 @@ const validPaymentAuthorization = {
   version: "1.0",
   decisionId: "dec_123",
   sessionId: "sess_456",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   budgetId: "550e8400-e29b-41d4-a716-446655440000",
   quoteId: "quote_789",
   rail: "xrpl",
@@ -320,7 +320,7 @@ describe("FleetPolicyAuthorization schema", () => {
 const validArtifactBundle = {
   policyGrant: {
     grantId: "grant-1",
-    policyHash: "a1b2c3",
+    policyHash: "a1b2c3d4e5f6",
     expiresAt: "2030-12-31T23:59:59Z",
     allowedRails: ["xrpl"],
     allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],

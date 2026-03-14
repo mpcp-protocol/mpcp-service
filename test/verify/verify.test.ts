@@ -60,7 +60,7 @@ const verificationNowIso = new Date(Date.now() - 1000).toISOString();
 
 const baseGrant: PolicyGrantLike = {
   grantId: "grant-1",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   expiresAt: futureExpiry,
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
@@ -68,7 +68,7 @@ const baseGrant: PolicyGrantLike = {
 
 const baseDecision: PaymentPolicyDecision = {
   decisionId: "dec-1",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   action: "ALLOW",
   reasons: ["OK"],
   expiresAtISO: futureExpiry,
@@ -134,7 +134,7 @@ describe("verifyBudgetAuthorization", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -160,7 +160,7 @@ describe("verifyBudgetAuthorization", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "deadbeef",
+      policyHash: "deadbeefcafe",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -181,7 +181,7 @@ describe("verifyPaymentAuthorization", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -212,7 +212,7 @@ describe("verifyPaymentAuthorization", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -321,7 +321,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -359,7 +359,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -393,7 +393,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -426,7 +426,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -459,7 +459,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -497,7 +497,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -528,7 +528,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -571,7 +571,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -606,7 +606,7 @@ describe("verifySettlement", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -631,5 +631,74 @@ describe("verifySettlement", () => {
     expect(report.result.valid).toBe(false);
     expect(report.steps).toHaveLength(1);
     expect(report.steps[0]).toMatchObject({ name: "PolicyGrant.valid", ok: false });
+  });
+
+  it("hashBindingChecked is false when SPA has no intentHash (Lite Profile)", () => {
+    setupBothKeys();
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      grantId: "grant-1",
+      policyHash: "a1b2c3d4e5f6",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+      { budgetId: sba!.authorization.budgetId },
+    );
+    const report = verifySettlementWithReport({
+      policyGrant: baseGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+    });
+    expect(report.result).toEqual({ valid: true });
+    expect(report.hashBindingChecked).toBe(false);
+  });
+
+  it("hashBindingChecked is true when SPA has intentHash (Full Profile)", () => {
+    setupBothKeys();
+    const intent = {
+      rail: "xrpl",
+      amount: "19440000",
+      destination: "rDestination",
+      asset: { kind: "IOU", currency: "RLUSD", issuer: "rIssuer" },
+    };
+    const sba = createSignedSessionBudgetAuthorization({
+      sessionId: "11111111-1111-4111-8111-111111111111",
+      vehicleId: "1234567",
+      grantId: "grant-1",
+      policyHash: "a1b2c3d4e5f6",
+      currency: "USD",
+      maxAmountMinor: "3000",
+      allowedRails: ["xrpl"],
+      allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
+      destinationAllowlist: ["rDestination"],
+      expiresAt: futureExpiry,
+    });
+    const spa = createSignedPaymentAuthorization(
+      "11111111-1111-4111-8111-111111111111",
+      baseDecision,
+      { settlementIntent: intent, budgetId: sba!.authorization.budgetId },
+    );
+    const report = verifySettlementWithReport({
+      policyGrant: baseGrant,
+      signedBudgetAuthorization: sba!,
+      signedPaymentAuthorization: spa!,
+      settlement: baseSettlement,
+      paymentPolicyDecision: baseDecision,
+      decisionId: "dec-1",
+      settlementIntent: intent,
+    });
+    expect(report.result).toEqual({ valid: true });
+    expect(report.hashBindingChecked).toBe(true);
   });
 });

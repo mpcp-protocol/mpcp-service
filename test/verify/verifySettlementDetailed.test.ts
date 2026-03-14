@@ -33,7 +33,7 @@ const verificationNowIso = new Date(Date.now() - 1000).toISOString();
 
 const baseGrant: PolicyGrantLike = {
   grantId: "grant-1",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   expiresAt: futureExpiry,
   allowedRails: ["xrpl"],
   allowedAssets: [{ kind: "IOU", currency: "RLUSD", issuer: "rIssuer" }],
@@ -41,7 +41,7 @@ const baseGrant: PolicyGrantLike = {
 
 const baseDecision: PaymentPolicyDecision = {
   decisionId: "dec-1",
-  policyHash: "a1b2c3",
+  policyHash: "a1b2c3d4e5f6",
   action: "ALLOW",
   reasons: ["OK"],
   expiresAtISO: futureExpiry,
@@ -91,7 +91,7 @@ describe("verifySettlementDetailed", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -131,7 +131,7 @@ describe("verifySettlementDetailed", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
@@ -175,7 +175,7 @@ describe("verifySettlementDetailed", () => {
       sessionId: "11111111-1111-4111-8111-111111111111",
       vehicleId: "1234567",
       grantId: "grant-1",
-      policyHash: "a1b2c3",
+      policyHash: "a1b2c3d4e5f6",
       currency: "USD",
       maxAmountMinor: "3000",
       allowedRails: ["xrpl"],
