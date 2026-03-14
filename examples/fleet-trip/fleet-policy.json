@@ -1,0 +1,15 @@
+{
+  "version": "1.0",
+  "fleetId": "fleet-robotaxi-west",
+  "vehicleId": "EV-001",
+  "scope": "SESSION",
+  "currency": "USD",
+  "minorUnit": 2,
+  "maxSessionSpend": 40,
+  "maxAmountMinor": "4000",
+  "allowedRails": ["xrpl"],
+  "allowedAssets": [{ "kind": "IOU", "currency": "RLUSD", "issuer": "rIssuer" }],
+  "destinations": ["rTollBooth", "rChargingStation", "rParkingGarage"],
+  "expiresAt": "2030-12-31T23:59:59Z",
+  "note": "Daily trip budget for fleet vehicle EV-001. Covers tolls, EV charging, and parking."
+}
