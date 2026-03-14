@@ -41,7 +41,8 @@
     "example:ev-charging": "node examples/ev-charging/generate.mjs",
     "example:machine-commerce": "node examples/machine-commerce/demo-fleet.mjs",
     "example:simulate": "node examples/machine-commerce/simulate.mjs",
-    "example:offline": "node examples/parking/demo-offline.mjs"
+    "example:offline": "node examples/parking/demo-offline.mjs",
+    "example:fleet-trip": "node examples/fleet-trip/demo-fleet-trip.mjs"
   },
   "dependencies": {
     "zod": "^3.25.76"

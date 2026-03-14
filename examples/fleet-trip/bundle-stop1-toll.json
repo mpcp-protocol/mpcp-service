@@ -1,0 +1,141 @@
+{
+  "settlement": {
+    "amount": "6000000",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "destination": "rTollBooth",
+    "nowISO": "2026-03-14T09:12:00Z"
+  },
+  "settlementIntent": {
+    "version": "1.0",
+    "rail": "xrpl",
+    "amount": "6000000",
+    "createdAt": "2026-03-14T09:12:00Z",
+    "destination": "rTollBooth",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    }
+  },
+  "spa": {
+    "authorization": {
+      "version": "1.0",
+      "decisionId": "dec-toll-001",
+      "sessionId": "trip-20260314-EV001",
+      "policyHash": "a1b2c3d4e5f6",
+      "budgetId": "d26d4e94-dac4-4af6-81ad-7fd4080a2779",
+      "quoteId": "q-toll-001",
+      "rail": "xrpl",
+      "asset": {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      },
+      "amount": "6000000",
+      "destination": "rTollBooth",
+      "intentHash": "cdf6b71ed131b1cdda74962727d06430644d2b4fb030cc72b6a19cc2e87c5003",
+      "expiresAt": "2030-12-31T23:59:59Z",
+      "nonce": "4009f172-7591-4d45-8d8d-fc109fca72a6"
+    },
+    "issuerKeyId": "fleet-spa-signing-key-1",
+    "signature": "HnMSCzbrLZ0VI+GisKzwjvDdfsXcmOcha5XLXsz8lJxd5JFuB8iHP0+QvFcYbBPeGGLmPUlhVKzu8O865c8EBQ=="
+  },
+  "sba": {
+    "authorization": {
+      "version": "1.0",
+      "budgetId": "d26d4e94-dac4-4af6-81ad-7fd4080a2779",
+      "grantId": "84fff5d0-8656-4b2d-ab82-15fa36427c38",
+      "sessionId": "trip-20260314-EV001",
+      "vehicleId": "EV-001",
+      "policyHash": "a1b2c3d4e5f6",
+      "currency": "USD",
+      "minorUnit": 2,
+      "budgetScope": "SESSION",
+      "maxAmountMinor": "4000",
+      "allowedRails": [
+        "xrpl"
+      ],
+      "allowedAssets": [
+        {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      ],
+      "destinationAllowlist": [
+        "rTollBooth",
+        "rChargingStation",
+        "rParkingGarage"
+      ],
+      "expiresAt": "2030-12-31T23:59:59Z"
+    },
+    "issuerKeyId": "fleet-sba-signing-key-1",
+    "signature": "U3MIfbuyy2CE7PmQB7AAsJLV3+DpBcOEokXBnrcU7m5Ud9UhEPObEtxSy6yGPY3TTspdtLqJOJEz2i7lio88Dg=="
+  },
+  "policyGrant": {
+    "grantId": "84fff5d0-8656-4b2d-ab82-15fa36427c38",
+    "policyHash": "a1b2c3d4e5f6",
+    "expiresAt": "2030-12-31T23:59:59Z",
+    "allowedRails": [
+      "xrpl"
+    ],
+    "allowedAssets": [
+      {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      }
+    ],
+    "issuer": "did:web:fleet.robotaxi-west.example.com",
+    "issuerKeyId": "fleet-policy-grant-key-1",
+    "signature": "LoWlfxnzxWBaG0WmFhyBnITlujxETOE7f7OsM4KQ7IDYNyERnau8dG14vFt0DcrRthBTbFL+VMQPSMulV/VgCw=="
+  },
+  "paymentPolicyDecision": {
+    "decisionId": "dec-toll-001",
+    "policyHash": "a1b2c3d4e5f6",
+    "action": "ALLOW",
+    "reasons": [
+      "Within budget",
+      "Destination authorized"
+    ],
+    "expiresAtISO": "2030-12-31T23:59:59Z",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "priceFiat": {
+      "amountMinor": "600",
+      "currency": "USD"
+    },
+    "chosen": {
+      "rail": "xrpl",
+      "quoteId": "q-toll-001"
+    },
+    "settlementQuotes": [
+      {
+        "quoteId": "q-toll-001",
+        "rail": "xrpl",
+        "amount": {
+          "amount": "6000000",
+          "decimals": 6
+        },
+        "destination": "rTollBooth",
+        "expiresAt": "2030-12-31T23:59:59Z",
+        "asset": {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      }
+    ]
+  },
+  "sbaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAr7H9fidwL/o6BxBbWDp864CFpXpW4xehPl3LY3zMAw8=\n-----END PUBLIC KEY-----\n",
+  "spaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEApNN61UHHMjipJXLvQ+gzZsGjjMznj3lGzwtJmhWitiw=\n-----END PUBLIC KEY-----\n"
+}
