@@ -33,6 +33,7 @@ export type {
   SettlementIntent,
 } from "./createSettlementIntent.js";
 
+export { checkRevocation } from "../protocol/revocation.js";
 export { canonicalJson } from "../hash/index.js";
 export {
   computeSettlementIntentHash,
