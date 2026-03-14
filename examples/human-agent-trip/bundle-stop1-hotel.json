@@ -1,0 +1,148 @@
+{
+  "settlement": {
+    "amount": "250000000",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "destination": "rHotelMercureParis",
+    "nowISO": "2026-04-10T15:00:00Z"
+  },
+  "settlementIntent": {
+    "version": "1.0",
+    "rail": "xrpl",
+    "amount": "250000000",
+    "createdAt": "2026-04-10T15:00:00Z",
+    "destination": "rHotelMercureParis",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    }
+  },
+  "spa": {
+    "authorization": {
+      "version": "1.0",
+      "decisionId": "dec-hotel-001",
+      "sessionId": "paris-trip-2026-alice",
+      "policyHash": "a1b2c3d4e5f6",
+      "budgetId": "b597142d-d0a3-416b-9494-a2ebfdc36232",
+      "quoteId": "q-hotel-001",
+      "rail": "xrpl",
+      "asset": {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      },
+      "amount": "250000000",
+      "destination": "rHotelMercureParis",
+      "intentHash": "d7a7c201c1f42401b9f0209482c560396d7caf8365a69d0cb1f92848c98adfed",
+      "expiresAt": "2030-12-31T23:59:59Z",
+      "nonce": "3794c12e-369e-4ff3-9092-b583bcb398e6"
+    },
+    "issuerKeyId": "agent-spa-key-1",
+    "signature": "Og+BPRUdt/G01MnZh84vLCrvnMNPYqvxkiAAowqU/zuDvOORGtL++bxOfUm+2JM0n+13JytNtPJFce2ZnB98Aw=="
+  },
+  "sba": {
+    "authorization": {
+      "version": "1.0",
+      "budgetId": "b597142d-d0a3-416b-9494-a2ebfdc36232",
+      "grantId": "1aae4310-fbe4-4efb-b53b-67bbb69eeb9d",
+      "sessionId": "paris-trip-2026-alice",
+      "vehicleId": "ai-trip-planner-v2",
+      "policyHash": "a1b2c3d4e5f6",
+      "currency": "USD",
+      "minorUnit": 2,
+      "budgetScope": "TRIP",
+      "maxAmountMinor": "80000",
+      "allowedRails": [
+        "xrpl"
+      ],
+      "allowedAssets": [
+        {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      ],
+      "destinationAllowlist": [
+        "rHotelMercureParis",
+        "rEurostar",
+        "rEuropcarParis"
+      ],
+      "expiresAt": "2030-12-31T23:59:59Z"
+    },
+    "issuerKeyId": "agent-sba-key-1",
+    "signature": "5keYWTKG/h1c0c2JGGcKwmJNbL7+V/5UCQMyz14Nz/gpW7KWRVycZ4RdagckpuOOX1ig/AtpK414xbrrTaP6Cw=="
+  },
+  "policyGrant": {
+    "grantId": "1aae4310-fbe4-4efb-b53b-67bbb69eeb9d",
+    "policyHash": "a1b2c3d4e5f6",
+    "expiresAt": "2030-12-31T23:59:59Z",
+    "allowedRails": [
+      "xrpl"
+    ],
+    "allowedAssets": [
+      {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      }
+    ],
+    "revocationEndpoint": "https://wallet.alice.example.com/revoke",
+    "allowedPurposes": [
+      "travel:hotel",
+      "travel:flight",
+      "travel:transport"
+    ],
+    "issuer": "did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK",
+    "issuerKeyId": "alice-did-key-1",
+    "signature": "Wr2m1JmmPzzVJ7lkAqhGPPHOnVzL+9oF4Fr84JDDX/hKWPmfZfjPKdWes7EvQxZ+vydmjKAP1IHGjrgBMh70BQ=="
+  },
+  "paymentPolicyDecision": {
+    "decisionId": "dec-hotel-001",
+    "policyHash": "a1b2c3d4e5f6",
+    "action": "ALLOW",
+    "reasons": [
+      "Within budget",
+      "Purpose authorized",
+      "Destination authorized"
+    ],
+    "expiresAtISO": "2030-12-31T23:59:59Z",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "priceFiat": {
+      "amountMinor": "25000",
+      "currency": "USD"
+    },
+    "chosen": {
+      "rail": "xrpl",
+      "quoteId": "q-hotel-001"
+    },
+    "settlementQuotes": [
+      {
+        "quoteId": "q-hotel-001",
+        "rail": "xrpl",
+        "amount": {
+          "amount": "250000000",
+          "decimals": 6
+        },
+        "destination": "rHotelMercureParis",
+        "expiresAt": "2030-12-31T23:59:59Z",
+        "asset": {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      }
+    ]
+  },
+  "sbaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAyruO/mCPiFMN58KD2MNnt1XXOx2pi3menrxgj8ErYJ8=\n-----END PUBLIC KEY-----\n",
+  "spaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHsx6sy9p36RfOiPe7m+AVrES7Sqfoy4rPJsbRr5QHkA=\n-----END PUBLIC KEY-----\n"
+}

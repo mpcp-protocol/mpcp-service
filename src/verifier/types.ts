@@ -13,6 +13,8 @@ export interface PolicyGrantLike {
   expiresAtISO?: string;
   allowedRails: string[];
   allowedAssets?: unknown[];
+  revocationEndpoint?: string;
+  allowedPurposes?: string[];
 }
 
 /** Shared verification result for all verifiers. Use with CLI and callers. */

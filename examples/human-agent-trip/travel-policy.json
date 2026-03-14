@@ -1,0 +1,24 @@
+{
+  "policyId": "alice-paris-trip-2026-04",
+  "version": "1.0",
+  "issuer": "did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK",
+  "subject": "ai-trip-planner-v2",
+  "description": "Travel budget for AI trip planner — Paris, April 10–12 2026",
+  "budget": {
+    "currency": "USD",
+    "maxAmountMinor": "80000",
+    "scope": "TRIP"
+  },
+  "allowedPurposes": [
+    "travel:hotel",
+    "travel:flight",
+    "travel:transport"
+  ],
+  "revocationEndpoint": "https://wallet.alice.example.com/revoke",
+  "allowedRails": ["xrpl"],
+  "allowedAssets": [
+    { "kind": "IOU", "currency": "RLUSD", "issuer": "rIssuer" }
+  ],
+  "expiresAt": "2026-04-13T23:59:59Z",
+  "issuedAt": "2026-04-09T10:00:00Z"
+}

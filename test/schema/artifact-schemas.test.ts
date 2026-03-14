@@ -158,6 +158,14 @@ describe("BudgetAuthorization schema", () => {
     expect(result.ok).toBe(false);
   });
 
+  it("accepts TRIP as a valid budgetScope", () => {
+    const result = validateWithSchema(budgetAuthorizationSchema, {
+      ...validBudgetAuthorization,
+      budgetScope: "TRIP",
+    });
+    expect(result.ok).toBe(true);
+  });
+
   it("rejects invalid budgetScope", () => {
     const result = validateWithSchema(budgetAuthorizationSchema, {
       ...validBudgetAuthorization,

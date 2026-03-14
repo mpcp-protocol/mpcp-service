@@ -1,0 +1,148 @@
+{
+  "settlement": {
+    "amount": "180000000",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "destination": "rEuropcarParis",
+    "nowISO": "2026-04-12T09:00:00Z"
+  },
+  "settlementIntent": {
+    "version": "1.0",
+    "rail": "xrpl",
+    "amount": "180000000",
+    "createdAt": "2026-04-12T09:00:00Z",
+    "destination": "rEuropcarParis",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    }
+  },
+  "spa": {
+    "authorization": {
+      "version": "1.0",
+      "decisionId": "dec-car-001",
+      "sessionId": "paris-trip-2026-alice",
+      "policyHash": "a1b2c3d4e5f6",
+      "budgetId": "b597142d-d0a3-416b-9494-a2ebfdc36232",
+      "quoteId": "q-car-001",
+      "rail": "xrpl",
+      "asset": {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      },
+      "amount": "180000000",
+      "destination": "rEuropcarParis",
+      "intentHash": "089d3425597c942e3b609cd81b37e93a8c6a75e3a403f28aa3d7f0f868d2f7cd",
+      "expiresAt": "2030-12-31T23:59:59Z",
+      "nonce": "0743c78f-b668-4003-8b56-425ad90c8928"
+    },
+    "issuerKeyId": "agent-spa-key-1",
+    "signature": "tswftjpzs8cgUl3XBuE2PSqpOPsiTVA5PlywzNy9hKnHuG55FUrd3tAMecbOILKLAVfOqabGw62dvU/4ASXeBA=="
+  },
+  "sba": {
+    "authorization": {
+      "version": "1.0",
+      "budgetId": "b597142d-d0a3-416b-9494-a2ebfdc36232",
+      "grantId": "1aae4310-fbe4-4efb-b53b-67bbb69eeb9d",
+      "sessionId": "paris-trip-2026-alice",
+      "vehicleId": "ai-trip-planner-v2",
+      "policyHash": "a1b2c3d4e5f6",
+      "currency": "USD",
+      "minorUnit": 2,
+      "budgetScope": "TRIP",
+      "maxAmountMinor": "80000",
+      "allowedRails": [
+        "xrpl"
+      ],
+      "allowedAssets": [
+        {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      ],
+      "destinationAllowlist": [
+        "rHotelMercureParis",
+        "rEurostar",
+        "rEuropcarParis"
+      ],
+      "expiresAt": "2030-12-31T23:59:59Z"
+    },
+    "issuerKeyId": "agent-sba-key-1",
+    "signature": "5keYWTKG/h1c0c2JGGcKwmJNbL7+V/5UCQMyz14Nz/gpW7KWRVycZ4RdagckpuOOX1ig/AtpK414xbrrTaP6Cw=="
+  },
+  "policyGrant": {
+    "grantId": "1aae4310-fbe4-4efb-b53b-67bbb69eeb9d",
+    "policyHash": "a1b2c3d4e5f6",
+    "expiresAt": "2030-12-31T23:59:59Z",
+    "allowedRails": [
+      "xrpl"
+    ],
+    "allowedAssets": [
+      {
+        "kind": "IOU",
+        "currency": "RLUSD",
+        "issuer": "rIssuer"
+      }
+    ],
+    "revocationEndpoint": "https://wallet.alice.example.com/revoke",
+    "allowedPurposes": [
+      "travel:hotel",
+      "travel:flight",
+      "travel:transport"
+    ],
+    "issuer": "did:key:z6MkhaXgBZDvotDkL5257faiztiGiC2QtKLGpbnnEGta2doK",
+    "issuerKeyId": "alice-did-key-1",
+    "signature": "Wr2m1JmmPzzVJ7lkAqhGPPHOnVzL+9oF4Fr84JDDX/hKWPmfZfjPKdWes7EvQxZ+vydmjKAP1IHGjrgBMh70BQ=="
+  },
+  "paymentPolicyDecision": {
+    "decisionId": "dec-car-001",
+    "policyHash": "a1b2c3d4e5f6",
+    "action": "ALLOW",
+    "reasons": [
+      "Within budget",
+      "Purpose authorized",
+      "Destination authorized"
+    ],
+    "expiresAtISO": "2030-12-31T23:59:59Z",
+    "rail": "xrpl",
+    "asset": {
+      "kind": "IOU",
+      "currency": "RLUSD",
+      "issuer": "rIssuer"
+    },
+    "priceFiat": {
+      "amountMinor": "18000",
+      "currency": "USD"
+    },
+    "chosen": {
+      "rail": "xrpl",
+      "quoteId": "q-car-001"
+    },
+    "settlementQuotes": [
+      {
+        "quoteId": "q-car-001",
+        "rail": "xrpl",
+        "amount": {
+          "amount": "180000000",
+          "decimals": 6
+        },
+        "destination": "rEuropcarParis",
+        "expiresAt": "2030-12-31T23:59:59Z",
+        "asset": {
+          "kind": "IOU",
+          "currency": "RLUSD",
+          "issuer": "rIssuer"
+        }
+      }
+    ]
+  },
+  "sbaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAyruO/mCPiFMN58KD2MNnt1XXOx2pi3menrxgj8ErYJ8=\n-----END PUBLIC KEY-----\n",
+  "spaPublicKeyPem": "-----BEGIN PUBLIC KEY-----\nMCowBQYDK2VwAyEAHsx6sy9p36RfOiPe7m+AVrES7Sqfoy4rPJsbRr5QHkA=\n-----END PUBLIC KEY-----\n"
+}

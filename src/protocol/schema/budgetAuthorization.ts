@@ -9,7 +9,7 @@ import {
   iso8601DatetimeSchema,
 } from "./shared.js";
 
-const budgetScopeSchema = z.enum(["SESSION", "DAY", "VEHICLE", "FLEET"]);
+const budgetScopeSchema = z.enum(["SESSION", "DAY", "VEHICLE", "FLEET", "TRIP"]);
 
 export const budgetAuthorizationSchema = z.strictObject({
   version: mpcpVersionSchema,

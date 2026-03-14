@@ -2,7 +2,7 @@ import crypto, { createHash, randomUUID } from "node:crypto";
 import type { Asset, PaymentPolicyDecision, Rail } from "../policy-core/types.js";
 import { canonicalJson } from "../hash/canonicalJson.js";
 
-export type BudgetScope = "SESSION" | "DAY" | "VEHICLE" | "FLEET";
+export type BudgetScope = "SESSION" | "DAY" | "VEHICLE" | "FLEET" | "TRIP";
 
 export interface SessionBudgetAuthorization {
   version: "1.0";
@@ -129,7 +129,7 @@ export function verifySignedSessionBudgetAuthorizationForDecision(
   if (authorization.sessionId !== input.sessionId || authorization.policyHash !== decision.policyHash) {
     return { ok: false, reason: "mismatch" };
   }
-  if (authorization.budgetScope !== "SESSION") return { ok: false, reason: "mismatch" };
+  if (authorization.budgetScope !== "SESSION" && authorization.budgetScope !== "TRIP") return { ok: false, reason: "mismatch" };
   if (decision.rail && !authorization.allowedRails.includes(decision.rail)) {
     return { ok: false, reason: "mismatch" };
   }

@@ -3,6 +3,7 @@ import { afterEach, describe, expect, it } from "vitest";
 import { createSignedPolicyGrant, verifyPolicyGrantSignature } from "../../src/protocol/policyGrant.js";
 import type { PolicyGrantLike } from "../../src/verifier/types.js";
 import { verifyPolicyGrant } from "../../src/verifier/verifyPolicyGrant.js";
+import { createPolicyGrant } from "../../src/sdk/createPolicyGrant.js";
 
 const ORIGINAL_ENV = {
   privateKey: process.env.MPCP_POLICY_GRANT_SIGNING_PRIVATE_KEY_PEM,
@@ -80,6 +81,60 @@ describe("createSignedPolicyGrant + verifyPolicyGrantSignature", () => {
 
     const result = verifyPolicyGrantSignature(signed!);
     expect(result).toEqual({ ok: false, reason: "invalid_signature" });
+  });
+});
+
+describe("createPolicyGrant with new fields", () => {
+  it("includes revocationEndpoint when provided", () => {
+    const grant = createPolicyGrant({
+      policyHash: "a1b2c3d4e5f6",
+      allowedRails: ["xrpl"],
+      expiresAt: "2030-01-01T00:00:00Z",
+      revocationEndpoint: "https://wallet.alice.example.com/revoke",
+    });
+    expect(grant.revocationEndpoint).toBe("https://wallet.alice.example.com/revoke");
+  });
+
+  it("omits revocationEndpoint when not provided", () => {
+    const grant = createPolicyGrant({
+      policyHash: "a1b2c3d4e5f6",
+      allowedRails: ["xrpl"],
+      expiresAt: "2030-01-01T00:00:00Z",
+    });
+    expect(grant.revocationEndpoint).toBeUndefined();
+    expect("revocationEndpoint" in grant).toBe(false);
+  });
+
+  it("includes allowedPurposes when provided", () => {
+    const purposes = ["travel:hotel", "travel:flight", "travel:transport"];
+    const grant = createPolicyGrant({
+      policyHash: "a1b2c3d4e5f6",
+      allowedRails: ["xrpl"],
+      expiresAt: "2030-01-01T00:00:00Z",
+      allowedPurposes: purposes,
+    });
+    expect(grant.allowedPurposes).toEqual(purposes);
+  });
+
+  it("omits allowedPurposes when not provided", () => {
+    const grant = createPolicyGrant({
+      policyHash: "a1b2c3d4e5f6",
+      allowedRails: ["xrpl"],
+      expiresAt: "2030-01-01T00:00:00Z",
+    });
+    expect(grant.allowedPurposes).toBeUndefined();
+  });
+
+  it("includes both revocationEndpoint and allowedPurposes together", () => {
+    const grant = createPolicyGrant({
+      policyHash: "a1b2c3d4e5f6",
+      allowedRails: ["xrpl"],
+      expiresAt: "2030-01-01T00:00:00Z",
+      revocationEndpoint: "https://wallet.example.com/revoke",
+      allowedPurposes: ["travel:hotel"],
+    });
+    expect(grant.revocationEndpoint).toBe("https://wallet.example.com/revoke");
+    expect(grant.allowedPurposes).toEqual(["travel:hotel"]);
   });
 });
 
