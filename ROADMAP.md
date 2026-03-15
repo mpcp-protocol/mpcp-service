@@ -47,7 +47,7 @@ Implements: protocol verification engine, artifact schemas, cryptographic signin
 
 | PR | Title | Status |
 |----|-------|--------|
-| PR7 | SDK helpers (`createPolicyGrant`, `createBudgetAuthorization`, `createSignedPaymentAuthorization`, `createSettlementIntent`, `computeIntentHash`) | ✓ |
+| PR7 | SDK helpers (`createPolicyGrant`, `createBudgetAuthorization`, `createSignedPaymentAuthorization`, `createSettlementIntent`, `computeIntentHash`); `policy-core/` evaluation engine (`evaluateEntryPolicy`, `evaluatePaymentPolicy`, `enforcePayment`) | ✓ |
 | PR8 | End-to-end parking example + guardrails demo + fleet demo + offline flow | ✓ |
 | PR9 | Integration tests — full lifecycle verification | ✓ |
 
@@ -161,4 +161,3 @@ Deliverables:
 - **Streaming payment verification** — incremental spend verification for micropayment streams
 - **Push revocation** — WebSocket listener for real-time revocation events
 - **EVM stablecoin anchor adapter** — extend intent anchoring to EVM chains
-- **Hardware wallet signing** — Ledger / Trezor integration in wallet SDK layer
